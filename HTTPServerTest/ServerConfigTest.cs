@@ -1,5 +1,6 @@
 ﻿using System;
 using Xunit;
+using HTTPServer;
 
 namespace HTTPServerTest
 {

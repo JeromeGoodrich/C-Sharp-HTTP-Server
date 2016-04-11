@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-namespace HTTPServerTest
+namespace HTTPServer
 {
-    internal class ServerConfig
+    public class ServerConfig
     {
         private int _port;
         private string _publicDir;

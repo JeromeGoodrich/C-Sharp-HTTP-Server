@@ -15,3 +15,5 @@ c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTe
 c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTest\obj\Debug\HTTPServerTest.csprojResolveAssemblyReference.cache
 c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTest\obj\Debug\HTTPServerTest.dll
 c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTest\obj\Debug\HTTPServerTest.pdb
+c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTest\bin\Debug\HTTPServer.exe
+c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTest\bin\Debug\HTTPServer.pdb

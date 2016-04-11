@@ -1,6 +1,5 @@
 c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTest\bin\Debug\HTTPServerTest.dll
 c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTest\bin\Debug\HTTPServerTest.pdb
-c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTest\bin\Debug\xunit.abstractions.dll
 c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTest\bin\Debug\xunit.assert.dll
 c:\users\jgoodrich\documents\visual studio 2015\Projects\HTTPServer\HTTPServerTest\bin\Debug\xunit.core.dll

@@ -4,15 +4,15 @@ namespace HTTPServerTest
 {
     internal class MockServiceFactory : IServiceFactory
     {
-        private IService mockService;
+        private readonly MockService _mockService;
 
-        public MockServiceFactory(IService mockService) {
-            this.mockService = mockService;
+        public MockServiceFactory(MockService mockService) {
+            this._mockService = mockService;
         }
 
         public IService CreateService(IClientSocket socket) {
-            mockService.SetSocket(socket);
-            return mockService;
+            _mockService.SetSocket(socket);
+            return _mockService;
         }
 
     }

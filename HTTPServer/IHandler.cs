@@ -5,6 +5,6 @@ namespace HTTPServer {
     public interface IHandler
     {
         int GetCallsToHandle();
-        Response Handle(Request request);
+        IResponse Handle(Request request);
     }
 }

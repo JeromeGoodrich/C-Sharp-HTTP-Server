@@ -70,6 +70,8 @@
   <ItemGroup>
     <Compile Include="MockHandler.cs" />
     <Compile Include="MockListener.cs" />
+    <Compile Include="MockParser.cs" />
+    <Compile Include="MockResponse.cs" />
     <Compile Include="MockService.cs" />
     <Compile Include="MockServiceFactory.cs" />
     <Compile Include="MockSocket.cs" />

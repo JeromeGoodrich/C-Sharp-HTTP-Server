@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Net.Sockets;
 
 namespace HTTPServer {
     public interface IClientSocket
     {
-        NetworkStream GetStream();
+        Stream GetStream();
         void Close();
     }
 }

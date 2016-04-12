@@ -46,6 +46,8 @@
     <Compile Include="IClientSocket.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="IListener.cs" />
+    <Compile Include="IParser.cs" />
+    <Compile Include="IResponse.cs" />
     <Compile Include="IServiceFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

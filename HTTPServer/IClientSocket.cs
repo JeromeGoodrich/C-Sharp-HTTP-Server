@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Net.Sockets;
-
+﻿using System.IO;
 namespace HTTPServer {
-    public interface IClientSocket
-    {
+    public interface IClientSocket {
         Stream GetStream();
         void Close();
     }

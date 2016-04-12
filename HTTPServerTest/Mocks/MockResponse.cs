@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using HTTPServer;
 
-namespace HTTPServerTest
+namespace HTTPServerTest.Mocks
 {
     internal class MockResponse : IResponse {
         private int _callsToSend;

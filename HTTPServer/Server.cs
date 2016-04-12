@@ -4,8 +4,8 @@
         private readonly IServiceFactory _serviceFactory;
 
         public Server(IListener listener, IServiceFactory serviceFactory) {
-            this._listener = listener;
-            this._serviceFactory = serviceFactory;
+            _listener = listener;
+            _serviceFactory = serviceFactory;
 
         }
 

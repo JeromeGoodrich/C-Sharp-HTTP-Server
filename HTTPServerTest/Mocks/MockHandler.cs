@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using HTTPServer;
+﻿using HTTPServer;
 
-namespace HTTPServerTest
-{
+namespace HTTPServerTest.Mocks {
+
     internal class MockHandler : IHandler {
-        private MockResponse _mockResponse;
-        private int _callsToHandle = 0;
+        private readonly MockResponse _mockResponse;
+        private int _callsToHandle;
 
         public MockHandler(MockResponse mockResponse) { 
-            this._mockResponse = mockResponse;
+            _mockResponse = mockResponse;
         }
 
         public int GetCallsToHandle() {

@@ -1,20 +1,16 @@
 ﻿using System.IO;
-using System.Net.Sockets;
 using HTTPServer;
 
-namespace HTTPServerTest
-{
+namespace HTTPServerTest.Mocks {
     internal class MockSocket : IClientSocket {
         private bool _closed;
         private readonly Stream _ioStream;
 
-        public MockSocket(Stream ioStream)
-        {
-            this._ioStream = ioStream;
+        public MockSocket(Stream ioStream) {
+            _ioStream = ioStream;
         }
 
-        public MockSocket()
-        {
+        public MockSocket() {
         }
 
         public bool IsClosed() {

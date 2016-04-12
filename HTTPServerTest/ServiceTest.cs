@@ -1,8 +1,7 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using HTTPServer;
 using System.IO;
-using System.Text;
+using HTTPServerTest.Mocks;
 
 namespace HTTPServerTest {
 

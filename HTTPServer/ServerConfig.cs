@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
 
-namespace HTTPServer
-{
-    public class ServerConfig
-    {
+namespace HTTPServer {
+    public class ServerConfig {
         private int _port;
         private string _publicDir;
 

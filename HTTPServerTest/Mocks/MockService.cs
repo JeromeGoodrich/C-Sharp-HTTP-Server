@@ -1,13 +1,9 @@
 ﻿using HTTPServer;
 
-namespace HTTPServerTest {
+namespace HTTPServerTest.Mocks {
     public class MockService : IService {
-        private bool _running = false;
+        private bool _running;
         private IClientSocket _socket;
-
-
-        public MockService() {
-        }
 
         public void Run() {
             _running = true;
@@ -22,7 +18,7 @@ namespace HTTPServerTest {
         }
 
         public void SetSocket(IClientSocket socket) {
-            this._socket = socket;
+            _socket = socket;
         }
     }
 }

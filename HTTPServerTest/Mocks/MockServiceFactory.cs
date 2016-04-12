@@ -1,13 +1,11 @@
 ﻿using HTTPServer;
 
-namespace HTTPServerTest
-{
-    internal class MockServiceFactory : IServiceFactory
-    {
+namespace HTTPServerTest.Mocks {
+    internal class MockServiceFactory : IServiceFactory {
         private readonly MockService _mockService;
 
         public MockServiceFactory(MockService mockService) {
-            this._mockService = mockService;
+            _mockService = mockService;
         }
 
         public IService CreateService(IClientSocket socket) {

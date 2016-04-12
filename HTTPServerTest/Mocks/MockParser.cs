@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Sockets;
+﻿using System.IO;
 using HTTPServer;
 
-namespace HTTPServerTest
+namespace HTTPServerTest.Mocks
 {
     internal class MockParser : IParser
     {
@@ -14,8 +11,8 @@ namespace HTTPServerTest
 
         public MockParser(Stream ioStream, Request request)
         {
-            this._ioStream = ioStream;
-            this._request = request;
+            _ioStream = ioStream;
+            _request = request;
         }
 
         public Request Parse(Stream stream) {

@@ -1,27 +1,49 @@
-﻿namespace HTTPServer {
+﻿using System.Collections.Generic;
+
+namespace HTTPServer {
     public class Request {
+        private string _method;
+        private string _path;
+        private string _version;
+        private Dictionary<string,string> _headers = new Dictionary<string, string>();
+
         public string GetMethod() {
-            return "";
+            return _method;
         }
 
         public string GetPath()
         {
-            return "";
+            return _path;
         }
 
         public string GetVersion()
         {
-            return "";
+            return _version;
         }
 
-        public string GetHeader(string headerName)
-        {
-            return "";
+        public string GetHeader(string headerName) {
+            return _headers[headerName];
         }
 
         public string GetBody()
         {
             return "";
+        }
+
+        public void SetMethod(string method) {
+            _method = method;
+        }
+
+        public void SetPath(string path) {
+            _path = path;
+        }
+
+        public void SetVersion(string version) {
+            _version = version;
+        }
+
+        public void SetHeader(string headerName, string headerValue) {
+            _headers.Add(headerName, headerValue);
         }
     }
 }

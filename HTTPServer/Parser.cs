@@ -5,6 +5,7 @@ using System.Linq;
 namespace HTTPServer {
     public class Parser : IParser {
         public Request Parse(Stream stream) {
+            var request = new Request();
             var reader = new StreamReader(stream);
             var rawRequest = reader.ReadToEnd();
             var splitRawRequest = rawRequest.Split(new[] {"\r\n\r\n"}, StringSplitOptions.None);
@@ -16,21 +17,33 @@ namespace HTTPServer {
             var splitRequestLineAndHeaders = requestLineAndHeaders.Split(new[] { "\r\n" }, StringSplitOptions.None);
             var requestLine = splitRequestLineAndHeaders[0];
             var headers = splitRequestLineAndHeaders.Skip(1).ToArray();
-            ParseRequestLine(requestLine);
-            ParseHeaders(headers);
-            return new Request();
+            ParseRequestLine(requestLine, request);
+            ParseHeaders(headers, request);
+            return request;
         }
 
         private void ParseBody(string body) {
             
         }
 
-        private void ParseHeaders(string[] headers) {
+        private void ParseHeaders(string[] headers, Request request) {
+            foreach (var header in headers) {
+                var splitHeader = header.Split(':');
+                var headerName = splitHeader[0];
+                var headerValue = splitHeader[1].TrimStart(' ');
+                request.SetHeader(headerName, headerValue);
+            }
             
         }
 
-        private void ParseRequestLine(string requestLine) {
-            
+        private void ParseRequestLine(string requestLine, Request request) {
+            var splitRequestLine = requestLine.Split(' ');
+            var method = splitRequestLine[0];
+            var path = splitRequestLine[1];
+            var version = splitRequestLine[2];
+            request.SetMethod(method);
+            request.SetPath(path);
+            request.SetVersion(version);
         }
     }
 }

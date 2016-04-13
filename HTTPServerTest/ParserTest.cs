@@ -16,7 +16,7 @@ namespace HTTPServerTest {
             var request = parser.Parse(stream);
 
             Assert.Equal(request.GetMethod(), "GET");
-            Assert.Equal(request.GetPath(), "/form");
+            Assert.Equal(request.GetPath(), "/");
             Assert.Equal(request.GetVersion(), "HTTP/1.1");
             Assert.Equal(request.GetHeader("Host"), "www.example.com");
         }

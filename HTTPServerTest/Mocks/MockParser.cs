@@ -5,17 +5,17 @@ namespace HTTPServerTest.Mocks
 {
     internal class MockParser : IParser
     {
-        private readonly Stream _ioStream;
+        private Stream _ioStream;
         private readonly Request _request;
         private int _callsToParse;
 
-        public MockParser(Stream ioStream, Request request)
+        public MockParser(Request request)
         {
-            _ioStream = ioStream;
             _request = request;
         }
 
-        public Request Parse(Stream stream) {
+        public Request Parse(Stream ioStream) {
+            _ioStream = ioStream;
             _callsToParse++;
             return _request;
         }

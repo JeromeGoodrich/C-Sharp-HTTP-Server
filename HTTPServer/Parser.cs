@@ -8,18 +8,27 @@ namespace HTTPServer {
             var request = new Request();
             var reader = new StreamReader(stream);
             var rawRequest = reader.ReadToEnd();
-            var splitRawRequest = rawRequest.Split(new[] {"\r\n\r\n"}, StringSplitOptions.None);
-            var requestLineAndHeaders = splitRawRequest[0];
-            if (splitRawRequest.Length > 1) {
-                var body = splitRawRequest[1];
-                ParseBody(body, request);
-            }
+            var requestLineAndHeaders = SplitBodyfromRest(rawRequest, request);
+            SplitRequestLineAndHeaders(requestLineAndHeaders, request);
+            return request;
+        }
+
+        private void SplitRequestLineAndHeaders(string requestLineAndHeaders, Request request) {
             var splitRequestLineAndHeaders = requestLineAndHeaders.Split(new[] { "\r\n" }, StringSplitOptions.None);
             var requestLine = splitRequestLineAndHeaders[0];
             var headers = splitRequestLineAndHeaders.Skip(1).ToArray();
             ParseRequestLine(requestLine, request);
             ParseHeaders(headers, request);
-            return request;
+        }
+
+        private string SplitBodyfromRest(string rawRequest, Request request) {
+            var splitRawRequest = rawRequest.Split(new[] { "\r\n\r\n" }, StringSplitOptions.None);
+            var requestLineAndHeaders = splitRawRequest[0];
+            if (splitRawRequest.Length > 1) {
+                var body = splitRawRequest[1];
+                ParseBody(body, request);
+            }
+            return requestLineAndHeaders;
         }
 
         private void ParseBody(string body, Request request) {

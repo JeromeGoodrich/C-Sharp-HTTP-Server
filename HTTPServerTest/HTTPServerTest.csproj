@@ -68,6 +68,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DirHandlerTest.cs" />
     <Compile Include="Mocks\MockHandler.cs" />
     <Compile Include="Mocks\MockListener.cs" />
     <Compile Include="Mocks\MockParser.cs" />

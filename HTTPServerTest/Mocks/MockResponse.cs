@@ -12,6 +12,22 @@ namespace HTTPServerTest.Mocks
             _callsToSend++;
         }
 
+        public int GetStatus() {
+            return 0;
+        }
+
+        public string GetVersion() {
+            throw new System.NotImplementedException();
+        }
+
+        public string GetReasonPhrase(int status) {
+            throw new System.NotImplementedException();
+        }
+
+        public string GetReasonPhrase() {
+            throw new System.NotImplementedException();
+        }
+
         public int GetCallsToSend() {
             return _callsToSend;
         }

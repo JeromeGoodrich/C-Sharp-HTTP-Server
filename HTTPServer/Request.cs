@@ -6,6 +6,7 @@ namespace HTTPServer {
         private string _path;
         private string _version;
         private Dictionary<string,string> _headers = new Dictionary<string, string>();
+        private string _body;
 
         public string GetMethod() {
             return _method;
@@ -27,7 +28,7 @@ namespace HTTPServer {
 
         public string GetBody()
         {
-            return "";
+            return _body;
         }
 
         public void SetMethod(string method) {
@@ -44,6 +45,10 @@ namespace HTTPServer {
 
         public void SetHeader(string headerName, string headerValue) {
             _headers.Add(headerName, headerValue);
+        }
+
+        public void SetBody(string body) {
+            _body = body;
         }
     }
 }

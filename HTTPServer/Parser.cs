@@ -12,7 +12,7 @@ namespace HTTPServer {
             var requestLineAndHeaders = splitRawRequest[0];
             if (splitRawRequest.Length > 1) {
                 var body = splitRawRequest[1];
-                ParseBody(body);
+                ParseBody(body, request);
             }
             var splitRequestLineAndHeaders = requestLineAndHeaders.Split(new[] { "\r\n" }, StringSplitOptions.None);
             var requestLine = splitRequestLineAndHeaders[0];
@@ -22,8 +22,8 @@ namespace HTTPServer {
             return request;
         }
 
-        private void ParseBody(string body) {
-            
+        private void ParseBody(string body, Request request) {
+            request.SetBody(body);
         }
 
         private void ParseHeaders(string[] headers, Request request) {

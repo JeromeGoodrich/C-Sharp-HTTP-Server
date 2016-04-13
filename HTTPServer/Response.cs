@@ -7,6 +7,7 @@ namespace HTTPServer {
         private readonly int _status;
         private readonly string _version;
         private byte[] _body;
+        private readonly Dictionary<string,string> _headers = new Dictionary<string, string>();
 
         public Response(int status, string version) {
             _status = status;
@@ -33,17 +34,16 @@ namespace HTTPServer {
             return _body;
         }
 
-        public IEnumerable<char> GetHeader(string contentType) {
-            throw new System.NotImplementedException();
+        public string GetHeader(string headerName) {
+            return _headers[headerName];
         }
 
         public void AddBody(byte[] body) {
             _body = body;
         }
 
-        string IResponse.GetHeader(string contentType)
-        {
-            throw new NotImplementedException();
+        public void AddHeader(string headerName, string headerValue) {
+            _headers.Add(headerName, headerValue);
         }
     }
 }

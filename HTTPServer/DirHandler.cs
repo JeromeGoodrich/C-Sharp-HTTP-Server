@@ -13,9 +13,42 @@ namespace HTTPServer {
         public IResponse Handle(Request request) {
             var dirName = _publicDir;
             var response = new Response(200, request.GetVersion());
-            var body = GenHtmlBody(dirName);
+            byte[] body;
+            if (request.GetHeaders().ContainsKey("Accept") && request.GetHeader("Accept").Equals("application/json")) {
+                body = GenJsonContent(dirName);
+                response.AddHeader("Content-Type", "application/json");
+                response.AddHeader("Content-Length", body.Length.ToString());
+            }
+            else {
+                body = GenHtmlBody(dirName);
+            }
             response.AddBody(body);
             return response;
+        }
+
+        private byte[] GenJsonContent(string dirName) {
+            var jsonBoilerPlate = "{ files : [";
+            var jsonFilesListing = GenFileListingJson(dirName);
+            var jsonBoilerPlateEnd = "] }";
+            var jsonBody = jsonBoilerPlate + jsonFilesListing + jsonBoilerPlateEnd;
+            return Encoding.UTF8.GetBytes(jsonBody);
+        }
+
+        private string GenFileListingJson(string dirName) {
+            var files = Directory.GetFiles(dirName);
+            var jsonFilesString = "";
+            for (int i = 0; i < files.Length; i++) {
+                var fileIndex = files[i].Split(Path.DirectorySeparatorChar).Length - 1;
+                var fileName = files[i].Split(Path.DirectorySeparatorChar)[fileIndex];
+                if (i == files.Length - 1) {
+                    jsonFilesString += fileName;
+                }
+                else {
+                    jsonFilesString += fileName + ", ";
+                }
+            }
+       
+            return jsonFilesString;
         }
 
         private byte[] GenHtmlBody(string dirName) {

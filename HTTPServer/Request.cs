@@ -7,6 +7,7 @@ namespace HTTPServer {
         private string _version;
         private readonly Dictionary<string,string> _headers = new Dictionary<string, string>();
         private string _body;
+        
 
         public string GetMethod() {
             return _method;
@@ -46,6 +47,10 @@ namespace HTTPServer {
 
         public void SetBody(string body) {
             _body = body;
+        }
+
+        public Dictionary<string,string> GetHeaders() {
+            return _headers;
         }
     }
 }

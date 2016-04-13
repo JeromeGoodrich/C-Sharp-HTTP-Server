@@ -28,6 +28,10 @@ namespace HTTPServerTest.Mocks
             throw new System.NotImplementedException();
         }
 
+        public byte[] GetBody() {
+            throw new System.NotImplementedException();
+        }
+
         public int GetCallsToSend() {
             return _callsToSend;
         }

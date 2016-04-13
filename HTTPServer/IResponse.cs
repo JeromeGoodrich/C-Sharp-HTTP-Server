@@ -7,5 +7,6 @@ namespace HTTPServer {
         int GetStatus();
         string GetVersion();
         string GetReasonPhrase();
+        byte[] GetBody();
     }
 }

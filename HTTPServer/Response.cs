@@ -4,6 +4,7 @@ namespace HTTPServer {
     public class Response : IResponse {
         private readonly int _status;
         private readonly string _version;
+        private byte[] _body;
 
         public Response(int status, string version) {
             _status = status;
@@ -24,6 +25,14 @@ namespace HTTPServer {
 
         public string GetReasonPhrase() {
             return Status.StatusDictionary[_status];
+        }
+
+        public byte[] GetBody() {
+            return _body;
+        }
+
+        public void AddBody(byte[] body) {
+            _body = body;
         }
     }
 }

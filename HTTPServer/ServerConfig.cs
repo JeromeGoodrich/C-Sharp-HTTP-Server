@@ -24,10 +24,10 @@ namespace HTTPServer {
         private void SetPublicDir(params string[] args) {
             if (args.Contains("-d")) {
                 var dirIndex = Array.IndexOf(args, "-d") + 1;
-                _publicDir = args[dirIndex] ?? "./public";
+                _publicDir = args[dirIndex] ?? "/HTTPServerTest/Fixtures";
             }
             else {
-                _publicDir = "./public";
+                _publicDir = "/HTTPServerTest/Fixtures";
             }
         }
 

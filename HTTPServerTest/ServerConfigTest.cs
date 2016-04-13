@@ -12,7 +12,7 @@ namespace HTTPServerTest
             var args = new[] { "" };
             config.SetUp(args);
             Assert.Equal(config.GetPort(), 5000);
-            Assert.Equal(config.GetPublicDir(), "./public");
+            Assert.Equal(config.GetPublicDir(), "/HTTPServerTest/Fixtures");
         }
         [Fact]
         public void TestArgsProvided() {

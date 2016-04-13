@@ -1,4 +1,6 @@
-﻿using HTTPServer;
+﻿using System;
+using System.Text;
+using HTTPServer;
 using Xunit;
 
 namespace HTTPServerTest {
@@ -15,6 +17,7 @@ namespace HTTPServerTest {
             Assert.Equal(response.GetStatus(), 200);
             Assert.Equal(response.GetVersion(), "HTTP/1.1");
             Assert.Equal(response.GetReasonPhrase(), "OK");
+            Assert.Contains("<li><a href=\"file1", Encoding.UTF8.GetString(response.GetBody()));
         }
     }
 }

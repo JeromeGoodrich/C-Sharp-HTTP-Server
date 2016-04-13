@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using HTTPServer;
 
 namespace HTTPServerTest.Mocks
@@ -32,12 +34,21 @@ namespace HTTPServerTest.Mocks
             throw new System.NotImplementedException();
         }
 
+        public IEnumerable<char> GetHeader(string contentType) {
+            throw new System.NotImplementedException();
+        }
+
         public int GetCallsToSend() {
             return _callsToSend;
         }
 
         public Stream GetLastStreamPassedToSend() {
             return _ioStream;
+        }
+
+        string IResponse.GetHeader(string contentType)
+        {
+            throw new NotImplementedException();
         }
     }
 }

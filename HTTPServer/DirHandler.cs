@@ -1,48 +1,48 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 
 namespace HTTPServer {
     public class DirHandler : IHandler {
+        private readonly string _publicDir;
+
+        public DirHandler(string publicDir) {
+            _publicDir = publicDir;
+        }
+
         public IResponse Handle(Request request) {
+            var dirName = _publicDir;
             var response = new Response(200, request.GetVersion());
-            var body = GenHtmlBody(request);
+            var body = GenHtmlBody(dirName);
             response.AddBody(body);
             return response;
         }
 
-        private byte[] GenHtmlBody(Request request) {
+        private byte[] GenHtmlBody(string dirName) {
             var htmlBoilerPlateStart = "<!Doctype html>\n" +
                                        "<html>\n" +
                                        "<head>\n</head>\n" +
                                        "<body>\n" +
                                        "<ol>\n";
-            var subDirListing = GenDirListingHtml(request);
-            var filesListing = GenFileListingHtml(request);
+            var filesListing = GenFileListingHtml(dirName);
             var htmlBoilerPlateEnd = "</ol>\n" +
                                      "<body>\n" +
                                      "</html>";
-            var htmlBody = htmlBoilerPlateStart + subDirListing + 
-                           filesListing + htmlBoilerPlateEnd;
+            var htmlBody = htmlBoilerPlateStart + filesListing + htmlBoilerPlateEnd;
             return Encoding.UTF8.GetBytes(htmlBody);
         }
 
-        private string GenFileListingHtml(Request request) {
-            var files = Directory.GetFiles(request.GetPath());
+        private string GenFileListingHtml(string dirName) {
+            var files = Directory.GetFiles(dirName);
             var filesList = "";
-            foreach (var file in files)
-            {
-                filesList += "<li><a href=\"" + file + "\">" + file + "</a></li>\n";
+            foreach (var file in files) {
+                var fileIndex = file.Split(Path.DirectorySeparatorChar).Length - 1;
+                var fileName = file.Split(Path.DirectorySeparatorChar)[fileIndex];
+                filesList += "<li><a href=\"" + "/" + fileName + "\">" + fileName + "</a></li>\n";
             }
             return filesList;
         }
 
-        private string GenDirListingHtml(Request request) {
-            var subDirs = Directory.GetDirectories(request.GetPath());
-            var subDirList = "";
-            foreach (var dir in subDirs) {
-                subDirList += "<li><a href=\"" + dir + "\">" + dir + "</a></li>\n";
-            }
-            return subDirList;
-        }
+       
     }
 }

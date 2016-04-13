@@ -8,5 +8,6 @@ namespace HTTPServer {
         string GetVersion();
         string GetReasonPhrase();
         byte[] GetBody();
+        string GetHeader(string contentType);
     }
 }

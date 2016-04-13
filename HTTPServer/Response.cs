@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace HTTPServer {
     public class Response : IResponse {
@@ -31,8 +33,17 @@ namespace HTTPServer {
             return _body;
         }
 
+        public IEnumerable<char> GetHeader(string contentType) {
+            throw new System.NotImplementedException();
+        }
+
         public void AddBody(byte[] body) {
             _body = body;
+        }
+
+        string IResponse.GetHeader(string contentType)
+        {
+            throw new NotImplementedException();
         }
     }
 }

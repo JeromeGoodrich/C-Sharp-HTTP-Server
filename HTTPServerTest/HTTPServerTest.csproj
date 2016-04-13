@@ -76,6 +76,7 @@
     <Compile Include="Mocks\MockServiceFactory.cs" />
     <Compile Include="Mocks\MockSocket.cs" />
     <Compile Include="ParserTest.cs" />
+    <Compile Include="RequestTest.cs" />
     <Compile Include="ServerConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerTest.cs" />

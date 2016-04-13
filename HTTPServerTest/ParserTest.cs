@@ -22,7 +22,7 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void TestPostParse() {
+        public void TestParsePost() {
             var rawData = Encoding.UTF8.GetBytes("POST /form HTTP/1.1\r\n" +
                                                  "Host: www.example.com\r\n" +
                                                  "Content-Length: 31\r\n\r\n" +

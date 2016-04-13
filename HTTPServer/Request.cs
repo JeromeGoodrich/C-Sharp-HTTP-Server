@@ -5,20 +5,18 @@ namespace HTTPServer {
         private string _method;
         private string _path;
         private string _version;
-        private Dictionary<string,string> _headers = new Dictionary<string, string>();
+        private readonly Dictionary<string,string> _headers = new Dictionary<string, string>();
         private string _body;
 
         public string GetMethod() {
             return _method;
         }
 
-        public string GetPath()
-        {
+        public string GetPath() {
             return _path;
         }
 
-        public string GetVersion()
-        {
+        public string GetVersion() {
             return _version;
         }
 
@@ -26,8 +24,7 @@ namespace HTTPServer {
             return _headers[headerName];
         }
 
-        public string GetBody()
-        {
+        public string GetBody() {
             return _body;
         }
 

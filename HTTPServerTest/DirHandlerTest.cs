@@ -9,9 +9,9 @@ namespace HTTPServerTest {
         [Fact]
         public void TestReturnsHtmlListofDirContents() {
             var request = new Request();
-            request.SetMethod("GET");
-            request.SetPath("/");
-            request.SetVersion("HTTP/1.1");
+            request.Method = "GET";
+            request.Path = "/";
+            request.Version = "HTTP/1.1";
             var publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
             var handler = new DirHandler(publicDir);
 
@@ -26,10 +26,10 @@ namespace HTTPServerTest {
         [Fact]
         public void TestReturnsJsonListofDirContents() {
             var request = new Request();
-            request.SetMethod("GET");
-            request.SetPath("/");
-            request.SetVersion("HTTP/1.1");
-            request.SetHeader("Accept", "application/json");
+            request.Method ="GET";
+            request.Path ="/";
+            request.Version = "HTTP/1.1";
+            request.AddHeader("Accept", "application/json");
 
             var publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
             var handler = new DirHandler(publicDir);

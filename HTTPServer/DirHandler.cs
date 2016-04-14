@@ -11,7 +11,7 @@ namespace HTTPServer {
 
         public IResponse Handle(Request request) {
             var dirName = _publicDir;
-            var response = new Response(200, request.GetVersion());
+            var response = new Response(200, request.Version);
             byte[] body;
             if (request.GetHeaders().ContainsKey("Accept") && request.GetHeader("Accept").Equals("application/json")) {
                 body = GenJsonContent(dirName);

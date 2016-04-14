@@ -17,9 +17,9 @@ namespace HTTPServerTest {
             var parser = new Parser();
             var request = parser.Parse(stream);
 
-            Assert.Equal(request.GetMethod(), "GET");
-            Assert.Equal(request.GetPath(), "/");
-            Assert.Equal(request.GetVersion(), "HTTP/1.1");
+            Assert.Equal(request.Method, "GET");
+            Assert.Equal(request.Path, "/");
+            Assert.Equal(request.Version, "HTTP/1.1");
             Assert.Equal(request.GetHeader("Host"), "www.example.com");
         }
 
@@ -33,12 +33,12 @@ namespace HTTPServerTest {
             var parser = new Parser();
             var request = parser.Parse(stream);
 
-            Assert.Equal(request.GetMethod(), "POST");
-            Assert.Equal(request.GetPath(), "/form");
-            Assert.Equal(request.GetVersion(), "HTTP/1.1");
+            Assert.Equal(request.Method, "POST");
+            Assert.Equal(request.Path, "/form");
+            Assert.Equal(request.Version, "HTTP/1.1");
             Assert.Equal(request.GetHeader("Host"), "www.example.com");
             Assert.Equal(request.GetHeader("Content-Length"), "31");
-            Assert.Equal(request.GetBody(), "firstname=jerome&lastname=goodrich");
+            Assert.Equal(request.Body, "firstname=jerome&lastname=goodrich");
         }
     }
 }

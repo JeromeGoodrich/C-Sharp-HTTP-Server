@@ -3,22 +3,51 @@ using Xunit;
 
 namespace HTTPServerTest {
     public class RequestTest {
-        [Fact]
-        public void TestGettersAndSetters() {
-            var request = new Request();
-            request.SetMethod("GET");
-            request.SetPath("/some_path");
-            request.SetVersion("HTTP/1.1");
-            request.SetHeader("Host", "www.example.com");
-            request.SetHeader("Accept", "*/*");
-            request.SetBody("firstname=jerome&lastname=goodrich");
+        private readonly Request _request;
 
-            Assert.Equal(request.GetMethod(), "GET");
-            Assert.Equal(request.GetPath(), "/some_path");
-            Assert.Equal(request.GetVersion(), "HTTP/1.1");
-            Assert.Equal(request.GetHeader("Host"), "www.example.com");
-            Assert.Equal(request.GetHeader("Accept"), "*/*");
-            Assert.Equal(request.GetBody(), "firstname=jerome&lastname=goodrich");
+        public RequestTest() {
+            _request = new Request();
         }
+
+        [Fact]
+        public void TestSetAndGetMethod() {
+            _request.Method = "GET";
+            Assert.Equal("GET", _request.Method);
+        }
+
+        [Fact]
+        public void TestSetAndGetPath() {
+            _request.Path = "/";
+            Assert.Equal("/", _request.Path);
+        }
+
+        [Fact]
+        public void TestSetAndGetVersion() {
+            _request.Version = "HTTP/1.1";
+            Assert.Equal("HTTP/1.1", _request.Version);
+        }
+
+        [Fact]
+        public void TestAddAndGetHeader() {
+            _request.AddHeader("Content-Type", "text/plain");
+            Assert.Equal("text/plain", _request.GetHeader("Content-Type"));
+        }
+
+        [Fact]
+        public void TestGetHeaders() {
+            _request.AddHeader("Content-Length", "31");
+            Assert.True(_request.GetHeaders().ContainsKey("Content-Length"));
+            Assert.True(_request.GetHeaders().ContainsValue("31"));
+        }
+
+        [Fact]
+        public void TestSetAndGetBody() {
+            _request.Body = "firstname=jerome&lastname=goodrich";
+            Assert.Equal("firstname=jerome&lastname=goodrich", _request.Body);
+        }
+
+
+     
+        
     }
 }

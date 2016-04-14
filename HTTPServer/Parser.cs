@@ -32,7 +32,7 @@ namespace HTTPServer {
         }
 
         private void ParseBody(string body, Request request) {
-            request.SetBody(body);
+            request.Body = body;
         }
 
         private void ParseHeaders(string[] headers, Request request) {
@@ -40,7 +40,7 @@ namespace HTTPServer {
                 var splitHeader = header.Split(':');
                 var headerName = splitHeader[0];
                 var headerValue = splitHeader[1].TrimStart(' ');
-                request.SetHeader(headerName, headerValue);
+                request.AddHeader(headerName, headerValue);
             }
             
         }
@@ -50,9 +50,9 @@ namespace HTTPServer {
             var method = splitRequestLine[0];
             var path = splitRequestLine[1];
             var version = splitRequestLine[2];
-            request.SetMethod(method);
-            request.SetPath(path);
-            request.SetVersion(version);
+            request.Method = method;
+            request.Path = path;
+            request.Version = version;
         }
     }
 }

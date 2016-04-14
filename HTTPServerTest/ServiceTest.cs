@@ -6,13 +6,13 @@ using HTTPServerTest.Mocks;
 namespace HTTPServerTest {
 
     public class ServiceTest {
-        private MemoryStream _ioStream;
-        private MockSocket _mockSocket;
-        private Request _request;
-        private MockParser _mockParser;
-        private MockResponse _mockResponse;
-        private MockHandler _mockHandler;
-        private Service _service;
+        private readonly MemoryStream _ioStream;
+        private readonly MockSocket _mockSocket;
+        private readonly Request _request;
+        private readonly MockParser _mockParser;
+        private readonly MockResponse _mockResponse;
+        private readonly MockHandler _mockHandler;
+        private readonly Service _service;
 
 
         public ServiceTest() {

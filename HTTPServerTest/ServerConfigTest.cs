@@ -18,6 +18,7 @@ namespace HTTPServerTest {
         public void TestArgsProvided() {
             var args = new[] { "-p", "7000", "-d", "/this/directory" };
             var config = new ServerConfig(args);
+
             Assert.Equal(config.GetPort(), 7000);
             Assert.Equal(config.GetPublicDir(), "/this/directory");
         }

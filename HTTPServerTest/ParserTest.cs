@@ -9,6 +9,8 @@ namespace HTTPServerTest {
         [Fact]
         public void TestParseGet()
         {
+            //test parses method, path, etc.
+
             var rawData = Encoding.UTF8.GetBytes("GET / HTTP/1.1\r\n" +
                                                  "Host: www.example.com\r\n\r\n");
             var stream = new MemoryStream(rawData);

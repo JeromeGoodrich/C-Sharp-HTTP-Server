@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace HTTPServer {
     public class Response : IResponse {
@@ -15,7 +16,20 @@ namespace HTTPServer {
         }
 
         public void Send(Stream ioStream) {
-            throw new System.NotImplementedException();
+            var statusLine = _version + " " + _status + " " + GetReasonPhrase() + "\r\n";
+            var headers = "";
+            foreach (var pair in _headers) {
+                var key = pair.Key;
+                var value = pair.Value;
+                headers += key + ":" + " " + value + "\r\n";
+            }
+            var formattedResponse = statusLine + headers + "\r\n";
+            var bytes = Encoding.UTF8.GetBytes(formattedResponse);
+            var length = bytes.Length;
+            ioStream.Write(bytes, 0, length);
+            if (_body != null) {
+                ioStream.Write(_body, 0, _body.Length);
+            }
         }
 
         public int GetStatus() {

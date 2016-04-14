@@ -14,6 +14,7 @@ namespace HTTPServer {
             Config(args);
         }
 
+
         public void Config(string[] args) {
             SetPort(args);
             SetPublicDir(args);

@@ -12,10 +12,11 @@ namespace HTTPServerTest {
             request.SetMethod("GET");
             request.SetPath("/");
             request.SetVersion("HTTP/1.1");
-
             var publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
             var handler = new DirHandler(publicDir);
+
             var response = handler.Handle(request);
+
             Assert.Equal(response.GetStatus(), 200);
             Assert.Equal(response.GetVersion(), "HTTP/1.1");
             Assert.Equal(response.GetReasonPhrase(), "OK");
@@ -23,8 +24,7 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void TestReturnsJsonListofDirContents()
-        {
+        public void TestReturnsJsonListofDirContents() {
             var request = new Request();
             request.SetMethod("GET");
             request.SetPath("/");

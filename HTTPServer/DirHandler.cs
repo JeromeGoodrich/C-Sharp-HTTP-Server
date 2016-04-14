@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 
 namespace HTTPServer {
@@ -27,9 +26,9 @@ namespace HTTPServer {
         }
 
         private byte[] GenJsonContent(string dirName) {
-            var jsonBoilerPlate = "{ files : [";
+            const string jsonBoilerPlate = "{ files : [";
             var jsonFilesListing = GenFileListingJson(dirName);
-            var jsonBoilerPlateEnd = "] }";
+            const string jsonBoilerPlateEnd = "] }";
             var jsonBody = jsonBoilerPlate + jsonFilesListing + jsonBoilerPlateEnd;
             return Encoding.UTF8.GetBytes(jsonBody);
         }
@@ -37,7 +36,7 @@ namespace HTTPServer {
         private string GenFileListingJson(string dirName) {
             var files = Directory.GetFiles(dirName);
             var jsonFilesString = "";
-            for (int i = 0; i < files.Length; i++) {
+            for (var i = 0; i < files.Length; i++) {
                 var fileIndex = files[i].Split(Path.DirectorySeparatorChar).Length - 1;
                 var fileName = files[i].Split(Path.DirectorySeparatorChar)[fileIndex];
                 if (i == files.Length - 1) {
@@ -52,15 +51,15 @@ namespace HTTPServer {
         }
 
         private byte[] GenHtmlBody(string dirName) {
-            var htmlBoilerPlateStart = "<!Doctype html>\n" +
-                                       "<html>\n" +
-                                       "<head>\n</head>\n" +
-                                       "<body>\n" +
-                                       "<ol>\n";
+            const string htmlBoilerPlateStart = "<!Doctype html>\n" +
+                                                "<html>\n" +
+                                                "<head>\n</head>\n" +
+                                                "<body>\n" +
+                                                "<ol>\n";
             var filesListing = GenFileListingHtml(dirName);
-            var htmlBoilerPlateEnd = "</ol>\n" +
-                                     "<body>\n" +
-                                     "</html>";
+            const string htmlBoilerPlateEnd = "</ol>\n" +
+                                              "<body>\n" +
+                                              "</html>";
             var htmlBody = htmlBoilerPlateStart + filesListing + htmlBoilerPlateEnd;
             return Encoding.UTF8.GetBytes(htmlBody);
         }
@@ -75,7 +74,5 @@ namespace HTTPServer {
             }
             return filesList;
         }
-
-       
     }
 }

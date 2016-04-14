@@ -1,18 +1,22 @@
-﻿namespace HTTPServer
+﻿using System.Net;
+using System.Net.Sockets;
+
+namespace HTTPServer
 {
     internal class Listener : IListener {
-        private int _port;
+        private readonly TcpListener _listener;
 
-        public Listener(int port) {
-            _port = port;
+        public Listener(IPAddress ip, int port) {
+        _listener = new TcpListener(ip, port);
         }
 
         public bool Listening() {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public IClientSocket Accept() {
-            throw new System.NotImplementedException();
+            var tcpClient = _listener.AcceptTcpClient();
+            return new ClientSocket(tcpClient);
         }
     }
 }

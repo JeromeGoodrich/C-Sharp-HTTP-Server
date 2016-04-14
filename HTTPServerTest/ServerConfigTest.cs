@@ -29,5 +29,13 @@ namespace HTTPServerTest {
             Assert.NotNull(exception);
             Assert.IsType<FormatException>(exception);
         }
+
+        [Fact]
+        public void TestIpAddress() {
+            var args = new[] { "" };
+            var config = new ServerConfig(args);
+
+            Assert.Equal(config.GetIpAddress().ToString(), "172.16.11.128");
+        }
     }
 }

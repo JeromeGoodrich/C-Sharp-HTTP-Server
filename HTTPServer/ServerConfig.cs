@@ -1,11 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 
 namespace HTTPServer {
     public class ServerConfig {
         private int _port;
         private string _publicDir;
+        private IPAddress _localIp;
 
         public ServerConfig(string[] args) {
             Config(args);
@@ -14,6 +17,7 @@ namespace HTTPServer {
         public void Config(string[] args) {
             SetPort(args);
             SetPublicDir(args);
+            SetIpAddress();
         }
 
         private void SetPort(params string[] args) {
@@ -36,12 +40,28 @@ namespace HTTPServer {
             }
         }
 
+        private void SetIpAddress() {
+            IPAddress localIp = null;
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList) {
+               if (ip.AddressFamily == AddressFamily.InterNetwork) {
+                    localIp = ip;
+                }
+            }
+            _localIp = localIp;
+        }
+
+
         public int GetPort() {
             return _port;
         }
 
         public string GetPublicDir() {
             return _publicDir;
+        }
+
+        public IPAddress GetIpAddress() {
+            return _localIp;
         }
     }
 }

@@ -6,35 +6,110 @@ using HTTPServerTest.Mocks;
 namespace HTTPServerTest {
 
     public class ServiceTest {
+        private MemoryStream _ioStream;
+        private MockSocket _mockSocket;
+        private Request _request;
+        private MockParser _mockParser;
+        private MockResponse _mockResponse;
+        private MockHandler _mockHandler;
+        private Service _service;
+
+
+        private void TestSetUp() {
+            _ioStream = new MemoryStream(new byte[1024]);
+            _mockSocket = new MockSocket(_ioStream);
+            _request = new Request();
+            _mockParser = new MockParser(_request);
+            _mockResponse = new MockResponse();
+            _mockHandler = new MockHandler(_mockResponse);
+            _service = new Service(_mockSocket, _mockParser, _mockHandler);
+        }
+
         [Fact]
-        public void TestRunService() {
-            var ioStream = new MemoryStream(new byte[1024]);
-            var mockSocket = new MockSocket(ioStream);
-            var request = new Request();
-            var mockParser = new MockParser(request);
-            var mockResponse = new MockResponse();
-            var mockHandler = new MockHandler(mockResponse);
-            var service = new Service(mockSocket, mockParser, mockHandler);
+        public void TestParseIsNotCalledBeforeRunningService() {
+            TestSetUp();
+            Assert.Equal(_mockParser.GetCallsToParse(), 0);
+        }
 
-            Assert.Equal(mockHandler.GetCallsToHandle(), 0);
-            Assert.Equal(mockParser.GetCallsToParse(), 0);
-            Assert.Equal(mockResponse.GetCallsToSend(), 0);
-            Assert.Equal(mockSocket.IsClosed(), false);
+        [Fact]
+        public void TestHandleIsNotCalledBeforeRunningService() {
+            TestSetUp();
+            Assert.Equal(_mockHandler.GetCallsToHandle(), 0);
+        }
 
-            service.Run();
+        [Fact]
+        public void TestSendIsNotCalledBeforeRunningService() {
+            TestSetUp();
+            Assert.Equal(_mockResponse.GetCallsToSend(), 0);
+        }
 
-            Assert.Equal(mockParser.GetCallsToParse(), 1);
-            Assert.Equal(mockParser.GetLastStreamPassedToParse(), ioStream);
-            Assert.Equal(mockParser.Parse(mockSocket.GetStream()), request);
+        [Fact]
+        public void TestSocketIsOpenBeforeRunningService() {
+            TestSetUp();
+            Assert.Equal(_mockSocket.IsClosed(), false);
+        }
 
-            Assert.Equal(mockHandler.GetCallsToHandle(), 1);
-            Assert.Equal(mockHandler.GetLastRequestPassedToHandle(), request);
-            Assert.Equal(mockHandler.Handle(request), mockResponse);
+        [Fact]
+        public void TestParseIsCalledAfterRunningService() {
+            TestSetUp();
+            _service.Run();
+            Assert.Equal(_mockParser.GetCallsToParse(), 1);
+        }
 
-            Assert.Equal(mockResponse.GetCallsToSend(), 1);
-            Assert.Equal(mockResponse.GetLastStreamPassedToSend(), ioStream);
+        [Fact]
+        public void TestParseIsCalledWithStream() {
+            TestSetUp();
+            _service.Run();
+            Assert.Equal(_mockParser.GetLastStreamPassedToParse(), _ioStream);
+        }
 
-            Assert.Equal(mockSocket.IsClosed(), true);
+        [Fact]
+        public void TestParseReturnsRequest() {
+            TestSetUp();
+            _service.Run();
+            Assert.Equal(_mockParser.Parse(_mockSocket.GetStream()), _request);
+        }
+
+        [Fact]
+        public void TestHandleIsCalledAfterRunningService() {
+            TestSetUp();
+            _service.Run();
+            Assert.Equal(_mockParser.GetCallsToParse(), 1);
+        }
+
+        [Fact]
+        public void TestHandleIsCalledWithRequest() {
+            TestSetUp();
+            _service.Run();
+            Assert.Equal(_mockHandler.GetLastRequestPassedToHandle(), _request);
+        }
+
+        [Fact]
+        public void TestHandleReturnsResponse() {
+            TestSetUp();
+            _service.Run();
+            Assert.Equal(_mockHandler.Handle(_request), _mockResponse);
+        }
+
+        [Fact]
+        public void TestSendIsCalledAfterRunningService() {
+            TestSetUp();
+            _service.Run();
+            Assert.Equal(_mockResponse.GetCallsToSend(), 1);
+        }
+
+        [Fact]
+        public void TestSendIsCalledWithStream() {
+            TestSetUp();
+            _service.Run();
+            Assert.Equal(_mockResponse.GetLastStreamPassedToSend(), _ioStream);
+        }
+
+        [Fact]
+        public void TestSocketClosesAfterRunningService() {
+            TestSetUp();
+            _service.Run();
+            Assert.Equal(_mockSocket.IsClosed(), true);
         }
     }
 }

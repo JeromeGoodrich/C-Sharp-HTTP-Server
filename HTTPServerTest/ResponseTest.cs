@@ -11,6 +11,7 @@ namespace HTTPServerTest {
             response.AddBody(Encoding.UTF8.GetBytes("response body"));
             response.AddHeader("Content-Type", "text/plain");
             //split these up into separate tests.
+
             Assert.Equal(response.GetStatus(), 200);
             Assert.Equal(response.GetReasonPhrase(), "OK");
             Assert.Equal(response.GetVersion(), "HTTP/1.1");

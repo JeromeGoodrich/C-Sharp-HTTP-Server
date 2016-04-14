@@ -50,6 +50,7 @@
     <Compile Include="IParser.cs" />
     <Compile Include="IResponse.cs" />
     <Compile Include="IServiceFactory.cs" />
+    <Compile Include="Listener.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

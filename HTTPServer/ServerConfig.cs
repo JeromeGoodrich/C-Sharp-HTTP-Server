@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace HTTPServer {
@@ -6,7 +7,11 @@ namespace HTTPServer {
         private int _port;
         private string _publicDir;
 
-        public void SetUp(params string[] args) {
+        public ServerConfig(string[] args) {
+            Config(args);
+        }
+
+        public void Config(string[] args) {
             SetPort(args);
             SetPublicDir(args);
         }
@@ -24,10 +29,10 @@ namespace HTTPServer {
         private void SetPublicDir(params string[] args) {
             if (args.Contains("-d")) {
                 var dirIndex = Array.IndexOf(args, "-d") + 1;
-                _publicDir = args[dirIndex] ?? "/HTTPServerTest/Fixtures";
+                _publicDir = args[dirIndex] ?? Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
             }
             else {
-                _publicDir = "/HTTPServerTest/Fixtures";
+                _publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
             }
         }
 

@@ -1,32 +1,31 @@
 ﻿using System;
+using System.IO;
 using Xunit;
 using HTTPServer;
 
-namespace HTTPServerTest
-{
+namespace HTTPServerTest {
     
     public class ServerConfigTest {
         [Fact]
         public void TestDefaults() {
-            var config = new ServerConfig();
             var args = new[] { "" };
-            config.SetUp(args);
+            var config = new ServerConfig(args);
+            
             Assert.Equal(config.GetPort(), 5000);
-            Assert.Equal(config.GetPublicDir(), "/HTTPServerTest/Fixtures");
+            Assert.Equal(config.GetPublicDir(), Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\"));
         }
         [Fact]
         public void TestArgsProvided() {
-            var config = new ServerConfig();
-            var args = new[] {"-p", "7000", "-d", "/this/directory"};
-            config.SetUp(args);
+            var args = new[] { "-p", "7000", "-d", "/this/directory" };
+            var config = new ServerConfig(args);
             Assert.Equal(config.GetPort(), 7000);
             Assert.Equal(config.GetPublicDir(), "/this/directory");
         }
         [Fact]
         public void TestThrowsErrorForIncorrectArgs() {
-            var config = new ServerConfig();
             var args = new[] {"-p", "$PORT", "-d", "/this/directory"};
-            var exception = Record.Exception(() => config.SetUp(args));
+            var exception = Record.Exception(() => new ServerConfig(args));
+
             Assert.NotNull(exception);
             Assert.IsType<FormatException>(exception);
         }

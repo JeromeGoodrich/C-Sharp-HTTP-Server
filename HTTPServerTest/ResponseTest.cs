@@ -5,33 +5,71 @@ using Xunit;
 
 namespace HTTPServerTest {
     public class ResponseTest {
-        [Fact]
-        public void TestGetters() {
-            var response = new Response(200, "HTTP/1.1");
-            response.AddBody(Encoding.UTF8.GetBytes("response body"));
-            response.AddHeader("Content-Type", "text/plain");
-            //split these up into separate tests.
+        private readonly Response _response;
+        private MemoryStream _ioStream;
+        private StreamReader _reader;
 
-            Assert.Equal(response.GetStatus(), 200);
-            Assert.Equal(response.GetReasonPhrase(), "OK");
-            Assert.Equal(response.GetVersion(), "HTTP/1.1");
-            Assert.Equal(response.GetHeader("Content-Type"), "text/plain");
-            Assert.Equal(Encoding.UTF8.GetString(response.GetBody()), "response body");
+        public ResponseTest() {
+            _response = new Response(200, "HTTP/1.1");
         }
 
         [Fact]
-        public void TestSend() {
-            var response = new Response(200, "HTTP/1.1");
-            var ioStream = new MemoryStream();
-            response.AddBody(Encoding.UTF8.GetBytes("response body"));
-            response.AddHeader("Content-Type", "text/plain");
-            response.Send(ioStream);
-            var reader = new StreamReader(ioStream);
-            ioStream.Seek(0, SeekOrigin.Begin);
+        public void TestGetStatus() {
+            Assert.Equal(200, _response.GetStatus());
+        }
 
-            Assert.Equal(response.GetBody().Length, 13);
-            Assert.Contains("HTTP/1.1" , reader.ReadToEnd());
+        [Fact]
+        public void TestGetReasonPhrase() {
+            Assert.Equal("OK", _response.GetReasonPhrase());
+        }
+
+        [Fact]
+        public void TestGetVersion() {
+            Assert.Equal("HTTP/1.1", _response.GetVersion());
+        }
+
+        [Fact]
+        public void TestAddAndGetHeader() {
+            _response.AddHeader("Content-Type", "text/plain");
+            Assert.Equal("text/plain", _response.GetHeader("Content-Type"));
+        }
+
+        [Fact]
+        public void TestAddAndGetBody() {
+            _response.AddBody(Encoding.UTF8.GetBytes("response body"));
+            Assert.Equal("response body", Encoding.UTF8.GetString(_response.GetBody()));
+        }
+
+        private void SendToClientTestSetUp() {
+            _ioStream = new MemoryStream();
+            _response.AddBody(Encoding.UTF8.GetBytes("response body"));
+            _response.AddHeader("Content-Type", "text/plain");
+            _reader = new StreamReader(_ioStream);
+
+            _response.Send(_ioStream);
+            _ioStream.Seek(0, SeekOrigin.Begin);
+        }
+
+        [Fact]
+        public void TestResponseContainsStatusLine() {
+            SendToClientTestSetUp();
+
+            Assert.Contains("HTTP/1.1 200 OK\r\n", _reader.ReadToEnd());
+        }
+
+        [Fact]
+        public void TestResponseContainsHeader() {
+            SendToClientTestSetUp();
+
+            Assert.Contains("Content-Type: text/plain\r\n\r\n", _reader.ReadToEnd());
+        }
+
+        [Fact]
+        public void TestResponseContainsBody()
+        {
+            SendToClientTestSetUp();
+
+            Assert.Contains("response body", _reader.ReadToEnd());
         }
     }
-
-} ;
+} 

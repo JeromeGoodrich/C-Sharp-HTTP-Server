@@ -4,18 +4,39 @@ using Xunit;
 
 namespace HTTPServerTest {
     public class ServerTest {
-        [Fact]
-        public void TestServerLoop() {
-            var mockSocket = new MockSocket();
-            var mockListener = new MockListener(mockSocket);
-            var mockService = new MockService();
-            var mockServiceFactory = new MockServiceFactory(mockService);
-            var server = new Server(mockListener, mockServiceFactory);
+        private MockSocket _mockSocket;
+        private MockListener _mockListener;
+        private MockService _mockService;
+        private MockServiceFactory _mockServiceFactory;
+        private Server _server;
 
-            Assert.Equal(mockService.IsRunning(), false);
-            server.Start();
-            Assert.Equal(mockService.IsRunning(), true);
-            Assert.Equal(mockService.GetSocket(), mockSocket);
+        private void TestSetUp() {
+            _mockSocket = new MockSocket();
+            _mockListener = new MockListener(_mockSocket);
+            _mockService = new MockService();
+            _mockServiceFactory = new MockServiceFactory(_mockService);
+            _server = new Server(_mockListener, _mockServiceFactory);
+        }
+
+        [Fact]
+        public void TestServiceIsNotRunningBeforeStartingServer() {
+            TestSetUp();
+            Assert.Equal(_mockService.IsRunning(), false);
+        }
+
+        [Fact]
+        public void TestServiceIsRunningAfterStartingServer() {
+            TestSetUp();
+            _server.Start();
+            Assert.Equal(_mockService.IsRunning(), true);
+        }
+
+        [Fact]
+        public void TestServiceIsPassedSocket()
+        {
+            TestSetUp();
+            _server.Start();
+            Assert.Equal(_mockService.GetSocket(), _mockSocket);
         }
     }
 }

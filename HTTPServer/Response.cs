@@ -16,20 +16,25 @@ namespace HTTPServer {
         }
 
         public void Send(Stream ioStream) {
-            var statusLine = Version + " " + StatusCode + " " + ReasonPhrase + "\r\n";
-            var headers = "";
-            foreach (var pair in _headers) {
-                var key = pair.Key;
-                var value = pair.Value;
-                headers += key + ":" + " " + value + "\r\n";
-            }
-            var formattedResponse = statusLine + headers + "\r\n";
+            var formattedResponse = GetFormattedResponse();
             var bytes = Encoding.UTF8.GetBytes(formattedResponse);
             var length = bytes.Length;
             ioStream.Write(bytes, 0, length);
             if (Body != null) {
                 ioStream.Write(Body, 0, Body.Length);
             }
+        }
+
+        private string GetFormattedResponse() {
+            var statusLine = Version + " " + StatusCode + " " + ReasonPhrase + "\r\n";
+            var headers = "";
+            foreach (var header in _headers) {
+                var headerName = header.Key;
+                var headerValue = header.Value;
+                headers += headerName + ":" + " " + headerValue + "\r\n";
+            }
+            var formattedResponse = statusLine + headers + "\r\n";
+            return formattedResponse;
         }
 
         public string GetHeader(string headerName) {

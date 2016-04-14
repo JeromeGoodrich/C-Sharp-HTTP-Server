@@ -17,10 +17,10 @@ namespace HTTPServerTest {
 
             var response = handler.Handle(request);
 
-            Assert.Equal(response.GetStatus(), 200);
-            Assert.Equal(response.GetVersion(), "HTTP/1.1");
-            Assert.Equal(response.GetReasonPhrase(), "OK");
-            Assert.Contains("<li><a href=\"/file1", Encoding.UTF8.GetString(response.GetBody()));
+            Assert.Equal(response.StatusCode, 200);
+            Assert.Equal(response.Version, "HTTP/1.1");
+            Assert.Equal(response.ReasonPhrase, "OK");
+            Assert.Contains("<li><a href=\"/file1", Encoding.UTF8.GetString(response.Body));
         }
 
         [Fact]
@@ -34,12 +34,12 @@ namespace HTTPServerTest {
             var publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
             var handler = new DirHandler(publicDir);
             var response = handler.Handle(request);
-            Assert.Equal(response.GetStatus(), 200);
-            Assert.Equal(response.GetVersion(), "HTTP/1.1");
-            Assert.Equal(response.GetReasonPhrase(), "OK");
+            Assert.Equal(response.StatusCode, 200);
+            Assert.Equal(response.Version, "HTTP/1.1");
+            Assert.Equal(response.ReasonPhrase, "OK");
             Assert.Equal(response.GetHeader("Content-Type"), "application/json");
             Assert.Equal(response.GetHeader("Content-Length"), "144");
-            Assert.Contains("{ files : [", Encoding.UTF8.GetString(response.GetBody()));
+            Assert.Contains("{ files : [", Encoding.UTF8.GetString(response.Body));
         }
     }
 }

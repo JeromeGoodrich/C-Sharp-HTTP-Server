@@ -15,17 +15,17 @@ namespace HTTPServerTest {
 
         [Fact]
         public void TestGetStatus() {
-            Assert.Equal(200, _response.GetStatus());
+            Assert.Equal(200, _response.StatusCode);
         }
 
         [Fact]
         public void TestGetReasonPhrase() {
-            Assert.Equal("OK", _response.GetReasonPhrase());
+            Assert.Equal("OK", _response.ReasonPhrase);
         }
 
         [Fact]
         public void TestGetVersion() {
-            Assert.Equal("HTTP/1.1", _response.GetVersion());
+            Assert.Equal("HTTP/1.1", _response.Version);
         }
 
         [Fact]
@@ -36,13 +36,14 @@ namespace HTTPServerTest {
 
         [Fact]
         public void TestAddAndGetBody() {
-            _response.AddBody(Encoding.UTF8.GetBytes("response body"));
-            Assert.Equal("response body", Encoding.UTF8.GetString(_response.GetBody()));
+            _response.Body = Encoding.UTF8.GetBytes("response body");
+            Assert.Equal("response body", Encoding.UTF8.GetString(_response.Body));
         }
+
 
         private void SendToClientTestSetUp() {
             _ioStream = new MemoryStream();
-            _response.AddBody(Encoding.UTF8.GetBytes("response body"));
+            _response.Body = Encoding.UTF8.GetBytes("response body");
             _response.AddHeader("Content-Type", "text/plain");
             _reader = new StreamReader(_ioStream);
 
@@ -65,8 +66,7 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void TestResponseContainsBody()
-        {
+        public void TestResponseContainsBody() {
             SendToClientTestSetUp();
 
             Assert.Contains("response body", _reader.ReadToEnd());

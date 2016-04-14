@@ -21,7 +21,7 @@ namespace HTTPServer {
             else {
                 body = GenHtmlBody(dirName);
             }
-            response.AddBody(body);
+            response.Body = body;
             return response;
         }
 

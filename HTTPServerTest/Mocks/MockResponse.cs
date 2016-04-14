@@ -9,6 +9,11 @@ namespace HTTPServerTest.Mocks
         private int _callsToSend;
         private Stream _ioStream;
 
+        public int StatusCode { get; }
+        public string ReasonPhrase { get; }
+        public string Version { get; }
+        public byte[] Body { get; set; }
+
         public void Send(Stream ioStream) {
             _ioStream = ioStream;
             _callsToSend++;

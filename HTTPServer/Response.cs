@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 namespace HTTPServer {
     public class Response : IResponse {
-        private readonly int _status;
-        private readonly string _version;
-        private byte[] _body;
+        public int StatusCode { get; }
+        public string ReasonPhrase => Status.StatusDictionary[StatusCode];
+        public string Version { get; }
+        public byte[] Body { get; set; }
         private readonly Dictionary<string,string> _headers = new Dictionary<string, string>();
 
-        public Response(int status, string version) {
-            _status = status;
-            _version = version;
+        public Response(int statusCode, string version) {
+            StatusCode = statusCode;
+            Version = version;
         }
 
         public void Send(Stream ioStream) {
-            var statusLine = _version + " " + _status + " " + GetReasonPhrase() + "\r\n";
+            var statusLine = Version + " " + StatusCode + " " + ReasonPhrase + "\r\n";
             var headers = "";
             foreach (var pair in _headers) {
                 var key = pair.Key;
@@ -27,33 +27,13 @@ namespace HTTPServer {
             var bytes = Encoding.UTF8.GetBytes(formattedResponse);
             var length = bytes.Length;
             ioStream.Write(bytes, 0, length);
-            if (_body != null) {
-                ioStream.Write(_body, 0, _body.Length);
+            if (Body != null) {
+                ioStream.Write(Body, 0, Body.Length);
             }
-        }
-
-        public int GetStatus() {
-            return _status;
-        }
-
-        public string GetVersion() {
-            return _version;
-        }
-
-        public string GetReasonPhrase() {
-            return Status.StatusDictionary[_status];
-        }
-
-        public byte[] GetBody() {
-            return _body;
         }
 
         public string GetHeader(string headerName) {
             return _headers[headerName];
-        }
-
-        public void AddBody(byte[] body) {
-            _body = body;
         }
 
         public void AddHeader(string headerName, string headerValue) {

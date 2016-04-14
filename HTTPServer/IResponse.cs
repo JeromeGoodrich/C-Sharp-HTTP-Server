@@ -3,11 +3,11 @@ using System.IO;
 
 namespace HTTPServer {
     public interface IResponse {
+        int StatusCode { get; }
+        string ReasonPhrase { get; }
+        string Version { get; }
+        byte[] Body { get; set; }
         void Send(Stream ioStream);
-        int GetStatus();
-        string GetVersion();
-        string GetReasonPhrase();
-        byte[] GetBody();
         string GetHeader(string contentType);
     }
 }

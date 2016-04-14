@@ -6,40 +6,33 @@ using Xunit;
 
 namespace HTTPServerTest {
     public class DirHandlerTest {
+        private readonly Request _request;
+        private IResponse _response;
+        private readonly DirHandler _handler;
+
+        public DirHandlerTest() {
+            _request = new Request {
+                Method = "GET",
+                Path = "/",
+                Version = "HTTP/1.1"
+            };
+            var publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
+            _handler = new DirHandler(publicDir);            
+        }
+
         [Fact]
         public void TestReturnsHtmlListofDirContents() {
-            var request = new Request();
-            request.Method = "GET";
-            request.Path = "/";
-            request.Version = "HTTP/1.1";
-            var publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
-            var handler = new DirHandler(publicDir);
+            _response = _handler.Handle(_request);
 
-            var response = handler.Handle(request);
-
-            Assert.Equal(response.StatusCode, 200);
-            Assert.Equal(response.Version, "HTTP/1.1");
-            Assert.Equal(response.ReasonPhrase, "OK");
-            Assert.Contains("<li><a href=\"/file1", Encoding.UTF8.GetString(response.Body));
+            Assert.Contains("<li><a href=\"/file1", Encoding.UTF8.GetString(_response.Body));
         }
 
         [Fact]
         public void TestReturnsJsonListofDirContents() {
-            var request = new Request();
-            request.Method ="GET";
-            request.Path ="/";
-            request.Version = "HTTP/1.1";
-            request.AddHeader("Accept", "application/json");
+            _request.AddHeader("Accept" , "application/json");
+            _response = _handler.Handle(_request);
 
-            var publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
-            var handler = new DirHandler(publicDir);
-            var response = handler.Handle(request);
-            Assert.Equal(response.StatusCode, 200);
-            Assert.Equal(response.Version, "HTTP/1.1");
-            Assert.Equal(response.ReasonPhrase, "OK");
-            Assert.Equal(response.GetHeader("Content-Type"), "application/json");
-            Assert.Equal(response.GetHeader("Content-Length"), "144");
-            Assert.Contains("{ files : [", Encoding.UTF8.GetString(response.Body));
+            Assert.Contains("{ files : [", Encoding.UTF8.GetString(_response.Body));
         }
     }
 }

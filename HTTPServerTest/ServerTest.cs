@@ -30,7 +30,7 @@ namespace HTTPServerTest {
         [Fact]
         public void TestServiceIsPassedSocket() {
             _server.Start();
-            Assert.Equal(_mockService.GetSocket(), _mockSocket);
+            Assert.Equal(_mockService.Socket, _mockSocket);
         }
     }
 }

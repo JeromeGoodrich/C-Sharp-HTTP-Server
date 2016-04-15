@@ -9,7 +9,7 @@ namespace HTTPServerTest.Mocks {
         }
 
         public IService CreateService(IClientSocket socket) {
-            _mockService.SetSocket(socket);
+            _mockService.Socket= socket;
             return _mockService;
         }
 

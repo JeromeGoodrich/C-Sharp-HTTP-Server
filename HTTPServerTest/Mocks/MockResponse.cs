@@ -2,7 +2,7 @@
 using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
-    internal class MockResponse : IResponse {
+    public class MockResponse : IResponse {
         private int _callsToSend;
         private Stream _ioStream;
 

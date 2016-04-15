@@ -1,10 +1,9 @@
 ﻿using System.IO;
 using HTTPServer;
 
-namespace HTTPServerTest.Mocks
-{
-    internal class MockParser : IParser
-    {
+namespace HTTPServerTest.Mocks {
+    public class MockParser : IParser {
+
         private Stream _ioStream;
         private readonly Request _request;
         private int _callsToParse;

@@ -11,16 +11,16 @@ namespace HTTPServerTest {
             var args = new[] { "" };
             var config = new ServerConfig(args);
             
-            Assert.Equal(config.GetPort(), 5000);
-            Assert.Equal(config.GetPublicDir(), Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\"));
+            Assert.Equal(config.Port, 5000);
+            Assert.Equal(config.PublicDir, Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\"));
         }
         [Fact]
         public void TestArgsProvided() {
             var args = new[] { "-p", "7000", "-d", "/this/directory" };
             var config = new ServerConfig(args);
 
-            Assert.Equal(config.GetPort(), 7000);
-            Assert.Equal(config.GetPublicDir(), "/this/directory");
+            Assert.Equal(config.Port, 7000);
+            Assert.Equal(config.PublicDir, "/this/directory");
         }
         [Fact]
         public void TestThrowsErrorForIncorrectArgs() {
@@ -36,7 +36,7 @@ namespace HTTPServerTest {
             var args = new[] { "" };
             var config = new ServerConfig(args);
 
-            Assert.Equal(config.GetIpAddress().ToString(), "172.16.11.128");
+            Assert.Equal(config.IpAddress.ToString(), "172.16.11.128");
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
-    internal class MockServiceFactory : IServiceFactory {
+    public class MockServiceFactory : IServiceFactory {
         private readonly MockService _mockService;
 
         public MockServiceFactory(MockService mockService) {

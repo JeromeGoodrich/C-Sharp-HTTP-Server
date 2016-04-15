@@ -2,7 +2,7 @@
 using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
-    internal class MockSocket : IClientSocket {
+    public class MockSocket : IClientSocket {
         private bool _closed;
         private readonly Stream _ioStream;
 

@@ -6,14 +6,14 @@ using System.Net.Sockets;
 
 namespace HTTPServer {
     public class ServerConfig {
-        private int _port;
-        private string _publicDir;
-        private IPAddress _localIp;
+
+        public int Port { get; private set; }
+        public string PublicDir { get; private set; }
+        public IPAddress IpAddress { get; set; }
 
         public ServerConfig(string[] args) {
             Config(args);
         }
-
 
         public void Config(string[] args) {
             SetPort(args);
@@ -24,20 +24,20 @@ namespace HTTPServer {
         private void SetPort(params string[] args) {
             if (args.Contains("-p")) {
                 var portIndex = Array.IndexOf(args, "-p") + 1;
-                _port = args[portIndex] != null ? int.Parse(args[portIndex]) : 5000;
+                Port = args[portIndex] != null ? int.Parse(args[portIndex]) : 5000;
             }
             else {
-                _port = 5000;
+                Port = 5000;
             }
         }
 
         private void SetPublicDir(params string[] args) {
             if (args.Contains("-d")) {
                 var dirIndex = Array.IndexOf(args, "-d") + 1;
-                _publicDir = args[dirIndex] ?? Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
+                PublicDir = args[dirIndex] ?? Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
             }
             else {
-                _publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
+                PublicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
             }
         }
 
@@ -49,20 +49,7 @@ namespace HTTPServer {
                     localIp = ip;
                 }
             }
-            _localIp = localIp;
-        }
-
-
-        public int GetPort() {
-            return _port;
-        }
-
-        public string GetPublicDir() {
-            return _publicDir;
-        }
-
-        public IPAddress GetIpAddress() {
-            return _localIp;
+            IpAddress = localIp;
         }
     }
 }

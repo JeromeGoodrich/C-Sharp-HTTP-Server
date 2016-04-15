@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using HTTPServer;
+﻿using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
 

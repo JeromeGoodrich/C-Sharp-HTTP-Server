@@ -3,7 +3,7 @@ using System.Net.Sockets;
 
 namespace HTTPServer
 {
-    internal class Listener : IListener {
+    public class Listener : IListener {
         private readonly TcpListener _listener;
 
         public Listener(IPAddress ip, int port) {
@@ -17,6 +17,10 @@ namespace HTTPServer
         public IClientSocket Accept() {
             var tcpClient = _listener.AcceptTcpClient();
             return new ClientSocket(tcpClient);
+        }
+
+        public void Start() {
+            _listener.Start();
         }
     }
 }

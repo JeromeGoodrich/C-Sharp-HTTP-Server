@@ -2,6 +2,7 @@
 
 namespace HTTPServer {
     public class Request {
+
         private readonly Dictionary<string,string> _headers = new Dictionary<string, string>();
         public string Method { get; set; }
         public string Path { get; set; }

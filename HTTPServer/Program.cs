@@ -2,6 +2,7 @@
 namespace HTTPServer {
     class Program {
         static void Main(string[] args) {
+
             var config = new ServerConfig(args);
             var listener = new Listener(config.IpAddress, config.Port);
             var parser = new Parser();

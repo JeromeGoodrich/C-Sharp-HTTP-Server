@@ -4,6 +4,7 @@ using System.Text;
 
 namespace HTTPServer {
     public class Response : IResponse {
+
         public int StatusCode { get; }
         public string ReasonPhrase => Status.StatusDictionary[StatusCode];
         public string Version { get; }

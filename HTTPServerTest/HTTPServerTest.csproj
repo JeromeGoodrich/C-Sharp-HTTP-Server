@@ -73,6 +73,7 @@
     <Compile Include="Mocks\MockListener.cs" />
     <Compile Include="Mocks\MockParser.cs" />
     <Compile Include="Mocks\MockResponse.cs" />
+    <Compile Include="Mocks\MockServer.cs" />
     <Compile Include="Mocks\MockService.cs" />
     <Compile Include="Mocks\MockServiceFactory.cs" />
     <Compile Include="Mocks\MockSocket.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="ResponseTest.cs" />
     <Compile Include="ServerConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerIntegrationTest.cs" />
     <Compile Include="ServerTest.cs" />
     <Compile Include="ServiceTest.cs" />
   </ItemGroup>

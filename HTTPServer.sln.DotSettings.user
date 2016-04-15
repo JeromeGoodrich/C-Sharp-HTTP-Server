@@ -2,6 +2,9 @@
 	<s:Boolean x:Key="/Default/CoverageSessionsPersistenceManagerSettings/SessionPersistentData/=28F5ABD8A74B4F0C877A79698C3794A4/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/CoverageSessionsPersistenceManagerSettings/SessionPersistentData/=28F5ABD8A74B4F0C877A79698C3794A4/ProductVersion/@EntryValue">10.0.2</s:String>
 	<s:String x:Key="/Default/CoverageSessionsPersistenceManagerSettings/SessionPersistentData/=28F5ABD8A74B4F0C877A79698C3794A4/SnapshotLocation/@EntryValue">C:\Users\jgoodrich\AppData\Local\Temp\ssm.Vexicuh.tmp</s:String>
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Net.Http.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String>
 	
 	
 	</wpf:ResourceDictionary>

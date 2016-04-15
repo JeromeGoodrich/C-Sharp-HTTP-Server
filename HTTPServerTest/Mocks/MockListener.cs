@@ -18,5 +18,9 @@ namespace HTTPServerTest.Mocks {
         public IClientSocket Accept() {
             return _mockSocket;
         }
+
+        public void Start() {
+            throw new System.NotImplementedException();
+        }
     }
 }

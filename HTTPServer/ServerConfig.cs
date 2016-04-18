@@ -10,6 +10,8 @@ namespace HTTPServer {
         public int Port { get; private set; }
         public string PublicDir { get; private set; }
         public IPAddress IpAddress { get; set; }
+        private const int DefaultPort = 5039;
+        private readonly string _defaultPublicDir = Path.Combine(Environment.CurrentDirectory, @"../../../HTTPServerTest/Fixtures/");
 
         public ServerConfig(string[] args) {
             Config(args);
@@ -24,20 +26,20 @@ namespace HTTPServer {
         private void SetPort(params string[] args) {
             if (args.Contains("-p")) {
                 var portIndex = Array.IndexOf(args, "-p") + 1;
-                Port = args[portIndex] != null ? int.Parse(args[portIndex]) : 5000;
+                Port = args[portIndex] != null ? int.Parse(args[portIndex]) : DefaultPort;
             }
             else {
-                Port = 5000;
+                Port = DefaultPort;
             }
         }
 
         private void SetPublicDir(params string[] args) {
             if (args.Contains("-d")) {
                 var dirIndex = Array.IndexOf(args, "-d") + 1;
-                PublicDir = args[dirIndex] ?? Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
+                PublicDir = args[dirIndex] ?? _defaultPublicDir;
             }
             else {
-                PublicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
+                PublicDir = _defaultPublicDir;
             }
         }
 
@@ -49,7 +51,7 @@ namespace HTTPServer {
                     localIp = ip;
                 }
             }
-            IpAddress = localIp;
+            IpAddress = IPAddress.Any;
         }
     }
 }

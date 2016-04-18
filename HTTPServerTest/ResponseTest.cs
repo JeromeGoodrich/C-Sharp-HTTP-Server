@@ -46,8 +46,7 @@ namespace HTTPServerTest {
             _response.Body = Encoding.UTF8.GetBytes("response body");
             _response.AddHeader("Content-Type", "text/plain");
             _reader = new StreamReader(_ioStream);
-
-            _response.Send(_ioStream);
+            _response.Send(new BinaryWriter(_ioStream));
             _ioStream.Seek(0, SeekOrigin.Begin);
         }
 

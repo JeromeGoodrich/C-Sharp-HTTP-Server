@@ -1,4 +1,5 @@
-﻿using HTTPServer;
+﻿using System.Threading.Tasks;
+using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
     public class MockListener : IListener {
@@ -15,12 +16,16 @@ namespace HTTPServerTest.Mocks {
             return true;
         }
 
+        public async Task<IClientSocket> AcceptAsync() {
+            return _mockSocket;
+        }
+
         public IClientSocket Accept() {
             return _mockSocket;
         }
 
         public void Start() {
-            throw new System.NotImplementedException();
+           
         }
     }
 }

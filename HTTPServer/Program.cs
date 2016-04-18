@@ -1,4 +1,5 @@
-﻿using HTTPServer;
+﻿using System;
+using HTTPServer;
 namespace HTTPServer {
     class Program {
         static void Main(string[] args) {
@@ -9,7 +10,15 @@ namespace HTTPServer {
             var handler = new DirHandler(config.PublicDir);
             var factory = new ServiceFactory(parser, handler);
             var server = new Server(listener, factory);
-            server.Start();
+            try {
+                server.StartAsync().Wait(); 
+                
+            }
+            catch (AggregateException e) {
+                
+                throw e.Flatten();
+            }
+           
         }
     }
 }

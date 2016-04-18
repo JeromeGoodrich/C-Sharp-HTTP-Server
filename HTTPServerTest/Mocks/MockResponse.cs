@@ -11,8 +11,8 @@ namespace HTTPServerTest.Mocks {
         public string Version { get; }
         public byte[] Body { get; set; }
 
-        public void Send(Stream ioStream) {
-            _ioStream = ioStream;
+        public void Send(BinaryWriter writer) {
+            _ioStream = writer.BaseStream;
             _callsToSend++;
         }
 

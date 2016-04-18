@@ -59,8 +59,7 @@ namespace HTTPServerTest {
 
         [Fact]
         public void TestParseReturnsRequest() {
-            _service.Run();
-            Assert.Equal(_mockParser.Parse(_mockSocket.GetStream()), _request);
+            Assert.Equal(_mockParser.Parse(new StreamReader(_mockSocket.GetStream())), _request);
         }
 
         [Fact]
@@ -96,7 +95,7 @@ namespace HTTPServerTest {
         [Fact]
         public void TestSocketClosesAfterRunningService() {
             _service.Run();
-            Assert.Equal(_mockSocket.IsClosed(), true);
+            Assert.Equal(true, _mockSocket.IsClosed());
         }
     }
 }

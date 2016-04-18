@@ -15,7 +15,7 @@ namespace HTTPServerTest {
             var stream = new MemoryStream(rawRequest);
             var parser = new Parser();
 
-            _request = parser.Parse(stream);
+            _request = parser.Parse(new StreamReader(stream));
         }
 
         [Fact]

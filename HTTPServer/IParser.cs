@@ -2,6 +2,6 @@
 
 namespace HTTPServer {
     public interface IParser {
-        Request Parse(Stream stream);
+        Request Parse(StreamReader reader);
     }
 }

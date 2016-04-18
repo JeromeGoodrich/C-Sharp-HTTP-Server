@@ -7,7 +7,7 @@ namespace HTTPServer {
         string ReasonPhrase { get; }
         string Version { get; }
         byte[] Body { get; set; }
-        void Send(Stream ioStream);
+        void Send(BinaryWriter writer);
         string GetHeader(string contentType);
     }
 }

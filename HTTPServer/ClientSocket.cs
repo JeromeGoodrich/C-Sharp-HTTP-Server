@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace HTTPServer {
     public class ClientSocket : IClientSocket {

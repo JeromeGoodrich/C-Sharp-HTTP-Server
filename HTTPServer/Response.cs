@@ -16,14 +16,14 @@ namespace HTTPServer {
             Version = version;
         }
 
-        public void Send(Stream ioStream) {
+        public void Send(BinaryWriter writer) {
             var formattedResponse = GetFormattedResponse();
             var bytes = Encoding.UTF8.GetBytes(formattedResponse);
-            var length = bytes.Length;
-            ioStream.Write(bytes, 0, length);
+            writer.Write(bytes);
             if (Body != null) {
-                ioStream.Write(Body, 0, Body.Length);
+                writer.Write(Body);
             }
+            writer.Flush();
         }
 
         private string GetFormattedResponse() {

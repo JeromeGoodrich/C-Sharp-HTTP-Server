@@ -10,8 +10,7 @@ namespace HTTPServerTest.Mocks {
             _ioStream = ioStream;
         }
 
-        public MockSocket() {
-        }
+        public MockSocket() {}
 
         public bool IsClosed() {
             return _closed;

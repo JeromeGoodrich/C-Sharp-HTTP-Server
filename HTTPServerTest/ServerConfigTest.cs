@@ -11,7 +11,7 @@ namespace HTTPServerTest {
             var args = new[] { "" };
             var config = new ServerConfig(args);
             
-            Assert.Equal(config.Port, 5000);
+            Assert.Equal(config.Port, 5039);
             Assert.Equal(config.PublicDir, Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\"));
         }
         [Fact]
@@ -36,7 +36,7 @@ namespace HTTPServerTest {
             var args = new[] { "" };
             var config = new ServerConfig(args);
 
-            Assert.Equal(config.IpAddress.ToString(), "172.16.11.128");
+            Assert.Equal(config.IpAddress.ToString(), "0.0.0.0");
         }
     }
 }

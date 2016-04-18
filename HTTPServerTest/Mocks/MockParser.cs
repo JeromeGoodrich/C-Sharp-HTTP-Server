@@ -13,8 +13,8 @@ namespace HTTPServerTest.Mocks {
             _request = request;
         }
 
-        public Request Parse(Stream ioStream) {
-            _ioStream = ioStream;
+        public Request Parse(StreamReader reader) {
+            _ioStream = reader.BaseStream;
             _callsToParse++;
             return _request;
         }

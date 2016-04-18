@@ -4,4 +4,4 @@ namespace HTTPServer {
         Stream GetStream();
         void Close();
     }
-}
+}   

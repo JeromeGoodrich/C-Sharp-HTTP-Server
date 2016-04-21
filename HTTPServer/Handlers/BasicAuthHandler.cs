@@ -16,6 +16,10 @@ namespace HTTPServer {
             return AccessDenied(request);
         }
 
+        public bool WillHandle(string method, string path) {
+            throw new NotImplementedException();
+        }
+
         private bool VerifyCredentials(string encodedCredentials) {
             var rawCredentials = Convert.FromBase64String(encodedCredentials);
             var credentials = Encoding.UTF8.GetString(rawCredentials);
@@ -24,7 +28,7 @@ namespace HTTPServer {
             return username.Equals("admin") && password.Equals("hunter2");
         }
 
-        private IResponse AccessGranted(Request request) {
+        private Response AccessGranted(Request request) {
             var response = new Response(200, request.Version);
             using (
                 var reader =
@@ -34,7 +38,7 @@ namespace HTTPServer {
             return response;
         }
 
-        private IResponse AccessDenied(Request request) {
+        private Response AccessDenied(Request request) {
             var response = new Response(401, request.Version);
             response.AddHeader("WWW-Authenticate", "Basic realm=\"Camelot\"");
             return response;

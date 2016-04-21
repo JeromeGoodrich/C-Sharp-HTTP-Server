@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace HTTPServer {
     public class Parser : IParser {
+        private readonly FileLogger _logger = new FileLogger();
+
         public Request Parse(StreamReader reader) {
             var request = new Request();
             string line;
@@ -50,13 +52,13 @@ namespace HTTPServer {
 
         private void ParseRequestLine(string requestLine, Request request) {
             var splitRequestLine = requestLine.Split(' ');
-            System.Console.WriteLine(requestLine);
             var method = splitRequestLine[0];
             var path = splitRequestLine[1];
             var version = splitRequestLine[2];
             request.Method = method;
             request.Path = path;
             request.Version = version;
+            _logger.Log(requestLine);
         }
     }
 }

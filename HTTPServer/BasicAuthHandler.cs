@@ -3,28 +3,40 @@ using System.IO;
 using System.Text;
 
 namespace HTTPServer {
-    public class BasicAuthHandler {
+    public class BasicAuthHandler : IHandler {
         public IResponse Handle(Request request) {
-            Response response;
             if (request.GetHeaders().ContainsKey("Authorization")) {
                 var encodedCredentials = request.GetHeader("Authorization").Split(' ')[1];
-                var rawCredentials = Convert.FromBase64String(encodedCredentials);
-                var credentials = Encoding.UTF8.GetString(rawCredentials);
-                var username = credentials.Split(':')[0];
-                var password = credentials.Split(':')[1];
-                if (username.Equals("admin") && password.Equals("hunter2")) {
-                    response = new Response(200, request.Version);
-                    using (var reader = File.OpenText(Path.Combine(Environment.CurrentDirectory, @"..\..\..\..\HTTPServer\logFile.txt"))) {
-                            response.Body = Encoding.UTF8.GetBytes(reader.ReadToEnd());
-                        }
-                    } else {
-                    response = new Response(401, request.Version);
-                    response.AddHeader("WWW-Authenticate", "Basic realm=\"Camelot\"");
+                var accepted = VerifyCredentials(encodedCredentials);
+                if (accepted) {
+                    return AccessGranted(request);
                 }
-            } else {
-                response = new Response(401, request.Version);
-                response.AddHeader("WWW-Authenticate", "Basic realm=\"Camelot\"");
+                return AccessDenied(request);
             }
+            return AccessDenied(request);
+        }
+
+        private bool VerifyCredentials(string encodedCredentials) {
+            var rawCredentials = Convert.FromBase64String(encodedCredentials);
+            var credentials = Encoding.UTF8.GetString(rawCredentials);
+            var username = credentials.Split(':')[0];
+            var password = credentials.Split(':')[1];
+            return username.Equals("admin") && password.Equals("hunter2");
+        }
+
+        private IResponse AccessGranted(Request request) {
+            var response = new Response(200, request.Version);
+            using (
+                var reader =
+                    File.OpenText(Path.Combine(Environment.CurrentDirectory, @"..\..\..\..\HTTPServer\logFile.txt"))) {
+                response.Body = Encoding.UTF8.GetBytes(reader.ReadToEnd());
+            }
+            return response;
+        }
+
+        private IResponse AccessDenied(Request request) {
+            var response = new Response(401, request.Version);
+            response.AddHeader("WWW-Authenticate", "Basic realm=\"Camelot\"");
             return response;
         }
     }

@@ -59,9 +59,10 @@ namespace HTTPServerTest {
         public void AuthorizedRequestHasBody() {
             _request.AddHeader("Authorization", "Basic YWRtaW46aHVudGVyMg==");
             var logger = new FileLogger();
-            logger.Log("GET /log HTTP/1.1\r\n");
-            logger.Log("PUT /these HTTP/1.1\r\b");
-            logger.Log("HEAD /requests HTTP/1.1\r\n");
+            logger.Log("GET/log HTTP/1.1");
+            logger.Log("PUT /these HTTP/1.1");
+            logger.Log("HEAD /requests HTTP/1.1");
+
             _response = _handler.Handle(_request);
         
 

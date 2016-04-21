@@ -65,7 +65,7 @@
   <ItemGroup>
     <Compile Include="Handlers\BasicAuthHandler.cs" />
     <Compile Include="Handlers\Handlers.cs" />
-    <Compile Include="Router\Router.cs" />
+    <Compile Include="RequestHandler.cs" />
     <Compile Include="Server\ClientSocket.cs" />
     <Compile Include="Handlers\DirHandler.cs" />
     <Compile Include="FileLogger.cs" />
@@ -102,6 +102,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Router\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

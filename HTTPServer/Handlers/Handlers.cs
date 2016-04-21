@@ -3,9 +3,19 @@
 namespace HTTPServer {
 
     public class Handlers {
-        public static List<IHandler> AllHandlers = new List<IHandler>() {
-            new DirHandler(""),
+
+        private static string _publicDir;
+
+        public Handlers(string publicDir) {
+            _publicDir = publicDir;
+        }
+
+        public List<IHandler> AllHandlers = new List<IHandler>() {
+            new DirHandler(_publicDir),
             new BasicAuthHandler(),
         };
+        
+
+        
     }
 }

@@ -28,7 +28,7 @@ namespace HTTPServer {
         }
 
         public bool WillHandle(string method, string path) {
-            throw new NotImplementedException();
+            return path.Equals("/");
         }
 
         private byte[] GenJsonContent(string dirName) {

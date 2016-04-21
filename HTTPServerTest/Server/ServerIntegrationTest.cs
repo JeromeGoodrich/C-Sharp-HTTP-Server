@@ -16,7 +16,8 @@ namespace HTTPServerTest {
             _config = new ServerConfig(args);
             var listener = new Listener(_config.IpAddress, _config.Port);
             var parser = new Parser();
-            var handler = new DirHandler(_config.PublicDir);
+            var handlers = new Handlers(_config.PublicDir).AllHandlers;
+            var handler = new RequestHandler(handlers);
             var factory = new ServiceFactory(parser, handler);
             _mockServer = new MockServer(listener, factory);
             var startTask = Task.Run(() => _mockServer.Start());

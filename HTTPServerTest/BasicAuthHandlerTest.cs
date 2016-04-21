@@ -28,6 +28,13 @@ namespace HTTPServerTest {
         public void RequiresAuthenticationTest() {
             Assert.Equal("Basic realm=\"Camelot\"", _response.GetHeader("WWW-Authenticate"));
         }
+
+        [Fact]
+        public void BodyHasNoContentTest() {
+            Assert.Equal(null, _response.Body);
+        }
+
+
     }
 
 }

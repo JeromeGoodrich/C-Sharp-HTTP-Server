@@ -4,8 +4,8 @@ using Xunit;
 
 namespace HTTPServerTest {
     public class ServerTest {
-        private readonly MockSocket _mockSocket;
         private readonly MockService _mockService;
+        private readonly MockSocket _mockSocket;
         private readonly Server _server;
 
         public ServerTest() {

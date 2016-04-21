@@ -45,9 +45,5 @@ namespace HTTPServerTest {
             _request.Body = "firstname=jerome&lastname=goodrich";
             Assert.Equal("firstname=jerome&lastname=goodrich", _request.Body);
         }
-
-
-     
-        
     }
 }

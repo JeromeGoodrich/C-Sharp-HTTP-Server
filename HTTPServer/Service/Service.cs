@@ -1,15 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
 namespace HTTPServer {
     public class Service : IService {
-        private readonly IClientSocket _socket;
         private readonly IHandler _handler;
         private readonly IParser _parser;
-       
+        private readonly IClientSocket _socket;
 
-        public Service(IClientSocket socket, IParser parser, IHandler handler)  {
+
+        public Service(IClientSocket socket, IParser parser, IHandler handler) {
             _socket = socket;
             _parser = parser;
             _handler = handler;
@@ -22,10 +20,8 @@ namespace HTTPServer {
                 var request = _parser.Parse(reader);
                 var response = _handler.Handle(request);
                 response.Send(writer);
-
             }
             _socket.Close();
         }
     }
 }
-

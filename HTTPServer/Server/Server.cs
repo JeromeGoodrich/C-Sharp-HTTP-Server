@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 
 namespace HTTPServer {
     public class Server {
@@ -8,20 +8,18 @@ namespace HTTPServer {
         public Server(IListener listener, IServiceFactory serviceFactory) {
             _listener = listener;
             _serviceFactory = serviceFactory;
-
         }
 
         public void Start() {
             _listener.Start();
             //cancellation token for a while loop - part of the Task Library
             while (_listener.Listening()) {
-                System.Console.WriteLine("Waiting...");
+                Console.WriteLine("Waiting...");
                 var socket = _listener.Accept();
-                System.Console.WriteLine("Accepted Connection.");
+                Console.WriteLine("Accepted Connection.");
                 var service = _serviceFactory.CreateService(socket);
                 service.Run();
             }
         }
-
     }
 }

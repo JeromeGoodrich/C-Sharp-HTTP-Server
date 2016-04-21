@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
@@ -9,7 +9,6 @@ namespace HTTPServerTest.Mocks {
         public MockServer(IListener listener, IServiceFactory serviceFactory) {
             _listener = listener;
             _serviceFactory = serviceFactory;
-
         }
 
         public bool Running { get; set; }
@@ -19,14 +18,13 @@ namespace HTTPServerTest.Mocks {
             _listener.Start();
             Running = true;
             while (counter == 0) {
-                System.Console.WriteLine("Waiting...");
+                Console.WriteLine("Waiting...");
                 var socket = _listener.Accept();
-                System.Console.WriteLine("Accepted");
+                Console.WriteLine("Accepted");
                 var service = _serviceFactory.CreateService(socket);
                 service.Run();
                 counter++;
             }
         }
-
     }
 }

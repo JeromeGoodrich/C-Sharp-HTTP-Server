@@ -1,23 +1,21 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using HTTPServer;
 using Xunit;
 
 namespace HTTPServerTest {
     public class BasicAuthHandlerTest {
+        private readonly BasicAuthHandler _handler;
+        private readonly Request _request;
 
         private IResponse _response;
-        private Request _request;
-        private BasicAuthHandler _handler;
 
         public BasicAuthHandlerTest() {
-            _request = new Request()
-            {
+            _request = new Request {
                 Method = "GET",
                 Path = "/logs",
                 Version = "HTTP/1.1"
             };
-            _handler = new BasicAuthHandler();            
+            _handler = new BasicAuthHandler();
         }
 
         [Fact]
@@ -28,7 +26,7 @@ namespace HTTPServerTest {
 
         [Fact]
         public void RequiresAuthenticationTest() {
-            _response =_handler.Handle(_request);
+            _response = _handler.Handle(_request);
             Assert.Equal("Basic realm=\"Camelot\"", _response.GetHeader("WWW-Authenticate"));
         }
 
@@ -47,8 +45,7 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void Returns401WithIncorrectCredentialsTest()
-        {
+        public void Returns401WithIncorrectCredentialsTest() {
             _request.AddHeader("Authorization", "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==");
             _response = _handler.Handle(_request);
 
@@ -64,12 +61,11 @@ namespace HTTPServerTest {
             logger.Log("HEAD /requests HTTP/1.1");
 
             _response = _handler.Handle(_request);
-        
+
 
             Assert.Contains("GET /log HTTP/1.1", Encoding.UTF8.GetString(_response.Body));
             Assert.Contains("PUT /these HTTP/1.1", Encoding.UTF8.GetString(_response.Body));
             Assert.Contains("HEAD /requests HTTP/1.1", Encoding.UTF8.GetString(_response.Body));
         }
     }
-
 }

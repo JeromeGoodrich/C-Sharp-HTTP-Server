@@ -16,16 +16,16 @@ namespace HTTPServerTest.Mocks {
             _callsToSend++;
         }
 
+        public string GetHeader(string contentType) {
+            return null;
+        }
+
         public int GetCallsToSend() {
             return _callsToSend;
         }
 
         public Stream GetLastStreamPassedToSend() {
             return _ioStream;
-        }
-
-        public string GetHeader(string contentType) {
-            return null;
         }
     }
 }

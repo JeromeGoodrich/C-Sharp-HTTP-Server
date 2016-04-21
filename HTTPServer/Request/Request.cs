@@ -2,8 +2,7 @@
 
 namespace HTTPServer {
     public class Request {
-
-        private readonly Dictionary<string,string> _headers = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _headers = new Dictionary<string, string>();
         public string Method { get; set; }
         public string Path { get; set; }
         public string Version { get; set; }
@@ -17,7 +16,7 @@ namespace HTTPServer {
             _headers.Add(headerName, headerValue);
         }
 
-        public Dictionary<string,string> GetHeaders() {
+        public Dictionary<string, string> GetHeaders() {
             return _headers;
         }
     }

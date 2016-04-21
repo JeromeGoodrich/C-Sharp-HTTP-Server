@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -49,7 +48,7 @@ namespace HTTPServer {
                     jsonFilesString += fileName + ", ";
                 }
             }
-       
+
             return jsonFilesString;
         }
 

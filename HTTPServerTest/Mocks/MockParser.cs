@@ -3,13 +3,12 @@ using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
     public class MockParser : IParser {
-
-        private Stream _ioStream;
         private readonly Request _request;
         private int _callsToParse;
 
-        public MockParser(Request request)
-        {
+        private Stream _ioStream;
+
+        public MockParser(Request request) {
             _request = request;
         }
 

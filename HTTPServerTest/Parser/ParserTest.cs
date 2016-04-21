@@ -9,9 +9,9 @@ namespace HTTPServerTest {
 
         public ParserTest() {
             var rawRequest = Encoding.UTF8.GetBytes("POST /form HTTP/1.1\r\n" +
-                                                 "Host: www.example.com\r\n" +
-                                                 "Content-Length: 34\r\n\r\n" +
-                                                 "firstname=jerome&lastname=goodrich");
+                                                    "Host: www.example.com\r\n" +
+                                                    "Content-Length: 34\r\n\r\n" +
+                                                    "firstname=jerome&lastname=goodrich");
             var stream = new MemoryStream(rawRequest);
             var parser = new Parser();
 

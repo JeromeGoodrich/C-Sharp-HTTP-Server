@@ -1,5 +1,5 @@
 ﻿namespace HTTPServer {
-    public interface IHandler { 
+    public interface IHandler {
         IResponse Handle(Request request);
     }
 }

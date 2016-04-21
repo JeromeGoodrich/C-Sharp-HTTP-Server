@@ -69,8 +69,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BasicAuthHandlerTest.cs" />
-    <Compile Include="DirHandlerTest.cs" />
+    <Compile Include="Handlers\BasicAuthHandlerTest.cs" />
+    <Compile Include="Handlers\DirHandlerTest.cs" />
     <Compile Include="Mocks\MockHandler.cs" />
     <Compile Include="Mocks\MockListener.cs" />
     <Compile Include="Mocks\MockParser.cs" />
@@ -79,14 +79,14 @@
     <Compile Include="Mocks\MockService.cs" />
     <Compile Include="Mocks\MockServiceFactory.cs" />
     <Compile Include="Mocks\MockSocket.cs" />
-    <Compile Include="ParserTest.cs" />
-    <Compile Include="RequestTest.cs" />
-    <Compile Include="ResponseTest.cs" />
-    <Compile Include="ServerConfigTest.cs" />
+    <Compile Include="Parser\ParserTest.cs" />
+    <Compile Include="Request\RequestTest.cs" />
+    <Compile Include="Response\ResponseTest.cs" />
+    <Compile Include="Server\ServerConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerIntegrationTest.cs" />
-    <Compile Include="ServerTest.cs" />
-    <Compile Include="ServiceTest.cs" />
+    <Compile Include="Server\ServerIntegrationTest.cs" />
+    <Compile Include="Server\ServerTest.cs" />
+    <Compile Include="Service\ServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

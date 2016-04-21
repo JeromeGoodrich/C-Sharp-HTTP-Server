@@ -1,17 +1,16 @@
-﻿using Xunit;
+﻿using System.IO;
 using HTTPServer;
-using System.IO;
 using HTTPServerTest.Mocks;
+using Xunit;
 
 namespace HTTPServerTest {
-
     public class ServiceTest {
         private readonly MemoryStream _ioStream;
-        private readonly MockSocket _mockSocket;
-        private readonly Request _request;
+        private readonly MockHandler _mockHandler;
         private readonly MockParser _mockParser;
         private readonly MockResponse _mockResponse;
-        private readonly MockHandler _mockHandler;
+        private readonly MockSocket _mockSocket;
+        private readonly Request _request;
         private readonly Service _service;
 
 

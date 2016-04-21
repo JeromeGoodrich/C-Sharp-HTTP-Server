@@ -1,17 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HTTPServer
-{
+namespace HTTPServer {
     public class Listener : IListener {
         private readonly TcpListener _listener;
 
         public Listener(IPAddress ip, int port) {
-        _listener = new TcpListener(ip ,port);
+            _listener = new TcpListener(ip, port);
         }
 
         public bool Listening() {

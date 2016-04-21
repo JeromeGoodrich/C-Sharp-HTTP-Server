@@ -1,9 +1,9 @@
 ﻿namespace HTTPServer {
     public class ServiceFactory : IServiceFactory {
-        private readonly IParser _parser;
         private readonly IHandler _handler;
+        private readonly IParser _parser;
 
-        
+
         public ServiceFactory(IParser parser, IHandler handler) {
             _parser = parser;
             _handler = handler;

@@ -9,7 +9,7 @@ namespace HTTPServer {
         public Request Parse(StreamReader reader) {
             var request = new Request();
             string line;
-            string requestLineAndHeaders = "";
+            var requestLineAndHeaders = "";
             while ((line = reader.ReadLine()) != "") {
                 requestLineAndHeaders += line + "\r\n";
             }
@@ -23,11 +23,10 @@ namespace HTTPServer {
                 request.Body = body;
             }
             return request;
-            
-        } 
+        }
 
         private void SplitRequestLineAndHeaders(string requestLineAndHeaders, Request request) {
-            var splitRequestLineAndHeaders = requestLineAndHeaders.Split(new[] { "\r\n" }, StringSplitOptions.None);
+            var splitRequestLineAndHeaders = requestLineAndHeaders.Split(new[] {"\r\n"}, StringSplitOptions.None);
             var requestLine = splitRequestLineAndHeaders[0];
             var headers = splitRequestLineAndHeaders.Skip(1).ToArray();
             ParseRequestLine(requestLine, request);
@@ -35,9 +34,7 @@ namespace HTTPServer {
         }
 
 
-        private void ParseBody(Request request) {
-
-        }
+        private void ParseBody(Request request) {}
 
         private void ParseHeaders(string[] headers, Request request) {
             foreach (var header in headers) {

@@ -6,16 +6,19 @@ using System.Net.Sockets;
 
 namespace HTTPServer {
     public class ServerConfig {
-
-        public int Port { get; private set; }
-        public string PublicDir { get; private set; }
-        public IPAddress IpAddress = IPAddress.Any;
         private const int DefaultPort = 5000;
-        private readonly string _defaultPublicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\..\HTTPServerTest\Fixtures\");
+
+        private readonly string _defaultPublicDir = Path.Combine(Environment.CurrentDirectory,
+            @"..\..\..\HTTPServerTest\Fixtures\");
+
+        public IPAddress IpAddress = IPAddress.Any;
 
         public ServerConfig(string[] args) {
             Config(args);
         }
+
+        public int Port { get; private set; }
+        public string PublicDir { get; private set; }
 
         public void Config(string[] args) {
             SetPort(args);
@@ -46,8 +49,8 @@ namespace HTTPServer {
         private void SetIpAddress() {
             IPAddress localIp = null;
             var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (IPAddress ip in host.AddressList) {
-               if (ip.AddressFamily == AddressFamily.InterNetwork) {
+            foreach (var ip in host.AddressList) {
+                if (ip.AddressFamily == AddressFamily.InterNetwork) {
                     localIp = ip;
                 }
             }

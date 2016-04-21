@@ -6,17 +6,17 @@ using System.Text;
 
 namespace HTTPServer {
     public class Response : IResponse {
-
-        public int StatusCode { get; }
-        public string ReasonPhrase => Status.StatusDictionary[StatusCode];
-        public string Version { get; }
-        public byte[] Body { get; set; }
-        private readonly Dictionary<string,string> _headers = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _headers = new Dictionary<string, string>();
 
         public Response(int statusCode, string version) {
             StatusCode = statusCode;
             Version = version;
         }
+
+        public int StatusCode { get; }
+        public string ReasonPhrase => Status.StatusDictionary[StatusCode];
+        public string Version { get; }
+        public byte[] Body { get; set; }
 
         public void Send(BinaryWriter writer) {
             var formattedResponse = GetFormattedResponse();
@@ -25,10 +25,15 @@ namespace HTTPServer {
                 var fullResponse = bytes.Concat(Body).ToArray();
                 writer.Write(fullResponse);
                 Console.WriteLine(Encoding.UTF8.GetString(fullResponse));
-            } else {
+            }
+            else {
                 writer.Write(bytes);
             }
             writer.Flush();
+        }
+
+        public string GetHeader(string headerName) {
+            return _headers[headerName];
         }
 
         private string GetFormattedResponse() {
@@ -41,10 +46,6 @@ namespace HTTPServer {
             }
             var formattedResponse = statusLine + headers + "\r\n";
             return formattedResponse;
-        }
-
-        public string GetHeader(string headerName) {
-            return _headers[headerName];
         }
 
         public void AddHeader(string headerName, string headerValue) {

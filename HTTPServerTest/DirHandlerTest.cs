@@ -16,7 +16,7 @@ namespace HTTPServerTest {
                 Path = "/",
                 Version = "HTTP/1.1"
             };
-            var publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\");
+            var publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\..\HTTPServerTest\Fixtures\");
             _handler = new DirHandler(publicDir);            
         }
 
@@ -32,7 +32,7 @@ namespace HTTPServerTest {
             _request.AddHeader("Accept" , "application/json");
             _response = _handler.Handle(_request);
 
-            Assert.Contains("{ files : [", Encoding.UTF8.GetString(_response.Body));
+            Assert.Contains("{ files : [big", Encoding.UTF8.GetString(_response.Body));
         }
     }
 }

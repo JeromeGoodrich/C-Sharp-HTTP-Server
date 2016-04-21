@@ -41,7 +41,7 @@ namespace HTTPServerTest {
             }
 
             Assert.Contains("HTTP/1.1 200 OK\r\n" +
-                            "Content-Length: 1214\r\n\r\n", new string(rawResponse));
+                            "Content-Length: 554\r\n\r\n", new string(rawResponse));
         }
     }
 }

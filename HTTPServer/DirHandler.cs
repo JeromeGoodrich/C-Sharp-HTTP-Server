@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
 
 namespace HTTPServer {
@@ -69,6 +71,7 @@ namespace HTTPServer {
             var files = Directory.GetFiles(dirName);
             var filesList = "";
             foreach (var file in files) {
+                Console.WriteLine("Separator: " + Path.DirectorySeparatorChar);
                 var fileIndex = file.Split(Path.DirectorySeparatorChar).Length - 1;
                 var fileName = file.Split(Path.DirectorySeparatorChar)[fileIndex];
                 filesList += "<li><a href=\"" + "/" + fileName + "\">" + fileName + "</a></li>\n";

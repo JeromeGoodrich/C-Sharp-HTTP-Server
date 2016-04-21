@@ -11,7 +11,7 @@ namespace HTTPServer {
         public string PublicDir { get; private set; }
         public IPAddress IpAddress = IPAddress.Any;
         private const int DefaultPort = 5000;
-        private readonly string _defaultPublicDir = Path.Combine(Environment.CurrentDirectory, @"../../../HTTPServerTest/Fixtures/");
+        private readonly string _defaultPublicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\..\HTTPServerTest\Fixtures\");
 
         public ServerConfig(string[] args) {
             Config(args);

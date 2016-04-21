@@ -20,6 +20,7 @@ namespace HTTPServer {
             }
             else {
                 body = GenHtmlBody(dirName);
+                response.AddHeader("Content-Length", body.Length.ToString());
             }
             response.Body = body;
             return response;

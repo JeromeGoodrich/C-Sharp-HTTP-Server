@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace HTTPServer {
@@ -19,9 +21,12 @@ namespace HTTPServer {
         public void Send(BinaryWriter writer) {
             var formattedResponse = GetFormattedResponse();
             var bytes = Encoding.UTF8.GetBytes(formattedResponse);
-            writer.Write(bytes);
             if (Body != null) {
-                writer.Write(Body);
+                var fullResponse = bytes.Concat(Body).ToArray();
+                writer.Write(fullResponse);
+                Console.WriteLine(Encoding.UTF8.GetString(fullResponse));
+            } else {
+                writer.Write(bytes);
             }
             writer.Flush();
         }

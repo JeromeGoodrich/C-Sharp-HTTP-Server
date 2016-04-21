@@ -18,33 +18,13 @@ namespace HTTPServer
             return true;
         }
 
-        public async Task<IClientSocket> AcceptAsync() {
-            var tcpClient = await _listener.AcceptTcpClientAsync();
-
-//            var connected = tcpClient.Connected;            
-//            var stream = tcpClient.GetStream();
-//            var reader = new BinaryReader(stream);
-//
-//            if (stream.CanRead) {
-//                byte[] bytes = new byte[1024];
-//                var sb = new StringBuilder();
-//                int bytesRead = 0;
-//                do {
-//                    bytesRead = stream.Read(bytes, 0, bytes.Length);
-//                    sb.Append(Encoding.UTF8.GetString(bytes, 0, bytesRead));
-//                } while (stream.DataAvailable);
-//                var message = sb.ToString();
-//
-//            }
-//            else {
-//                Console.WriteLine("SORRY!");
-//            }
+        public IClientSocket Accept() {
+            var tcpClient = _listener.AcceptTcpClient();
             return new ClientSocket(tcpClient);
         }
 
         public void Start() {
             _listener.Start();
-            System.Console.WriteLine(_listener.LocalEndpoint.ToString());
         }
     }
 }

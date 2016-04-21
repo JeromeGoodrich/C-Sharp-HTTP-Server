@@ -14,13 +14,13 @@ namespace HTTPServerTest.Mocks {
 
         public bool Running { get; set; }
 
-        public async Task StartAsync() {
+        public void Start() {
             var counter = 0;
             _listener.Start();
             Running = true;
-            while (counter != 0) {
+            while (counter == 0) {
                 System.Console.WriteLine("Waiting...");
-                var socket = await _listener.AcceptAsync();
+                var socket = _listener.Accept();
                 System.Console.WriteLine("Accepted");
                 var service = _serviceFactory.CreateService(socket);
                 service.Run();

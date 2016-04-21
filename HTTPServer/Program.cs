@@ -10,15 +10,7 @@ namespace HTTPServer {
             var handler = new DirHandler(config.PublicDir);
             var factory = new ServiceFactory(parser, handler);
             var server = new Server(listener, factory);
-            try {
-                server.StartAsync().Wait(); 
-                
-            }
-            catch (AggregateException e) {
-                
-                throw e.Flatten();
-            }
-           
+            server.Start();
         }
     }
 }

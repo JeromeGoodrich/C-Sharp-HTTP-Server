@@ -16,13 +16,13 @@ namespace HTTPServer {
         }
 
         public void Run() {
-            var stream = _socket.GetStream();
-            using (var reader = new StreamReader(stream)) 
-            using (var writer = new BinaryWriter(stream)) {
-                    var request = _parser.Parse(reader);
-                    var response = _handler.Handle(request);
-                    response.Send(writer);
-                
+            using (var stream = _socket.GetStream()) {
+                var reader = new StreamReader(stream);
+                var writer = new BinaryWriter(stream);
+                var request = _parser.Parse(reader);
+                var response = _handler.Handle(request);
+                response.Send(writer);
+
             }
             _socket.Close();
         }

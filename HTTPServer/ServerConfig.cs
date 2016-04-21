@@ -9,8 +9,8 @@ namespace HTTPServer {
 
         public int Port { get; private set; }
         public string PublicDir { get; private set; }
-        public IPAddress IpAddress { get; set; }
-        private const int DefaultPort = 5039;
+        public IPAddress IpAddress = IPAddress.Any;
+        private const int DefaultPort = 5000;
         private readonly string _defaultPublicDir = Path.Combine(Environment.CurrentDirectory, @"../../../HTTPServerTest/Fixtures/");
 
         public ServerConfig(string[] args) {

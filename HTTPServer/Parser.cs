@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,8 +8,11 @@ namespace HTTPServer {
     public class Parser : IParser {
         public Request Parse(StreamReader reader) {
             var request = new Request();
-            var rawRequest = reader.ReadLine();
-            var requestLineAndHeaders = SplitBodyfromRest(rawRequest, request);
+            string line;
+            string requestLineAndHeaders = "";
+            while ((line = reader.ReadLine()) != "") {
+                requestLineAndHeaders += line + "\r\n";
+            }
             SplitRequestLineAndHeaders(requestLineAndHeaders, request);
             return request;
             
@@ -38,17 +42,20 @@ namespace HTTPServer {
 
         private void ParseHeaders(string[] headers, Request request) {
             foreach (var header in headers) {
+                if (header != "") {
+                    Console.WriteLine(header);
                 var splitHeader = header.Split(':');
                 var headerName = splitHeader[0];
                 var headerValue = splitHeader[1].TrimStart(' ');
                 request.AddHeader(headerName, headerValue);
             }
+        }
             
         }
 
         private void ParseRequestLine(string requestLine, Request request) {
             var splitRequestLine = requestLine.Split(' ');
-            System.Console.WriteLine("Hello Tom:" + requestLine);
+            System.Console.WriteLine(requestLine);
             var method = splitRequestLine[0];
             var path = splitRequestLine[1];
             var version = splitRequestLine[2];

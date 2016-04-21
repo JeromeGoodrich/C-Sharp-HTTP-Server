@@ -22,14 +22,14 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public async void TestServiceIsRunningAfterStartingServer() {
-            await _server.StartAsync();
+        public void TestServiceIsRunningAfterStartingServer() {
+            _server.Start();
             Assert.Equal(_mockService.IsRunning(), true);
         }
 
         [Fact]
-        public async void TestServiceIsPassedSocket() {
-            await _server.StartAsync();
+        public void TestServiceIsPassedSocket() {
+            _server.Start();
             Assert.Equal(_mockService.Socket, _mockSocket);
         }
     }

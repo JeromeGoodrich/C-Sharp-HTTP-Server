@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using HTTPServer;
+﻿using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
     public class MockListener : IListener {
@@ -14,10 +13,6 @@ namespace HTTPServerTest.Mocks {
             if (_callCounter != 0) return false;
             _callCounter++;
             return true;
-        }
-
-        public async Task<IClientSocket> AcceptAsync() {
-            return _mockSocket;
         }
 
         public IClientSocket Accept() {

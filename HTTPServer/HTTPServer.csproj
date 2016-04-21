@@ -51,6 +51,8 @@
     <StartupObject>HTTPServer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,6 +66,7 @@
     <Compile Include="BasicAuthHandler.cs" />
     <Compile Include="ClientSocket.cs" />
     <Compile Include="DirHandler.cs" />
+    <Compile Include="FIleLogger.cs" />
     <Compile Include="IClientSocket.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="IListener.cs" />

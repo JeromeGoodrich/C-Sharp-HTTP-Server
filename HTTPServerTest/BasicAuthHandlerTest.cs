@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using HTTPServer;
 using Xunit;
 
@@ -16,9 +17,7 @@ namespace HTTPServerTest {
                 Path = "/logs",
                 Version = "HTTP/1.1"
             };
-            _handler = new BasicAuthHandler();
-
-            
+            _handler = new BasicAuthHandler();            
         }
 
         [Fact]
@@ -56,6 +55,20 @@ namespace HTTPServerTest {
             Assert.Equal(401, _response.StatusCode);
         }
 
+        [Fact]
+        public void AuthorizedRequestHasBody() {
+            _request.AddHeader("Authorization", "Basic YWRtaW46aHVudGVyMg==");
+            var logger = new FileLogger();
+            logger.Log("GET /log HTTP/1.1\r\n");
+            logger.Log("PUT /these HTTP/1.1\r\b");
+            logger.Log("HEAD /requests HTTP/1.1\r\n");
+            _response = _handler.Handle(_request);
+        
+
+            Assert.Contains("GET /log HTTP/1.1", Encoding.UTF8.GetString(_response.Body));
+            Assert.Contains("PUT /these HTTP/1.1", Encoding.UTF8.GetString(_response.Body));
+            Assert.Contains("HEAD /requests HTTP/1.1", Encoding.UTF8.GetString(_response.Body));
+        }
     }
 
 }

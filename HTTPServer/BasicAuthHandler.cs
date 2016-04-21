@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 
 namespace HTTPServer {
@@ -13,13 +14,14 @@ namespace HTTPServer {
                 var password = credentials.Split(':')[1];
                 if (username.Equals("admin") && password.Equals("hunter2")) {
                     response = new Response(200, request.Version);
-                }
-                else {
+                    using (var reader = File.OpenText(Path.Combine(Environment.CurrentDirectory, @"..\..\..\..\HTTPServer\logFile.txt"))) {
+                            response.Body = Encoding.UTF8.GetBytes(reader.ReadToEnd());
+                        }
+                    } else {
                     response = new Response(401, request.Version);
                     response.AddHeader("WWW-Authenticate", "Basic realm=\"Camelot\"");
                 }
-            }
-            else {
+            } else {
                 response = new Response(401, request.Version);
                 response.AddHeader("WWW-Authenticate", "Basic realm=\"Camelot\"");
             }

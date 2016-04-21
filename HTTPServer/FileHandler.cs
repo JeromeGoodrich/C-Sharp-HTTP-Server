@@ -9,7 +9,12 @@ namespace HTTPServer {
         }
 
         public IResponse Handle(Request request) {
-            throw new System.NotImplementedException();
+            var response = new Response(200, "HTTP/1.1");
+            var fileBytes = File.ReadAllBytes(_publicDir + request.Path);
+            response.AddHeader("Content-Length", fileBytes.Length.ToString());
+            response.AddHeader("Content-Type", "text/plain");
+            response.Body = fileBytes;
+            return response;
         }
 
         public bool WillHandle(string method, string path) {

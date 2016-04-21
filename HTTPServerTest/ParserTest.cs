@@ -10,7 +10,7 @@ namespace HTTPServerTest {
         public ParserTest() {
             var rawRequest = Encoding.UTF8.GetBytes("POST /form HTTP/1.1\r\n" +
                                                  "Host: www.example.com\r\n" +
-                                                 "Content-Length: 31\r\n\r\n" +
+                                                 "Content-Length: 34\r\n\r\n" +
                                                  "firstname=jerome&lastname=goodrich");
             var stream = new MemoryStream(rawRequest);
             var parser = new Parser();
@@ -36,7 +36,7 @@ namespace HTTPServerTest {
         [Fact]
         public void TestParseHeaders() {
             Assert.Equal("www.example.com", _request.GetHeader("Host"));
-            Assert.Equal("31", _request.GetHeader("Content-Length"));
+            Assert.Equal("34", _request.GetHeader("Content-Length"));
         }
 
         [Fact]

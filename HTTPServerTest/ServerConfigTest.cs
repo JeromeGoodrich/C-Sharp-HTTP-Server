@@ -11,8 +11,8 @@ namespace HTTPServerTest {
             var args = new[] { "" };
             var config = new ServerConfig(args);
             
-            Assert.Equal(config.Port, 5039);
-            Assert.Equal(config.PublicDir, Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures\"));
+            Assert.Equal(5000, config.Port);
+            Assert.Equal(Path.Combine(Environment.CurrentDirectory, @"../../../HTTPServerTest/Fixtures/"), config.PublicDir);
         }
         [Fact]
         public void TestArgsProvided() {

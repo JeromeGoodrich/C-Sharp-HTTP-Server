@@ -25,13 +25,13 @@ namespace HTTPServerTest {
         [Fact]
         public void Test() {
             while (!_mockServer.Running) {}
+
             var mockClient = new TcpClient();
             mockClient.Connect(IPAddress.Parse("127.0.0.1"), _config.Port);
             var rawResponse = new char[79];
+
             using (var stream = mockClient.GetStream()) {
-                var writer = new StreamWriter(stream) {
-                    AutoFlush = true
-                };
+                var writer = new StreamWriter(stream) {AutoFlush = true};
                 var reader = new StreamReader(stream);
                 var request = "GET / HTTP/1.1\r\n" +
                               "Host: localhost:5040\r\n" +

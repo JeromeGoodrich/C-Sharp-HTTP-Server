@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace HTTPServer {
     public class Parser : IParser {
@@ -14,6 +12,14 @@ namespace HTTPServer {
                 requestLineAndHeaders += line + "\r\n";
             }
             SplitRequestLineAndHeaders(requestLineAndHeaders, request);
+            if (request.GetHeaders().Keys.Contains("Content-Length")) {
+                var contentLength = int.Parse(request.GetHeader("Content-Length"));
+                var rawBody = new char[contentLength];
+
+                reader.Read(rawBody, 0, contentLength);
+                var body = new string(rawBody);
+                request.Body = body;
+            }
             return request;
             
         } 
@@ -26,31 +32,20 @@ namespace HTTPServer {
             ParseHeaders(headers, request);
         }
 
-        private string SplitBodyfromRest(string rawRequest, Request request) {
-            var splitRawRequest = rawRequest.Split(new[] { "\r\n\r\n" }, StringSplitOptions.None);
-            var requestLineAndHeaders = splitRawRequest[0];
-            if (splitRawRequest.Length > 1) {
-                var body = splitRawRequest[1];
-                ParseBody(body, request);
-            }
-            return requestLineAndHeaders;
-        }
 
-        private void ParseBody(string body, Request request) {
-            request.Body = body;
+        private void ParseBody(Request request) {
+
         }
 
         private void ParseHeaders(string[] headers, Request request) {
             foreach (var header in headers) {
                 if (header != "") {
-                    Console.WriteLine(header);
-                var splitHeader = header.Split(':');
-                var headerName = splitHeader[0];
-                var headerValue = splitHeader[1].TrimStart(' ');
-                request.AddHeader(headerName, headerValue);
+                    var splitHeader = header.Split(':');
+                    var headerName = splitHeader[0];
+                    var headerValue = splitHeader[1].TrimStart(' ');
+                    request.AddHeader(headerName, headerValue);
+                }
             }
-        }
-            
         }
 
         private void ParseRequestLine(string requestLine, Request request) {

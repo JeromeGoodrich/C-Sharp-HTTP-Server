@@ -97,5 +97,43 @@ namespace HTTPServerTest {
             Assert.Equal("application/pdf", response.GetHeader("Content-Type"));
             Assert.Contains("attachment;", response.GetHeader("Content-Disposition"));
         }
+
+        [Fact]
+        public void RequestForPartialContentReturns206Test() {
+            _request.Path = "/partial_content.txt";
+            _request.AddHeader("Range", "bytes=0-4");
+            var response = _handler.Handle(_request);
+
+            Assert.Equal(206, response.StatusCode);
+        }
+
+        [Fact]
+        public void ResponseBodyHasPartialContentWithFullRangeTest() {
+            _request.Path = "/partial_content.txt";
+            _request.AddHeader("Range", "bytes=0-4");
+            var response = _handler.Handle(_request);
+
+            Assert.Equal("This ", Encoding.UTF8.GetString(response.Body));
+        }
+
+        [Fact]
+        public void ResponseBodyHasPartialContentWithEndRangeTest()
+        {
+            _request.Path = "/partial_content.txt";
+            _request.AddHeader("Range", "bytes=-6");
+            var response = _handler.Handle(_request);
+
+            Assert.Equal(" 206.\n", Encoding.UTF8.GetString(response.Body));
+        }
+
+        [Fact]
+        public void ResponseBodyHasPartialContentWithStartRangeTest() {
+            _request.Path = "/partial_content.txt";
+            _request.AddHeader("Range", "bytes=4-");
+            var response = _handler.Handle(_request);
+
+            Assert.Equal(" is a file that contains text to " +
+                         "read part of in order to fulfill a 206.\n", Encoding.UTF8.GetString(response.Body));
+        }
     }
 }

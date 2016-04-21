@@ -17,7 +17,7 @@ namespace HTTPServer {
         }
 
         public bool WillHandle(string method, string path) {
-            throw new NotImplementedException();
+            return path.Equals("/logs");
         }
 
         private bool VerifyCredentials(string encodedCredentials) {

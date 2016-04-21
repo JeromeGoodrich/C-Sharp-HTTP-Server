@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,18 +13,19 @@ namespace HTTPServer {
             @"..\..\..\HTTPServerTest\Fixtures\");
 
         public IPAddress IpAddress = IPAddress.Any;
+        public int Port { get; private set; }
+        public string PublicDir { get; private set; }
+        public List<IHandler> Handlers = new List<IHandler>();
+
 
         public ServerConfig(string[] args) {
             Config(args);
         }
 
-        public int Port { get; private set; }
-        public string PublicDir { get; private set; }
-
         public void Config(string[] args) {
             SetPort(args);
             SetPublicDir(args);
-            SetIpAddress();
+            CreateHandlers();
         }
 
         private void SetPort(params string[] args) {
@@ -46,15 +48,9 @@ namespace HTTPServer {
             }
         }
 
-        private void SetIpAddress() {
-            IPAddress localIp = null;
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList) {
-                if (ip.AddressFamily == AddressFamily.InterNetwork) {
-                    localIp = ip;
-                }
-            }
-            IpAddress = IPAddress.Any;
+        private void CreateHandlers() {
+            Handlers.Add(new DirHandler(PublicDir));
+            Handlers.Add(new BasicAuthHandler());
         }
     }
 }

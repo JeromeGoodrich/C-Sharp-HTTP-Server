@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Handlers\BasicAuthHandler.cs" />
-    <Compile Include="Handlers\Handlers.cs" />
     <Compile Include="RequestHandler.cs" />
     <Compile Include="Server\ClientSocket.cs" />
     <Compile Include="Handlers\DirHandler.cs" />

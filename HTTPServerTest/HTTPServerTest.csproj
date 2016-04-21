@@ -72,6 +72,7 @@
     <Compile Include="Handlers\BasicAuthHandlerTest.cs" />
     <Compile Include="Handlers\DirHandlerTest.cs" />
     <Compile Include="Handlers\FakeHandler.cs" />
+    <Compile Include="Handlers\NotFoundHandlerTest.cs" />
     <Compile Include="Mocks\MockHandler.cs" />
     <Compile Include="Mocks\MockListener.cs" />
     <Compile Include="Mocks\MockParser.cs" />

@@ -51,6 +51,7 @@ namespace HTTPServer {
         private void CreateHandlers() {
             Handlers.Add(new DirHandler(PublicDir));
             Handlers.Add(new BasicAuthHandler());
+            Handlers.Add(new NotFoundHandler());
         }
     }
 }

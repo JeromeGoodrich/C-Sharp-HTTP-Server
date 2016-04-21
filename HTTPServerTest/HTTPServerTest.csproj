@@ -69,6 +69,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="FileHandlerTest.cs" />
     <Compile Include="Handlers\BasicAuthHandlerTest.cs" />
     <Compile Include="Handlers\DirHandlerTest.cs" />
     <Compile Include="Handlers\FakeHandler.cs" />

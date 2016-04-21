@@ -47,6 +47,14 @@ namespace HTTPServerTest {
             Assert.Equal(200, _response.StatusCode);
         }
 
+        [Fact]
+        public void Returns401WithIncorrectCredentialsTest()
+        {
+            _request.AddHeader("Authorization", "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==");
+            _response = _handler.Handle(_request);
+
+            Assert.Equal(401, _response.StatusCode);
+        }
 
     }
 

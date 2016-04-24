@@ -107,13 +107,24 @@ namespace HTTPServerTest {
             Assert.Equal(206, response.StatusCode);
         }
 
+
+        private byte[] copyOfRange(byte[] src, int start, int end)
+        {
+            int len = end - start;
+            byte[] dest = new byte[len];
+            Array.Copy(src, start, dest, 0, len);
+            return dest;
+        }
+
         [Fact]
         public void ResponseBodyHasPartialContentWithFullRangeTest() {
             _request.Path = "/partial_content.txt";
             _request.AddHeader("Range", "bytes=0-4");
+            byte[] bytes = File.ReadAllBytes(_publicDir + _request.Path);
+
             var response = _handler.Handle(_request);
 
-            Assert.Equal("This ", Encoding.UTF8.GetString(response.Body));
+            Assert.Equal(copyOfRange(bytes, 0, 4), response.Body);
         }
 
         [Fact]
@@ -121,19 +132,20 @@ namespace HTTPServerTest {
         {
             _request.Path = "/partial_content.txt";
             _request.AddHeader("Range", "bytes=-6");
+            byte[] bytes = File.ReadAllBytes(_publicDir + _request.Path);
             var response = _handler.Handle(_request);
 
-            Assert.Equal(" 206.\n", Encoding.UTF8.GetString(response.Body));
+            Assert.Equal(copyOfRange(bytes, bytes.Length - 6, bytes.Length), response.Body);
         }
 
         [Fact]
         public void ResponseBodyHasPartialContentWithStartRangeTest() {
             _request.Path = "/partial_content.txt";
             _request.AddHeader("Range", "bytes=4-");
+            byte[] bytes = File.ReadAllBytes(_publicDir + _request.Path);
             var response = _handler.Handle(_request);
 
-            Assert.Equal(" is a file that contains text to " +
-                         "read part of in order to fulfill a 206.\n", Encoding.UTF8.GetString(response.Body));
+            Assert.Equal(copyOfRange(bytes, 4, bytes.Length), response.Body);
         }
     }
 }

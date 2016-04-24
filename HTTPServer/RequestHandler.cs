@@ -20,6 +20,7 @@ namespace HTTPServer {
             return response;
         }
 
+        //figure out how to do this without WillHandle 
         public bool WillHandle(string method, string path) {
             throw new System.NotImplementedException();
         }

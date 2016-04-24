@@ -73,8 +73,9 @@ namespace HTTPServer {
         private string GenFileListingHtml(string dirName) {
             var files = Directory.GetFiles(dirName);
             var filesList = "";
+            Console.WriteLine("fileHandlerPath " +_publicDir + @"\" + "file1");
             foreach (var file in files) {
-                Console.WriteLine("Separator: " + Path.DirectorySeparatorChar);
+                
                 var fileIndex = file.Split(Path.DirectorySeparatorChar).Length - 1;
                 var fileName = file.Split(Path.DirectorySeparatorChar)[fileIndex];
                 filesList += "<li><a href=\"" + "/" + fileName + "\">" + fileName + "</a></li>\n";

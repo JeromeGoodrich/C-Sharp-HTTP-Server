@@ -6,7 +6,7 @@ namespace HTTPServer {
         private readonly IParser _parser;
         private readonly IClientSocket _socket;
 
-
+        //class needs better name
         public Service(IClientSocket socket, IParser parser, IHandler handler) {
             _socket = socket;
             _parser = parser;
@@ -21,7 +21,7 @@ namespace HTTPServer {
                 var response = _handler.Handle(request);
                 response.Send(writer);
             }
-            _socket.Close();
+            _socket.Close();// move to server loop
         }
     }
 }

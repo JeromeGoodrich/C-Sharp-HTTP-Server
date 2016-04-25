@@ -20,11 +20,8 @@ namespace HTTPServer {
                 var socket = _listener.Accept();
                 Console.WriteLine("Accepted Connection.");
                 var service = _serviceFactory.CreateService(socket);
-                var startTask = Task.Run(() => service.Run());
-                if (token.IsCancellationRequested)
-                {
-                    break;
-                }
+                var runTask = Task.Run(() => service.Run());
+                if (token.IsCancellationRequested) { break; }
             }
         }
     }

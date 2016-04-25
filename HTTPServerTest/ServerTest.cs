@@ -57,6 +57,14 @@ namespace HTTPServerTest {
         }
 
         [Fact]
+        public void SocketIsClosed() {
+            var task = Task.Run(() => _server.Start(_tokenSource.Token));
+            _tokenSource.Cancel();
+            task.Wait();
+            Assert.Equal(true, _mockSocket.IsClosed());
+        }
+
+        [Fact]
         public void TaskThatStartsServerCompletesAfterCancellation() {
             var task = Task.Run(() => _server.Start(_tokenSource.Token));
 

@@ -6,8 +6,8 @@ namespace HTTPServer {
         private static void Main(string[] args) {
             var config = new ServerConfig(args);
             var server = Server(config);
-            var cancellationSource = new CancellationTokenSource();
-            server.Start(cancellationSource.Token);
+            var tokenSource = new CancellationTokenSource();
+            server.Start(tokenSource.Token);
         }
 
         private static Server Server(ServerConfig config) {

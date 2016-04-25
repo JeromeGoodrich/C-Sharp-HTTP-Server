@@ -55,7 +55,6 @@ namespace HTTPServer {
             request.Method = method;
             request.Path = path;
             request.Version = version;
-            _logger.Log(requestLine);
         }
     }
 }

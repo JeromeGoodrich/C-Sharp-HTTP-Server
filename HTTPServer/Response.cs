@@ -21,10 +21,9 @@ namespace HTTPServer {
         public void Send(BinaryWriter writer) {
             var formattedResponse = GetFormattedResponse();
             var bytes = Encoding.UTF8.GetBytes(formattedResponse);
-            if (Body != null) {
+                if (Body != null) {
                 var fullResponse = bytes.Concat(Body).ToArray();
                 writer.Write(fullResponse);
-                Console.WriteLine(Encoding.UTF8.GetString(fullResponse));
             }
             else {
                 writer.Write(bytes);

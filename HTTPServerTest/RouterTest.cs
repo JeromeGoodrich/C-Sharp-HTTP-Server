@@ -20,10 +20,24 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void ReturnsProperHandler() {
+        public void RequestToRootReturnsDirHandler() {
             _request.Path = "/";
 
             Assert.IsType<DirHandler>(_router.Route(_request));
+        }
+
+        [Fact]
+        public void RequestToFileReturnsFileHandler() {
+            _request.Path = "/file1";
+
+            Assert.IsType<FileHandler>(_router.Route(_request));
+        }
+
+        [Fact]
+        public void RequestToLogsReturnsBasicAuthHandler() {
+            _request.Path = "/logs";
+
+            Assert.IsType<BasicAuthHandler>(_router.Route(_request));
         }
 
         [Fact]

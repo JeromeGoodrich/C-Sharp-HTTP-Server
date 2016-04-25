@@ -23,7 +23,7 @@ namespace HTTPServer {
                 var response = handler.Handle(request);
                 response.Send(writer);
             }
-            _socket.Close();// move to server loop
+            _socket.Close();
         }
     }
 }

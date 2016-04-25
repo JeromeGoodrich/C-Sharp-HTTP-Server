@@ -1,10 +1,13 @@
-﻿namespace HTTPServer {
+﻿using System.Threading;
+
+namespace HTTPServer {
     internal class Program {
 
         private static void Main(string[] args) {
             var config = new ServerConfig(args);
             var server = Server(config);
-            server.Start();
+            var cancellationSource = new CancellationTokenSource();
+            server.Start(cancellationSource.Token);
         }
 
         private static Server Server(ServerConfig config) {

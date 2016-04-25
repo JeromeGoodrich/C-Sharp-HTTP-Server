@@ -7,7 +7,7 @@ namespace HTTPServerTest {
     public class RouterTest {
 
         private readonly Router _router;
-        private Request _request;
+        private readonly Request _request;
 
         public RouterTest() {
             var publicDir = Path.Combine(Environment.CurrentDirectory,

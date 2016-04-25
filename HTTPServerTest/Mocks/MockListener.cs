@@ -4,6 +4,7 @@ namespace HTTPServerTest.Mocks {
     public class MockListener : IListener {
         private readonly IClientSocket _mockSocket;
         private int _callCounter;
+        private bool _listening;
 
         public MockListener(IClientSocket mockSocket) {
             _mockSocket = mockSocket;
@@ -19,6 +20,12 @@ namespace HTTPServerTest.Mocks {
             return _mockSocket;
         }
 
-        public void Start() {}
+        public void Start() {
+            _listening = true;
+        }
+
+        public bool IsListening() {
+            return _listening;
+        }
     }
 }

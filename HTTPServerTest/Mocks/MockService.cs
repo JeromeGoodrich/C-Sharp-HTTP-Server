@@ -1,4 +1,5 @@
-﻿using HTTPServer;
+﻿using System.Threading;
+using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
     public class MockService : IService {

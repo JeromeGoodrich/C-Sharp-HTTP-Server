@@ -23,7 +23,6 @@ namespace HTTPServerTest {
             var factory = new ServiceFactory(parser, handler);
             _server = new Server(listener, factory);
             var startTask = Task.Run(() => _server.Start(_tokenSource.Token));
-            _tokenSource.Cancel();
         }
 
         [Fact]
@@ -40,9 +39,11 @@ namespace HTTPServerTest {
                               "Accept: */*\r\n\r\n";
                 writer.Write(request);
                 reader.Read(rawResponse, 0, rawResponse.Length);
+                
             }
             Assert.Contains("HTTP/1.1 200 OK\r\n" +
                             "Content-Length: 554\r\n\r\n", new string(rawResponse));
+            _tokenSource.Cancel();
         }
     }
 }

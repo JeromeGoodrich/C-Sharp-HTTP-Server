@@ -73,6 +73,8 @@
     <Compile Include="BasicAuthHandlerTest.cs" />
     <Compile Include="DirHandlerTest.cs" />
     <Compile Include="FakeHandler.cs" />
+    <Compile Include="Mocks\MockRouter.cs" />
+    <Compile Include="RouterTest.cs" />
     <Compile Include="NotFoundHandlerTest.cs" />
     <Compile Include="Mocks\MockHandler.cs" />
     <Compile Include="Mocks\MockListener.cs" />
@@ -85,7 +87,6 @@
     <Compile Include="ParserTest.cs" />
     <Compile Include="RequestTest.cs" />
     <Compile Include="ResponseTest.cs" />
-    <Compile Include="RequestHandlerTest.cs" />
     <Compile Include="ServerConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerIntegrationTest.cs" />

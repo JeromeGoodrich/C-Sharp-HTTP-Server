@@ -15,11 +15,6 @@ namespace HTTPServer {
             _publicDir = publicDir;
         }
 
-
-        public bool WillHandle(string method, string path) {
-            return File.Exists(_publicDir + @"\" + path.TrimStart('/'));
-        }
-
         public IResponse Handle(Request request) {
             _file = _publicDir + @"\" + request.Path.TrimStart('/');
             _fileSize = File.ReadAllBytes(_file).Length;
@@ -27,7 +22,6 @@ namespace HTTPServer {
             _version = request.Version;
             return request.GetHeaders().ContainsKey("Range") ? HandlePartialContent(request) : HandleFile();
         }
-
 
         private IResponse HandlePartialContent(Request request) {
             int rangeStart;

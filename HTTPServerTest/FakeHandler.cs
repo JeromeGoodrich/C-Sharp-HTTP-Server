@@ -13,9 +13,5 @@ namespace HTTPServerTest {
         public IResponse Handle(Request request) {
             return new Response(_statusCode, request.Version);
         }
-
-        public bool WillHandle(string method, string path) {
-            return _fakePath.Equals(path);
-        }
     }
 }

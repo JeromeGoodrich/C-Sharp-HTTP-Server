@@ -66,8 +66,9 @@
   <ItemGroup>
     <Compile Include="FileHandler.cs" />
     <Compile Include="BasicAuthHandler.cs" />
+    <Compile Include="Router.cs" />
+    <Compile Include="IRouter.cs" />
     <Compile Include="NotFoundHandler.cs" />
-    <Compile Include="RequestHandler.cs" />
     <Compile Include="ClientSocket.cs" />
     <Compile Include="DirHandler.cs" />
     <Compile Include="FileLogger.cs" />

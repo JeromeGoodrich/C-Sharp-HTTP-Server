@@ -3,7 +3,7 @@ using Xunit;
 
 namespace HTTPServerTest {
     public class NotFoundHandlerTest {
-        private Request _request;
+        private readonly Request _request;
 
         public NotFoundHandlerTest() {
             _request = new Request
@@ -12,12 +12,6 @@ namespace HTTPServerTest {
                 Path = "/not_a_path",
                 Version = "HTTP/1.1"
             };
-        }
-
-        [Fact]
-        public void WillHandleTest() {
-            var handler = new NotFoundHandler();
-            Assert.True(handler.WillHandle(_request.Method, _request.Path));
         }
 
         [Fact]

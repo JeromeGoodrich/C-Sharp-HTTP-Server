@@ -4,6 +4,7 @@ using System.Text;
 
 namespace HTTPServer {
     public class BasicAuthHandler : IHandler {
+
         public IResponse Handle(Request request) {
             if (request.GetHeaders().ContainsKey("Authorization")) {
                 var encodedCredentials = request.GetHeader("Authorization").Split(' ')[1];
@@ -14,10 +15,6 @@ namespace HTTPServer {
                 return AccessDenied(request);
             }
             return AccessDenied(request);
-        }
-
-        public bool WillHandle(string method, string path) {
-            return path.Equals("/logs");
         }
 
         private bool VerifyCredentials(string encodedCredentials) {

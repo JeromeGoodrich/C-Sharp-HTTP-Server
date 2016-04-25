@@ -27,10 +27,6 @@ namespace HTTPServer {
             return response;
         }
 
-        public bool WillHandle(string method, string path) {
-            return path.Equals("/");
-        }
-
         private byte[] GenJsonContent(string dirName) {
             const string jsonBoilerPlate = "{ files : [";
             var jsonFilesListing = GenFileListingJson(dirName);

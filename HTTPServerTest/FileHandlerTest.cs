@@ -21,21 +21,6 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void WillHandleTest() {
-            _request.Path = "/file1";
-
-            Assert.True(_handler.WillHandle(_request.Method, _request.Path));
-        }
-
-        [Fact]
-        public void WillNotHandleTest() {
-            _request.Path = "/badpath";
-            var handler = new FileHandler(_publicDir);
-
-            Assert.False(handler.WillHandle(_request.Method, _request.Path));
-        }
-
-        [Fact]
         public void RequestForFileReturns200Test() {
             _request.Path = "/file1";
             var response = _handler.Handle(_request);

@@ -2,15 +2,15 @@
 
 namespace HTTPServer {
     public class Service : IService {
-        private readonly IHandler _handler;
+        private readonly IRouter _router;
         private readonly IParser _parser;
         private readonly IClientSocket _socket;
 
         //class needs better name
-        public Service(IClientSocket socket, IParser parser, IHandler handler) {
+        public Service(IClientSocket socket, IParser parser, IRouter router) {
             _socket = socket;
             _parser = parser;
-            _handler = handler;
+            _router = router;
         }
 
         public void Run() {
@@ -18,7 +18,8 @@ namespace HTTPServer {
                 var reader = new StreamReader(stream);
                 var writer = new BinaryWriter(stream);
                 var request = _parser.Parse(reader);
-                var response = _handler.Handle(request);
+                var handler = _router.Route(request);
+                var response = handler.Handle(request);
                 response.Send(writer);
             }
             _socket.Close();// move to server loop

@@ -16,10 +16,6 @@ namespace HTTPServerTest.Mocks {
             return _mockResponse;
         }
 
-        public bool WillHandle(string method, string path) {
-            throw new System.NotImplementedException();
-        }
-
         public int GetCallsToHandle() {
             return _callsToHandle;
         }

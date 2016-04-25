@@ -10,7 +10,7 @@ namespace HTTPServer {
         private const int DefaultPort = 5000;
 
         private readonly string _defaultPublicDir = Path.Combine(Environment.CurrentDirectory,
-            @"..\..\..\HTTPServerTest\Fixtures").Normalize();
+            @"..\..\..\HTTPServerTest\Fixtures\");
 
         public IPAddress IpAddress = IPAddress.Any;
         public int Port { get; private set; }
@@ -25,7 +25,6 @@ namespace HTTPServer {
         public void Config(string[] args) {
             SetPort(args);
             SetPublicDir(args);
-            CreateHandlers();
         }
 
         private void SetPort(params string[] args) {
@@ -46,14 +45,6 @@ namespace HTTPServer {
             else {
                 PublicDir = _defaultPublicDir;
             }
-        }
-
-        private void CreateHandlers() {
-            Handlers.Add(new DirHandler(PublicDir));
-            Handlers.Add(new BasicAuthHandler());
-            Handlers.Add(new FileHandler(PublicDir));
-            Handlers.Add(new NotFoundHandler());
-            
         }
     }
 }

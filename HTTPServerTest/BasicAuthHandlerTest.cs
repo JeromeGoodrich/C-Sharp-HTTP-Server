@@ -67,23 +67,5 @@ namespace HTTPServerTest {
             Assert.Contains("PUT /these HTTP/1.1", Encoding.UTF8.GetString(_response.Body));
             Assert.Contains("HEAD /requests HTTP/1.1", Encoding.UTF8.GetString(_response.Body));
         }
-
-        [Fact]
-        public void WillHandleTest()
-        {
-            Assert.True(_handler.WillHandle(_request.Method, _request.Path));
-        }
-
-        [Fact]
-        public void WillNotHandleTest()
-        {
-            var badRequest = new Request
-            {
-                Method = "GET",
-                Path = "/not_a_directory",
-                Version = "HTTP/1.1"
-            };
-            Assert.False(_handler.WillHandle(badRequest.Method, badRequest.Path));
-        }
     }
 }

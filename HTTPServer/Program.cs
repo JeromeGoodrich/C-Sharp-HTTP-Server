@@ -8,8 +8,7 @@ namespace HTTPServer {
             var config = new ServerConfig(args);
             var server = Server(config);
             var tokenSource = new CancellationTokenSource();
-            var startTask = Task.Run(() => server.Start(tokenSource.Token));
-            startTask.Wait();
+            server.Start(tokenSource.Token);
         }
 
         private static Server Server(ServerConfig config) {

@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace HTTPServer {
     internal class Program {
@@ -7,7 +8,8 @@ namespace HTTPServer {
             var config = new ServerConfig(args);
             var server = Server(config);
             var tokenSource = new CancellationTokenSource();
-            server.Start(tokenSource.Token);
+            var startTask = Task.Run(() => server.Start(tokenSource.Token));
+            startTask.Wait();
         }
 
         private static Server Server(ServerConfig config) {

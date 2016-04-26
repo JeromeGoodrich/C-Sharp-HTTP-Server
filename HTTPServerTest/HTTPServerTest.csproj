@@ -80,7 +80,6 @@
     <Compile Include="Mocks\MockListener.cs" />
     <Compile Include="Mocks\MockParser.cs" />
     <Compile Include="Mocks\MockResponse.cs" />
-    <Compile Include="Mocks\MockServer.cs" />
     <Compile Include="Mocks\MockService.cs" />
     <Compile Include="Mocks\MockServiceFactory.cs" />
     <Compile Include="Mocks\MockSocket.cs" />

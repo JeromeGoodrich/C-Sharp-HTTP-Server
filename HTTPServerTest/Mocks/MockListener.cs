@@ -1,4 +1,5 @@
-﻿using HTTPServer;
+﻿using System.Threading.Tasks;
+using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
     public class MockListener : IListener {

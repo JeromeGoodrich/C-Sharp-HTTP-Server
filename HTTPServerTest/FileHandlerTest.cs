@@ -132,5 +132,26 @@ namespace HTTPServerTest {
 
             Assert.Equal(copyOfRange(bytes, 4, bytes.Length), response.Body);
         }
+
+        [Fact]
+        public void ReturnMethodNotAllowedForUnsupportedMethod() {
+            _request.Method = "PUT";
+            _request.Path = "/file1";
+
+            var response = _handler.Handle(_request);
+
+            Assert.Equal(405, response.StatusCode);
+        }
+
+        [Fact]
+        public void ReturnMethodNotAllowedForBogusRequest()
+        {
+            _request.Method = "bogusRequest";
+            _request.Path = "/file1";
+
+            var response = _handler.Handle(_request);
+
+            Assert.Equal(405, response.StatusCode);
+        }
     }
 }

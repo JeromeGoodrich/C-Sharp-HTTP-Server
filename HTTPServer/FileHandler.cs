@@ -20,7 +20,12 @@ namespace HTTPServer {
             _fileSize = File.ReadAllBytes(_file).Length;
             _mimeType = Path.GetExtension(_file).Equals("") ? "text/plain" : MimeMapping.GetMimeMapping(_file);
             _version = request.Version;
-            return request.GetHeaders().ContainsKey("Range") ? HandlePartialContent(request) : HandleFile();
+            if (request.Method.Equals("GET")) {
+                return request.GetHeaders().ContainsKey("Range") ? HandlePartialContent(request) : HandleFile();
+            }
+            else {
+                return new Response(405, _version);
+            }
         }
 
         private IResponse HandlePartialContent(Request request) {

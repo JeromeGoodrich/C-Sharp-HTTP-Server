@@ -23,6 +23,7 @@ namespace HTTPServerTest {
             var factory = new ServiceFactory(parser, handler);
             _server = new Server(listener, factory);
             var startTask = Task.Run(() => _server.Start(_tokenSource.Token));
+            
         }
 
         [Fact]
@@ -30,6 +31,8 @@ namespace HTTPServerTest {
             var mockClient = new TcpClient();
             mockClient.Connect(IPAddress.Parse("127.0.0.1"), _config.Port);
             var rawResponse = new char[79];
+
+            _tokenSource.Cancel();
 
             using (var stream = mockClient.GetStream()) {
                 var writer = new StreamWriter(stream) {AutoFlush = true};
@@ -43,7 +46,7 @@ namespace HTTPServerTest {
             }
             Assert.Contains("HTTP/1.1 200 OK\r\n" +
                             "Content-Length: 554\r\n\r\n", new string(rawResponse));
-            _tokenSource.Cancel();
+            
         }
     }
 }

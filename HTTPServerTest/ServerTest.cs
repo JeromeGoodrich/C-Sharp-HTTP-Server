@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using HTTPServer;
 using HTTPServerTest.Mocks;
@@ -54,14 +53,6 @@ namespace HTTPServerTest {
             _tokenSource.Cancel();
             task.Wait();
             Assert.Equal(_mockService.Socket, _mockSocket);
-        }
-
-        [Fact]
-        public void SocketIsClosed() {
-            var task = Task.Run(() => _server.Start(_tokenSource.Token));
-            _tokenSource.Cancel();
-            task.Wait();
-            Assert.Equal(true, _mockSocket.IsClosed());
         }
 
         [Fact]

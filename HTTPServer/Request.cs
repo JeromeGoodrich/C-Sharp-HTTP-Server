@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace HTTPServer {
     public class Request {
         private readonly Dictionary<string, string> _headers = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
         public string Method { get; set; }
         public string Path { get; set; }
         public string Version { get; set; }
@@ -18,6 +20,14 @@ namespace HTTPServer {
 
         public Dictionary<string, string> GetHeaders() {
             return _headers;
+        }
+
+        public void AddParameters(string key, string value) {
+            _parameters.Add(key, value);
+        }
+
+        public Dictionary<string, string> GetParameters() {
+            return _parameters;
         }
     }
 }

@@ -74,6 +74,7 @@
     <Compile Include="DirHandlerTest.cs" />
     <Compile Include="FakeHandler.cs" />
     <Compile Include="Mocks\MockRouter.cs" />
+    <Compile Include="ParamsHandlerTest.cs" />
     <Compile Include="RouterTest.cs" />
     <Compile Include="NotFoundHandlerTest.cs" />
     <Compile Include="Mocks\MockHandler.cs" />

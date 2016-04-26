@@ -22,6 +22,7 @@ namespace HTTPServer {
             }
             _handlers.Add("/", new DirHandler(_publicDir));
             _handlers.Add("/logs", new BasicAuthHandler());
+            _handlers.Add("/parameters", new ParamsHandler());
         }
 
         public IHandler Route(Request request) {

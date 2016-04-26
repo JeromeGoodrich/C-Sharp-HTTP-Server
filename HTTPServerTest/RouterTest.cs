@@ -47,6 +47,13 @@ namespace HTTPServerTest {
             Assert.IsType<NotFoundHandler>(_router.Route(_request));
         }
 
+        [Fact]
+        public void ReturnsParamsHandler() {
+            _request.Path = "/parameters";
+
+            Assert.IsType<ParamsHandler>(_router.Route(_request));
+        }
+
 
 
     }

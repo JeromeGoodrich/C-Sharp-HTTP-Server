@@ -58,6 +58,7 @@ namespace HTTPServerTest {
             var request = parser.Parse(new StreamReader(stream));
 
             Assert.True(request.GetParameters().ContainsKey("variable_1"));
+            Assert.True(request.GetParameters().ContainsValue("stuff"));
 
         }
     }

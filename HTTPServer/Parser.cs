@@ -14,6 +14,7 @@ namespace HTTPServer {
             while ((line = reader.ReadLine()) != "") {
                 requestLineAndHeaders += line + "\r\n";
             }
+            Debug.WriteLine(requestLineAndHeaders);
             SplitRequestLineAndHeaders(requestLineAndHeaders, request);
             if (request.GetHeaders().Keys.Contains("Content-Length")) {
                 var contentLength = int.Parse(request.GetHeader("Content-Length"));

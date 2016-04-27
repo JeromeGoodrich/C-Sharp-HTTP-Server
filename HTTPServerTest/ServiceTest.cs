@@ -7,7 +7,6 @@ namespace HTTPServerTest {
     public class ServiceTest {
         private readonly MemoryStream _ioStream;
         private readonly MockHandler _mockHandler;
-        private readonly MockRouter _mockRouter;
         private readonly MockParser _mockParser;
         private readonly MockResponse _mockResponse;
         private readonly MockSocket _mockSocket;
@@ -22,8 +21,8 @@ namespace HTTPServerTest {
             _mockParser = new MockParser(_request);
             _mockResponse = new MockResponse();
             _mockHandler = new MockHandler(_mockResponse);
-            _mockRouter = new MockRouter(_mockHandler);
-            _service = new Service(_mockSocket, _mockParser, _mockRouter);
+            var mockRouter = new MockRouter(_mockHandler);
+            _service = new Service(_mockSocket, _mockParser, mockRouter);
         }
 
         [Fact]

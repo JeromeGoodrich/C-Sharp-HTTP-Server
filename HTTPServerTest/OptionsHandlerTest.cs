@@ -3,7 +3,7 @@ using Xunit;
 
 namespace HTTPServerTest {
     public class OptionsHandlerTest {
-        private IResponse _response;
+        private readonly IResponse _response;
 
         public OptionsHandlerTest() {
             var request = new Request {
@@ -21,8 +21,7 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void ResponseAllowHeaderHasCorrectContent()
-        {
+        public void ResponseAllowHeaderHasCorrectContent() {
             Assert.Equal("GET,HEAD,POST,OPTIONS,PUT", _response.GetHeader("Allow"));
         }
     }

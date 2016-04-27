@@ -4,7 +4,6 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using HTTPServer;
-using HTTPServerTest.Mocks;
 using Xunit;
 
 namespace HTTPServerTest {
@@ -40,6 +39,7 @@ namespace HTTPServerTest {
                 var request = "GET / HTTP/1.1\r\n" +
                               "Host: localhost:5000\r\n" +
                               "Accept: */*\r\n\r\n";
+
                 writer.Write(request);
                 reader.Read(rawResponse, 0, rawResponse.Length);
                 

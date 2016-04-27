@@ -107,7 +107,7 @@ namespace HTTPServerTest {
 
             var response = _handler.Handle(_request);
 
-            Assert.Equal(copyOfRange(bytes, 0, 4), response.Body);
+            Assert.Equal(copyOfRange(bytes, 0, 5), response.Body);
         }
 
         [Fact]

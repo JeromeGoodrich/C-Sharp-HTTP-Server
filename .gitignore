@@ -1,4 +1,6 @@
-reated by https://www.gitignore.io/api/visualstudio
+created by https://www.gitignore.io/api/visualstudio
+
+.vs/HTTPServer/v14
 
 logFile.txt
 

@@ -21,6 +21,12 @@ namespace HTTPServerTest {
             _server = new Server(_mockListener, mockServiceFactory);
         }
 
+        private void StartServer() {
+            var task = Task.Run(() => _server.Start(_tokenSource.Token));
+            _tokenSource.Cancel();
+            task.Wait();
+        }
+
         [Fact]
         public void ListenerHasNotStartedBeforeStartingServer() {
             Assert.Equal(false, _mockListener.IsListening());
@@ -33,25 +39,19 @@ namespace HTTPServerTest {
 
         [Fact]
         public void ListenerStartsAfterStartingServer() {
-            var task = Task.Run(() => _server.Start(_tokenSource.Token));
-            _tokenSource.Cancel();
-            task.Wait();
+            StartServer();
             Assert.Equal(true, _mockListener.IsListening());
         }
 
         [Fact]
         public void ServiceRunsAfterStartingServer() {
-            var task = Task.Run(() => _server.Start(_tokenSource.Token));
-            _tokenSource.Cancel();
-            task.Wait();
+            StartServer();
             Assert.Equal(true, _mockService.IsRunning());
         }
 
         [Fact]
         public void TestServiceIsPassedSocket() {
-            var task = Task.Run(() => _server.Start(_tokenSource.Token));
-            _tokenSource.Cancel();
-            task.Wait();
+            StartServer();
             Assert.Equal(_mockService.Socket, _mockSocket);
         }
 
@@ -59,12 +59,12 @@ namespace HTTPServerTest {
         public void TaskThatStartsServerCompletesAfterCancellation() {
             var task = Task.Run(() => _server.Start(_tokenSource.Token));
 
-            Assert.Equal(false, task.IsCompleted);
+            Assert.False(task.IsCompleted);
 
             _tokenSource.Cancel();
             task.Wait();
 
-            Assert.Equal(true, task.IsCompleted);
+            Assert.True(task.IsCompleted);
         }
     }
 }

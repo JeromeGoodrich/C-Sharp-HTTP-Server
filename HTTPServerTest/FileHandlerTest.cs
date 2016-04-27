@@ -117,7 +117,7 @@ namespace HTTPServerTest {
             byte[] bytes = File.ReadAllBytes(_publicDir + _request.Path);
             var response = _handler.Handle(_request);
 
-            Assert.Equal(copyOfRange(bytes, bytes.Length - 6, bytes.Length), response.Body);
+            Assert.Equal(copyOfRange(bytes, (bytes.Length-1) - 6, bytes.Length-1), response.Body);
         }
 
         [Fact]
@@ -127,7 +127,7 @@ namespace HTTPServerTest {
             byte[] bytes = File.ReadAllBytes(_publicDir + _request.Path);
             var response = _handler.Handle(_request);
 
-            Assert.Equal(copyOfRange(bytes, 4, bytes.Length), response.Body);
+            Assert.Equal(copyOfRange(bytes, 4, bytes.Length-1), response.Body);
         }
 
         [Fact]

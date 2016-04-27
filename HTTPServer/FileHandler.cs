@@ -23,15 +23,20 @@ namespace HTTPServer {
                 return request.GetHeaders().ContainsKey("Range") ? HandlePartialContent(request) : HandleFile();
             }
             if (request.Method.Equals("PATCH") && request.Path.Equals("/patch-content.txt")) {
-                var response = new Response(204, _version);
-                response.AddHeader("ETag", request.GetHeader("If-Match"));
-                var patchedContent = request.Body;
-                using (var writer = new StreamWriter(_file)) {
-                    writer.Write(patchedContent);
-                }
-                return response;
+                return HandlePatchRequest(request);
             }
             return new Response(405, _version);
+        }
+
+        private IResponse HandlePatchRequest(Request request) {
+            var response = new Response(204, _version);
+            var patchedContent = request.Body;
+            using (var writer = new StreamWriter(_file))
+            {
+                writer.Write(patchedContent);
+            }
+            response.AddHeader("ETag", request.GetHeader("If-Match"));
+            return response;
         }
 
         private IResponse HandlePartialContent(Request request) {

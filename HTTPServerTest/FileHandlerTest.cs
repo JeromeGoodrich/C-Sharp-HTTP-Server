@@ -151,7 +151,7 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void PatchTest() {
+        public void PatchRequestHasCorrectHeaderAndStatusCode() {
             _request.Method = "PATCH";
             _request.Path = "/patch-content.txt";
             _request.AddHeader("If-Match", "1");
@@ -164,7 +164,7 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void CheckPatchContent() {
+        public void PatchedContentReflectedInFile() {
             _request.Method = "GET";
             _request.Path = "/patch-content.txt";
 
@@ -174,8 +174,7 @@ namespace HTTPServerTest {
             Assert.Equal("patched content", Encoding.UTF8.GetString(response.Body));
         }
 
-        [Fact]
-        public void PatchAgainTest() {
+        public void PatchBackToDefault() {
             _request.Method = "PATCH";
             _request.Path = "/patch-content.txt";
             _request.AddHeader("If-Match", "2");
@@ -187,9 +186,7 @@ namespace HTTPServerTest {
                 Version = "HTTP/1.1",
                 Path = "/patch-content.txt",
             };
-            var response = _handler.Handle(getRequest);
-
-            Assert.Equal("default content", Encoding.UTF8.GetString(response.Body));
+            _handler.Handle(getRequest);
         }
     }
 }

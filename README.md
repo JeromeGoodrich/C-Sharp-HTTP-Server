@@ -1,3 +1,5 @@
-# HTTP Server In C-Sharp
+# HTTP Server In C\#
 
-Run in visual Studio with f5.
+- Clone the repo
+- Execute From Visual Studio with [ctrl + F5]
+- Otherwise execute from Command Line by typing /HTTPServer/bin/Debug/HTTPServer.exe

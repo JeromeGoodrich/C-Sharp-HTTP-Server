@@ -55,11 +55,18 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void RequestToFormReturnsFormDataHandler()
-        {
+        public void RequestToFormReturnsFormDataHandler() {
             _request.Path = "/form";
 
             Assert.IsType<FormDataHandler>(_router.Route(_request));
+        }
+
+        [Fact]
+        public void RequestToRedirectReturnsRedirectHandler()
+        {
+            _request.Path = "/redirect";
+
+            Assert.IsType<RedirectHandler>(_router.Route(_request));
         }
     }
 }

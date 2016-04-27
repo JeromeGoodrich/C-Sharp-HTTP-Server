@@ -69,6 +69,7 @@
     <Compile Include="FormDataHandler.cs" />
     <Compile Include="ParamsHandler.cs" />
     <Compile Include="PatchHandler.cs" />
+    <Compile Include="RedirectHandler.cs" />
     <Compile Include="Router.cs" />
     <Compile Include="IRouter.cs" />
     <Compile Include="NotFoundHandler.cs" />

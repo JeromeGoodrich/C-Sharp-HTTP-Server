@@ -24,6 +24,7 @@ namespace HTTPServer {
             _handlers.Add("/logs", new BasicAuthHandler());
             _handlers.Add("/parameters", new ParamsHandler());
             _handlers.Add("/form", new FormDataHandler());
+            _handlers.Add("/redirect", new RedirectHandler());
         }
 
         public IHandler Route(Request request) {

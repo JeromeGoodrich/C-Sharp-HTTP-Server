@@ -87,7 +87,7 @@ namespace HTTPServer {
             {"2C", ","},
             {"2F", "/"},
             {"3A", ":"},
-            {"3B", ","},
+            {"3B", ";"},
             {"3C", "<"},
             {"3D", "="},
             {"3E", ">"},
@@ -103,7 +103,7 @@ namespace HTTPServer {
             {
                 string urlCode = value.Key;
                 string decodedValues = value.Value;
-                decodedValue.Replace(urlCode, decodedValues);
+                decodedValue = decodedValue.Replace(urlCode, decodedValues);
             }
             return decodedValue;
         }

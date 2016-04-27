@@ -53,8 +53,5 @@ namespace HTTPServerTest {
 
             Assert.IsType<ParamsHandler>(_router.Route(_request));
         }
-
-
-
     }
 }

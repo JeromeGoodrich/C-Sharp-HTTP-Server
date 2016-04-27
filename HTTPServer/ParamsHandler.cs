@@ -9,7 +9,7 @@ namespace HTTPServer {
             foreach (var param in parameters) {
                 var paramKey = param.Key;
                 var paramValue = param.Value;
-                formattedParams += paramKey + " = " + paramValue;
+                formattedParams += paramKey + " = " + paramValue + " ";
             }
             response.Body = Encoding.UTF8.GetBytes(formattedParams);
             return response;

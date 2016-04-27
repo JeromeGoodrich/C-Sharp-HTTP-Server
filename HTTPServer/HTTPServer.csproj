@@ -67,6 +67,7 @@
     <Compile Include="FileHandler.cs" />
     <Compile Include="BasicAuthHandler.cs" />
     <Compile Include="ParamsHandler.cs" />
+    <Compile Include="PatchHandler.cs" />
     <Compile Include="Router.cs" />
     <Compile Include="IRouter.cs" />
     <Compile Include="NotFoundHandler.cs" />

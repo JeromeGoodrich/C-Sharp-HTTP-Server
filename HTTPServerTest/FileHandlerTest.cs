@@ -8,12 +8,12 @@ namespace HTTPServerTest {
     public class FileHandlerTest {
         private readonly string _publicDir = Path.Combine(Environment.CurrentDirectory,
             @"..\..\..\HTTPServerTest\Fixtures\");
+
         private readonly Request _request;
         private readonly FileHandler _handler;
 
         public FileHandlerTest() {
-            _request = new Request()
-            {
+            _request = new Request() {
                 Method = "GET",
                 Version = "HTTP/1.1."
             };
@@ -29,7 +29,7 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void RequestForTextReturnsCorrectHeadersTest() { 
+        public void RequestForTextReturnsCorrectHeadersTest() {
             _request.Path = "/file1";
             var response = _handler.Handle(_request);
 
@@ -47,7 +47,7 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void RequestForImageReturnsCorrectHeadersTest() { 
+        public void RequestForImageReturnsCorrectHeadersTest() {
             _request.Path = "/image.jpeg";
             var response = _handler.Handle(_request);
 
@@ -56,8 +56,7 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void RequestForImageHasResponseBodyTest()
-        {
+        public void RequestForImageHasResponseBodyTest() {
             _request.Path = "/image.jpeg";
             var response = _handler.Handle(_request);
 
@@ -93,8 +92,7 @@ namespace HTTPServerTest {
         }
 
 
-        private byte[] copyOfRange(byte[] src, int start, int end)
-        {
+        private byte[] copyOfRange(byte[] src, int start, int end) {
             int len = end - start;
             byte[] dest = new byte[len];
             Array.Copy(src, start, dest, 0, len);
@@ -113,8 +111,7 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void ResponseBodyHasPartialContentWithEndRangeTest()
-        {
+        public void ResponseBodyHasPartialContentWithEndRangeTest() {
             _request.Path = "/partial_content.txt";
             _request.AddHeader("Range", "bytes=-6");
             byte[] bytes = File.ReadAllBytes(_publicDir + _request.Path);
@@ -144,14 +141,55 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void ReturnMethodNotAllowedForBogusRequest()
-        {
+        public void ReturnMethodNotAllowedForBogusRequest() {
             _request.Method = "bogusRequest";
             _request.Path = "/file1";
 
             var response = _handler.Handle(_request);
 
             Assert.Equal(405, response.StatusCode);
+        }
+
+        [Fact]
+        public void PatchTest() {
+            _request.Method = "PATCH";
+            _request.Path = "/patch-content.txt";
+            _request.AddHeader("If-Match", "1");
+            _request.Body = "patched content";
+
+            var response = _handler.Handle(_request);
+
+            Assert.Equal(204, response.StatusCode);
+            Assert.Equal("1", response.GetHeader("ETag"));
+        }
+
+        [Fact]
+        public void CheckPatchContent() {
+            _request.Method = "GET";
+            _request.Path = "/patch-content.txt";
+
+            var response = _handler.Handle(_request);
+
+            Assert.Equal(200, response.StatusCode);
+            Assert.Equal("patched content", Encoding.UTF8.GetString(response.Body));
+        }
+
+        [Fact]
+        public void PatchAgainTest() {
+            _request.Method = "PATCH";
+            _request.Path = "/patch-content.txt";
+            _request.AddHeader("If-Match", "2");
+            _request.Body = "default content";
+
+            _handler.Handle(_request);
+            var getRequest = new Request() {
+                Method = "GET",
+                Version = "HTTP/1.1",
+                Path = "/patch-content.txt",
+            };
+            var response = _handler.Handle(getRequest);
+
+            Assert.Equal("default content", Encoding.UTF8.GetString(response.Body));
         }
     }
 }

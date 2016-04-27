@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Web;
 
 namespace HTTPServer {
@@ -23,9 +22,16 @@ namespace HTTPServer {
             if (request.Method.Equals("GET")) {
                 return request.GetHeaders().ContainsKey("Range") ? HandlePartialContent(request) : HandleFile();
             }
-            else {
-                return new Response(405, _version);
+            if (request.Method.Equals("PATCH") && request.Path.Equals("/patch-content.txt")) {
+                var response = new Response(204, _version);
+                response.AddHeader("ETag", request.GetHeader("If-Match"));
+                var patchedContent = request.Body;
+                using (var writer = new StreamWriter(_file)) {
+                    writer.Write(patchedContent);
+                }
+                return response;
             }
+            return new Response(405, _version);
         }
 
         private IResponse HandlePartialContent(Request request) {
@@ -45,10 +51,12 @@ namespace HTTPServer {
                 var stringRangeStart = rawRange.Split('-')[0];
                 var stringRangeEnd = rawRange.Split('-')[1];
                 rangeStart = int.Parse(stringRangeStart);
-                rangeEnd = int.Parse(stringRangeEnd);
+                rangeEnd = int.Parse(stringRangeEnd)+1;
             }
 
+            
             var range = rangeEnd - rangeStart;
+            Console.WriteLine("Start: " + rangeStart + " End: " + rangeEnd + " Range: " + range);
             var data = File.ReadAllBytes(_file);
             var partialData = new byte[range];
             Array.Copy(data, rangeStart, partialData, 0, range);

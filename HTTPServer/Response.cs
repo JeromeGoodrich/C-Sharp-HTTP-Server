@@ -24,7 +24,9 @@ namespace HTTPServer {
                 if (Body != null) {
                 var fullResponse = bytes.Concat(Body).ToArray();
                 writer.Write(fullResponse);
-            }
+                    Console.WriteLine(Encoding.UTF8.GetString(fullResponse) + "Something");
+                }
+
             else {
                 writer.Write(bytes);
             }

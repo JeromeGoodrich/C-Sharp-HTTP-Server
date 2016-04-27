@@ -25,6 +25,7 @@ namespace HTTPServer {
             _handlers.Add("/parameters", new ParamsHandler());
             _handlers.Add("/form", new FormDataHandler());
             _handlers.Add("/redirect", new RedirectHandler());
+            _handlers.Add("/method_options", new OptionsHandler());
         }
 
         public IHandler Route(Request request) {

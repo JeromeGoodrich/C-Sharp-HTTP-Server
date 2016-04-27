@@ -3,7 +3,7 @@ using Xunit;
 
 namespace HTTPServerTest {
     public class RedirectHandlerTest {
-        private IResponse _response;
+        private readonly IResponse _response;
 
         public RedirectHandlerTest() {
             var request = new Request {

@@ -1,7 +1,9 @@
 ﻿namespace HTTPServer {
     public class RedirectHandler : IHandler {
         public IResponse Handle(Request request) {
-            return null;
+            var response = new Response(302, request.Version);
+            response.AddHeader("Location", "http://localhost:5000/");
+            return response;
         }
     }
 }

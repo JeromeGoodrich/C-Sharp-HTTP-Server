@@ -76,6 +76,7 @@
     <Compile Include="FormDataHandlerTest.cs" />
     <Compile Include="Mocks\MockRouter.cs" />
     <Compile Include="ParamsHandlerTest.cs" />
+    <Compile Include="RedirectHandlerTest.cs" />
     <Compile Include="RouterTest.cs" />
     <Compile Include="NotFoundHandlerTest.cs" />
     <Compile Include="Mocks\MockHandler.cs" />

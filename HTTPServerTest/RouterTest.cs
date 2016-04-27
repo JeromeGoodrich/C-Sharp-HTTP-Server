@@ -48,10 +48,18 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void ReturnsParamsHandler() {
+        public void RequestToParametersReturnsParamsHandler() {
             _request.Path = "/parameters";
 
             Assert.IsType<ParamsHandler>(_router.Route(_request));
+        }
+
+        [Fact]
+        public void RequestToFormReturnsFormDataHandler()
+        {
+            _request.Path = "/form";
+
+            Assert.IsType<FormDataHandler>(_router.Route(_request));
         }
     }
 }

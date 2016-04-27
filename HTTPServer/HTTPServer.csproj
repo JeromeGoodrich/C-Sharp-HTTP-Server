@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="FileHandler.cs" />
     <Compile Include="BasicAuthHandler.cs" />
+    <Compile Include="FormDataHandler.cs" />
     <Compile Include="ParamsHandler.cs" />
     <Compile Include="PatchHandler.cs" />
     <Compile Include="Router.cs" />

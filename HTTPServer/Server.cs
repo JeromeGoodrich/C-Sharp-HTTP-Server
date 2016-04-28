@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 namespace HTTPServer {
     public class Server {
         private readonly IListener _listener;
-        private readonly IRequestProcessorFactor _serviceFactory;
+        private readonly IRequestProcessorFactor _requestProcessorFactor;
 
-        public Server(IListener listener, IRequestProcessorFactor serviceFactory) {
+        public Server(IListener listener, IRequestProcessorFactor requestProcessorFactor) {
             _listener = listener;
-            _serviceFactory = serviceFactory;
+            _requestProcessorFactor = requestProcessorFactor;
         }
 
         public void Start(CancellationToken token) {
@@ -19,8 +19,9 @@ namespace HTTPServer {
                 Console.WriteLine("Waiting...");
                 var socket = _listener.Accept();
                 Console.WriteLine("Accepted Connection.");
-                var service = _serviceFactory.CreateProcessor(socket);
-                var runTask = Task.Run(() => service.Run());
+                var requestProcessor = _requestProcessorFactor.CreateProcessor(socket);
+                var runTask = Task.Run(() => requestProcessor.Run());
+
                 if (token.IsCancellationRequested) { break; }
             }
         }

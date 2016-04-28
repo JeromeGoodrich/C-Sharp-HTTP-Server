@@ -6,13 +6,11 @@ namespace HTTPServer {
 
         public IResponse Handle(Request request) {
             if (request.Method.Equals("GET")) {
-                if (_formData != null) {
-                    var response = new Response(200, request.Version) {
-                        Body = _formData
-                    };
-                    return response;
-                }
-                return new Response(200, request.Version);
+                if (_formData == null) return new Response(200, request.Version);
+                var response = new Response(200, request.Version) {
+                    Body = _formData
+                };
+                return response;
             }
             if (request.Method.Equals("DELETE")) {
                 _formData = null;

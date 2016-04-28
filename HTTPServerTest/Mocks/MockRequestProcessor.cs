@@ -1,7 +1,7 @@
 ﻿using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
-    public class MockRequestProcessor : IService {
+    public class MockRequestProcessor : IRequestProcessor {
         private bool _running;
         public IClientSocket Socket { get; set; }
 

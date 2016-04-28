@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -9,16 +8,20 @@ namespace HTTPServer {
 
         public Request Parse(StreamReader reader) {
             var request = new Request();
+            var requestLineAndHeaders = GetRequestLineAndHeaders(reader);
+            SplitRequestLineAndHeaders(requestLineAndHeaders, request);
+            if (!request.GetHeaders().Keys.Contains("Content-Length")) return request;
+            ParseBody(reader, request);
+            return request;
+        }
+
+        private string GetRequestLineAndHeaders(StreamReader reader) {
             string line;
             var requestLineAndHeaders = "";
             while ((line = reader.ReadLine()) != "") {
                 requestLineAndHeaders += line + "\r\n";
             }
-            SplitRequestLineAndHeaders(requestLineAndHeaders, request);
-            if (!request.GetHeaders().Keys.Contains("Content-Length")) return request;
-            ParseBody(reader, request);
-              
-            return request;
+            return requestLineAndHeaders;
         }
 
         private void SplitRequestLineAndHeaders(string requestLineAndHeaders, Request request) {
@@ -41,12 +44,11 @@ namespace HTTPServer {
 
         private void ParseHeaders(string[] headers, Request request) {
             foreach (var header in headers) {
-                if (header != "") {
-                    var splitHeader = header.Split(':');
-                    var headerName = splitHeader[0];
-                    var headerValue = splitHeader[1].TrimStart(' ');
-                    request.AddHeader(headerName, headerValue);
-                }
+                if (header == "") continue;
+                var splitHeader = header.Split(':');
+                var headerName = splitHeader[0];
+                var headerValue = splitHeader[1].TrimStart(' ');
+                request.AddHeader(headerName, headerValue);
             }
         }
 
@@ -67,17 +69,17 @@ namespace HTTPServer {
         }
 
         private void ParseParams(string parameters, Request request) {
-            String[] rawVariables = parameters.Split('&');
+            var rawVariables = parameters.Split('&');
             foreach (var variable in rawVariables) {
-                string[] nameAndRawValue = variable.Split('=');
+                var nameAndRawValue = variable.Split('=');
                 var variableName = nameAndRawValue[0];
                 var rawVariableValue = nameAndRawValue[1];
-                string variableValue = decodeRawValue(rawVariableValue);
+                var variableValue = DecodeRawValue(rawVariableValue);
                 request.AddParameters(variableName, variableValue);
             }
         }
 
-        private Dictionary<string, string> URLDecoding = new Dictionary<string, string>() {
+        private readonly Dictionary<string, string> _urlDecoding = new Dictionary<string, string>() {
             {"20", " "},
             {"22", "\""},
             {"23", "#"},
@@ -99,12 +101,11 @@ namespace HTTPServer {
             {"%", ""}
         };
 
-        private string decodeRawValue(string rawValue) {
-            string decodedValue = rawValue;
-            foreach (var value in URLDecoding)
-            {
-                string urlCode = value.Key;
-                string decodedValues = value.Value;
+        private string DecodeRawValue(string rawValue) {
+            var decodedValue = rawValue;
+            foreach (var value in _urlDecoding) {
+                var urlCode = value.Key;
+                var decodedValues = value.Value;
                 decodedValue = decodedValue.Replace(urlCode, decodedValues);
             }
             return decodedValue;

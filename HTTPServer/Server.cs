@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 namespace HTTPServer {
     public class Server {
         private readonly IListener _listener;
-        private readonly IServiceFactory _serviceFactory;
+        private readonly IRequestProcessorFactor _serviceFactory;
 
-        public Server(IListener listener, IServiceFactory serviceFactory) {
+        public Server(IListener listener, IRequestProcessorFactor serviceFactory) {
             _listener = listener;
             _serviceFactory = serviceFactory;
         }
@@ -19,7 +19,7 @@ namespace HTTPServer {
                 Console.WriteLine("Waiting...");
                 var socket = _listener.Accept();
                 Console.WriteLine("Accepted Connection.");
-                var service = _serviceFactory.CreateService(socket);
+                var service = _serviceFactory.CreateProcessor(socket);
                 var runTask = Task.Run(() => service.Run());
                 if (token.IsCancellationRequested) { break; }
             }

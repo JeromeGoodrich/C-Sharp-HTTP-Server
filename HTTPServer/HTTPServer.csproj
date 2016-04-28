@@ -81,7 +81,7 @@
     <Compile Include="IListener.cs" />
     <Compile Include="IParser.cs" />
     <Compile Include="IResponse.cs" />
-    <Compile Include="IServiceFactory.cs" />
+    <Compile Include="IRequestProcessorFactor.cs" />
     <Compile Include="Listener.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
@@ -90,7 +90,7 @@
     <Compile Include="Response.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="ServerConfig.cs" />
-    <Compile Include="IService.cs" />
+    <Compile Include="IRequestProcessor.cs" />
     <Compile Include="RequestProcessor.cs" />
     <Compile Include="RequestProcessorFactory.cs" />
     <Compile Include="Status.cs" />

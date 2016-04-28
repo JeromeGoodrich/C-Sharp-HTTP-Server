@@ -1,5 +1,5 @@
 ﻿namespace HTTPServer {
-    public class RequestProcessorFactory : IServiceFactory {
+    public class RequestProcessorFactory : IRequestProcessorFactor {
         private readonly IRouter _router;
         private readonly IParser _parser;
 
@@ -9,7 +9,7 @@
             _router = router;
         }
 
-        public IService CreateService(IClientSocket socket) {
+        public IRequestProcessor CreateProcessor(IClientSocket socket) {
             return new RequestProcessor(socket, _parser, _router);
         }
     }

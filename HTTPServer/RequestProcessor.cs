@@ -1,7 +1,7 @@
 ﻿using System.IO;
 
 namespace HTTPServer {
-    public class RequestProcessor : IService {
+    public class RequestProcessor : IRequestProcessor {
         private readonly IRouter _router;
         private readonly IParser _parser;
         private readonly IClientSocket _socket;

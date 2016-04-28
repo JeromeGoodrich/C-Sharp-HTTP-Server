@@ -8,7 +8,7 @@ namespace HTTPServer {
         private readonly string _publicDir;
         private readonly Dictionary<string, IHandler> _handlers = new Dictionary<string, IHandler>();
 
-        public Router(string publicDir) {
+        public Router(string publicDir, FileLogger logger) {
             _publicDir = publicDir;
             AddHandlers();
         }

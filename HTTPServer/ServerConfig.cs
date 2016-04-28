@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Sockets;
 
 namespace HTTPServer {
     public class ServerConfig {
@@ -16,6 +15,7 @@ namespace HTTPServer {
         public int Port { get; private set; }
         public string PublicDir { get; private set; }
         public List<IHandler> Handlers = new List<IHandler>();
+        public FileLogger Logger { get;  }
 
 
         public ServerConfig(string[] args) {

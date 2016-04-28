@@ -13,7 +13,7 @@ namespace HTTPServer {
         private static Server Server(ServerConfig config) {
             var listener = new Listener(config.IpAddress, config.Port);
             var parser = new Parser();
-            var router = new Router(config.PublicDir);
+            var router = new Router(config.PublicDir, config.Logger);
             var factory = new RequestProcessorFactory(parser, router);
             var server = new Server(listener, factory);
             return server;

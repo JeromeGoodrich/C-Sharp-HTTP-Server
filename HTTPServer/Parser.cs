@@ -54,7 +54,6 @@ namespace HTTPServer {
         }
 
         private void ParseRequestLine(string requestLine, Request request) {
-            Task.Run(() => new FileLogger().Log(requestLine));
             var splitRequestLine = requestLine.Split(' ');
             var method = splitRequestLine[0];
             var path = splitRequestLine[1];

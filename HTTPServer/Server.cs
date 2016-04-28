@@ -20,7 +20,9 @@ namespace HTTPServer {
                 var socket = _listener.Accept();
                 Console.WriteLine("Accepted Connection.");
                 var requestProcessor = _requestProcessorFactor.CreateProcessor(socket);
-                var runTask = Task.Run(() => requestProcessor.Run());
+                var runTask = Task.Run(() => 
+                    requestProcessor.Run()
+                );
 
                 if (token.IsCancellationRequested) { break; }
             }

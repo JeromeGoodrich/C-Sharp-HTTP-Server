@@ -12,7 +12,7 @@ namespace HTTPServerTest {
         public RouterTest() {
             var publicDir = Path.Combine(Environment.CurrentDirectory,
             @"..\..\..\HTTPServerTest\Fixtures").Normalize();
-            _router = new Router(publicDir);
+            _router = new Router(publicDir, new FileLogger());
             _request = new Request() {
                 Method = "GET",
                 Version = "HTTP1.1"

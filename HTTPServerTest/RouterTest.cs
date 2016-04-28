@@ -62,16 +62,14 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void RequestToRedirectReturnsRedirectHandler()
-        {
+        public void RequestToRedirectReturnsRedirectHandler() {
             _request.Path = "/redirect";
 
             Assert.IsType<RedirectHandler>(_router.Route(_request));
         }
 
        [Fact]
-        public void RequestToMethodOptionsReturnsOptionsHandler()
-        {
+        public void RequestToMethodOptionsReturnsOptionsHandler() {
             _request.Path = "/method_options";
 
             Assert.IsType<OptionsHandler>(_router.Route(_request));

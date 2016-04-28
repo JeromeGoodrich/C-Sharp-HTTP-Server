@@ -5,7 +5,7 @@ using Xunit;
 namespace HTTPServerTest {
     public class ParamsHandlerTest {
         [Fact]
-        public void Test() {
+        public void TestResponseBodyContainsExpectedValues() {
             var request = new Request() {
                 Method = "GET",
                 Path = "/parameters",

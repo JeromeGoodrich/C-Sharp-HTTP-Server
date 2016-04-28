@@ -51,7 +51,6 @@ namespace HTTPServerTest {
         public void TestParseParams() {
             Assert.True(_request.GetParameters().ContainsKey("variable_1"));
             Assert.True(_request.GetParameters().ContainsValue("stuff"));
-
         }
     }
 }

@@ -14,16 +14,10 @@ namespace HTTPServer {
             while ((line = reader.ReadLine()) != "") {
                 requestLineAndHeaders += line + "\r\n";
             }
-            Debug.WriteLine(requestLineAndHeaders);
             SplitRequestLineAndHeaders(requestLineAndHeaders, request);
-            if (request.GetHeaders().Keys.Contains("Content-Length")) {
-                var contentLength = int.Parse(request.GetHeader("Content-Length"));
-                var rawBody = new char[contentLength];
-
-                reader.Read(rawBody, 0, contentLength);
-                var body = new string(rawBody);
-                request.Body = body;
-            }
+            if (!request.GetHeaders().Keys.Contains("Content-Length")) return request;
+            ParseBody(reader, request);
+              
             return request;
         }
 
@@ -36,7 +30,14 @@ namespace HTTPServer {
         }
 
 
-        private void ParseBody(Request request) {}
+        private void ParseBody(StreamReader reader, Request request) {
+            var contentLength = int.Parse(request.GetHeader("Content-Length"));
+            var rawBody = new char[contentLength];
+
+            reader.Read(rawBody, 0, contentLength);
+            var body = new string(rawBody);
+            request.Body = body;
+        }
 
         private void ParseHeaders(string[] headers, Request request) {
             foreach (var header in headers) {

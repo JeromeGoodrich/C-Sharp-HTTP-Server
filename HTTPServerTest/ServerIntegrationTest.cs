@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -15,7 +16,9 @@ namespace HTTPServerTest {
         private readonly ServerConfig _config;
         private readonly Server _server;
         private readonly CancellationTokenSource _tokenSource;
-        private Task _startTask;
+        private const string Request = "GET / HTTP/1.1\r\n" +
+                                           "Host: localhost:5000\r\n" +
+                                           "Accept: */*\r\n\r\n";
 
         public ServerIntegrationTest() {
             var args = new string[] {};
@@ -26,12 +29,12 @@ namespace HTTPServerTest {
             var handler = new Router(_config.PublicDir);
             var factory = new ServiceFactory(parser, handler);
             _server = new Server(listener, factory);
-            _startTask = Task.Run(() => _server.Start(_tokenSource.Token));
+             var startTask = Task.Run(() => _server.Start(_tokenSource.Token));
             
         }
 
         [Fact]
-        public void Test() {
+        public void ServerReceivesRequestAndReturnsExpecetedResponse() {
             using (var mockClient = new TcpClient()) {
                 mockClient.Connect(IPAddress.Parse("127.0.0.1"), _config.Port);
                 var rawResponse = new char[79];
@@ -41,16 +44,11 @@ namespace HTTPServerTest {
                 using (var stream = mockClient.GetStream()) {
                     var writer = new StreamWriter(stream) {AutoFlush = true};
                     var reader = new StreamReader(stream);
-                    var request = "GET / HTTP/1.1\r\n" +
-                                  "Host: localhost:5000\r\n" +
-                                  "Accept: */*\r\n\r\n";
 
-                    writer.Write(request);
+                    writer.Write(Request);
                     reader.Read(rawResponse, 0, rawResponse.Length);
-
                 }
-                Assert.Contains("HTTP/1.1 200 OK\r\n" +
-                                "Content-Length: 554\r\n\r\n", new string(rawResponse));
+                Assert.Contains("HTTP/1.1 200 OK\r\nContent-Length: 554\r\n\r\n", new string(rawResponse));
             }
         }
 
@@ -60,32 +58,27 @@ namespace HTTPServerTest {
             {
                 var writer = new StreamWriter(stream) { AutoFlush = true };
                 var reader = new StreamReader(stream);
-                var request = "GET / HTTP/1.1\r\n" +
-                              "Host: localhost:5000\r\n" +
-                              "Accept: */*\r\n\r\n";
 
-                writer.Write(request);
+                writer.Write(Request);
                 reader.Read(responseContainer, 0, responseContainer.Length);
             }
             return responseContainer;
         }
 
         [Fact]
-        public void SimultaneousTest() {
+        public void MultipleSimultaneousRequestsTest() {
             var clientList = new ArrayList(1500);
-            for (int i = 0; i < clientList.Capacity; i++) {
+            for (var i = 0; i < clientList.Capacity; i++) {
                 clientList.Add(new TcpClient());
             }
 
-            Debug.WriteLine("ClientList count: " + clientList.Count);
             var responses = new ArrayList();
             var responseContainer = new char[17];
-            foreach (TcpClient client in clientList) {
-                var task = Task.Run(() => MakeRequest(client, responseContainer));
-                var response = task.Result;
+            foreach (var response in from TcpClient client in clientList select 
+                     Task.Run(() => MakeRequest(client, responseContainer)) 
+                     into task select task.Result) {
                 responses.Add(response);
             }
-            Debug.WriteLine("Count: " + responses.Count);
             _tokenSource.Cancel();
             foreach (char[] response in responses) {
                 Assert.Equal("HTTP/1.1 200 OK\r\n", new string(response));

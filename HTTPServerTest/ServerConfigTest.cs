@@ -6,7 +6,7 @@ using Xunit;
 namespace HTTPServerTest {
     public class ServerConfigTest {
         [Fact]
-        public void TestDefaults() {
+        public void TestWithoutCommandLineArgs() {
             var args = new[] {""};
             var config = new ServerConfig(args);
 

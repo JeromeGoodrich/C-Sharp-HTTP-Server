@@ -72,7 +72,6 @@
     <Compile Include="FileHandlerTest.cs" />
     <Compile Include="BasicAuthHandlerTest.cs" />
     <Compile Include="DirHandlerTest.cs" />
-    <Compile Include="FakeHandler.cs" />
     <Compile Include="FormDataHandlerTest.cs" />
     <Compile Include="Mocks\MockRouter.cs" />
     <Compile Include="OptionsHandlerTest.cs" />

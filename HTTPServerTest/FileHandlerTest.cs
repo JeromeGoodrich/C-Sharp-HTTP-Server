@@ -92,42 +92,42 @@ namespace HTTPServerTest {
         }
 
 
-        private byte[] copyOfRange(byte[] src, int start, int end) {
-            int len = end - start;
-            byte[] dest = new byte[len];
-            Array.Copy(src, start, dest, 0, len);
-            return dest;
+        private byte[] CopyOfRange(byte[] src, int start, int end) {
+            var length = end - start;
+            var destinationArray = new byte[length];
+            Array.Copy(src, start, destinationArray, 0, length);
+            return destinationArray;
         }
 
         [Fact]
         public void ResponseBodyHasPartialContentWithFullRangeTest() {
             _request.Path = "/partial_content.txt";
             _request.AddHeader("Range", "bytes=0-4");
-            byte[] bytes = File.ReadAllBytes(_publicDir + _request.Path);
+            var bytes = File.ReadAllBytes(_publicDir + _request.Path);
 
             var response = _handler.Handle(_request);
 
-            Assert.Equal(copyOfRange(bytes, 0, 5), response.Body);
+            Assert.Equal(CopyOfRange(bytes, 0, 5), response.Body);
         }
 
         [Fact]
         public void ResponseBodyHasPartialContentWithEndRangeTest() {
             _request.Path = "/partial_content.txt";
             _request.AddHeader("Range", "bytes=-6");
-            byte[] bytes = File.ReadAllBytes(_publicDir + _request.Path);
+            var bytes = File.ReadAllBytes(_publicDir + _request.Path);
             var response = _handler.Handle(_request);
 
-            Assert.Equal(copyOfRange(bytes, (bytes.Length-1) - 6, bytes.Length-1), response.Body);
+            Assert.Equal(CopyOfRange(bytes, (bytes.Length-1) - 6, bytes.Length-1), response.Body);
         }
 
         [Fact]
         public void ResponseBodyHasPartialContentWithStartRangeTest() {
             _request.Path = "/partial_content.txt";
             _request.AddHeader("Range", "bytes=4-");
-            byte[] bytes = File.ReadAllBytes(_publicDir + _request.Path);
+            var bytes = File.ReadAllBytes(_publicDir + _request.Path);
             var response = _handler.Handle(_request);
 
-            Assert.Equal(copyOfRange(bytes, 4, bytes.Length-1), response.Body);
+            Assert.Equal(CopyOfRange(bytes, 4, bytes.Length-1), response.Body);
         }
 
         [Fact]
@@ -172,6 +172,7 @@ namespace HTTPServerTest {
 
             Assert.Equal(200, response.StatusCode);
             Assert.Equal("patched content", Encoding.UTF8.GetString(response.Body));
+            PatchBackToDefault();
         }
 
         public void PatchBackToDefault() {

@@ -1,14 +1,12 @@
 ﻿using System.IO;
-using System.Threading;
 
 namespace HTTPServer {
-    public class Service : IService {
+    public class RequestProcessor : IService {
         private readonly IRouter _router;
         private readonly IParser _parser;
         private readonly IClientSocket _socket;
 
-        //class needs better name
-        public Service(IClientSocket socket, IParser parser, IRouter router) {
+        public RequestProcessor(IClientSocket socket, IParser parser, IRouter router) {
             _socket = socket;
             _parser = parser;
             _router = router;

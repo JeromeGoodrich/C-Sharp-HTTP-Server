@@ -92,8 +92,8 @@
     <Compile Include="Server.cs" />
     <Compile Include="ServerConfig.cs" />
     <Compile Include="IService.cs" />
-    <Compile Include="Service.cs" />
-    <Compile Include="ServiceFactory.cs" />
+    <Compile Include="RequestProcessor.cs" />
+    <Compile Include="RequestProcessorFactory.cs" />
     <Compile Include="Status.cs" />
   </ItemGroup>
   <ItemGroup>

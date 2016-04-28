@@ -6,7 +6,7 @@ using Xunit;
 
 namespace HTTPServerTest {
     public class ServerTest {
-        private readonly MockService _mockService;
+        private readonly MockRequestProcessor _mockRequestProcessor;
         private readonly MockSocket _mockSocket;
         private readonly Server _server;
         private readonly CancellationTokenSource _tokenSource;
@@ -16,9 +16,9 @@ namespace HTTPServerTest {
             _tokenSource = new CancellationTokenSource();
             _mockSocket = new MockSocket();
             _mockListener = new MockListener(_mockSocket);
-            _mockService = new MockService();
-            var mockServiceFactory = new MockServiceFactory(_mockService);
-            _server = new Server(_mockListener, mockServiceFactory);
+            _mockRequestProcessor = new MockRequestProcessor();
+            var mockRequestProcessorFactory = new MockRequestProcessorFactory(_mockRequestProcessor);
+            _server = new Server(_mockListener, mockRequestProcessorFactory);
         }
 
         private void StartServer() {
@@ -33,8 +33,8 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void ServiceIsNotRunningBeforeStartingServer() {
-            Assert.Equal(false, _mockService.IsRunning());
+        public void RequestProcessorIsNotRunningBeforeStartingServer() {
+            Assert.Equal(false, _mockRequestProcessor.IsRunning());
         }
 
         [Fact]
@@ -44,15 +44,15 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void ServiceRunsAfterStartingServer() {
+        public void RequestProcessorRunsAfterStartingServer() {
             StartServer();
-            Assert.Equal(true, _mockService.IsRunning());
+            Assert.Equal(true, _mockRequestProcessor.IsRunning());
         }
 
         [Fact]
-        public void TestServiceIsPassedSocket() {
+        public void TestRequestProcessorIsPassedSocket() {
             StartServer();
-            Assert.Equal(_mockService.Socket, _mockSocket);
+            Assert.Equal(_mockRequestProcessor.Socket, _mockSocket);
         }
 
         [Fact]

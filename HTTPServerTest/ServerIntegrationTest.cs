@@ -27,7 +27,7 @@ namespace HTTPServerTest {
             var listener = new Listener(_config.IpAddress, _config.Port);
             var parser = new Parser();
             var handler = new Router(_config.PublicDir);
-            var factory = new ServiceFactory(parser, handler);
+            var factory = new RequestProcessorFactory(parser, handler);
             _server = new Server(listener, factory);
              var startTask = Task.Run(() => _server.Start(_tokenSource.Token));
             

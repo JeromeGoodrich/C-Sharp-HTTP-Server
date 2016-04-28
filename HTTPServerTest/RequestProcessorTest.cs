@@ -4,17 +4,17 @@ using HTTPServerTest.Mocks;
 using Xunit;
 
 namespace HTTPServerTest {
-    public class ServiceTest {
+    public class RequestProcessorTest {
         private readonly MemoryStream _ioStream;
         private readonly MockHandler _mockHandler;
         private readonly MockParser _mockParser;
         private readonly MockResponse _mockResponse;
         private readonly MockSocket _mockSocket;
         private readonly Request _request;
-        private readonly Service _service;
+        private readonly RequestProcessor _requestProcessor;
 
 
-        public ServiceTest() {
+        public RequestProcessorTest() {
             _ioStream = new MemoryStream(new byte[1024]);
             _mockSocket = new MockSocket(_ioStream);
             _request = new Request();
@@ -22,38 +22,38 @@ namespace HTTPServerTest {
             _mockResponse = new MockResponse();
             _mockHandler = new MockHandler(_mockResponse);
             var mockRouter = new MockRouter(_mockHandler);
-            _service = new Service(_mockSocket, _mockParser, mockRouter);
+            _requestProcessor = new RequestProcessor(_mockSocket, _mockParser, mockRouter);
         }
 
         [Fact]
-        public void TestParseIsNotCalledBeforeRunningService() {
+        public void TestParseIsNotCalledBeforeRunningRequestProcessor() {
             Assert.Equal(_mockParser.GetCallsToParse(), 0);
         }
 
         [Fact]
-        public void TestHandleIsNotCalledBeforeRunningService() {
+        public void TestHandleIsNotCalledBeforeRunningRequestProcessor() {
             Assert.Equal(_mockHandler.GetCallsToHandle(), 0);
         }
 
         [Fact]
-        public void TestSendIsNotCalledBeforeRunningService() {
+        public void TestSendIsNotCalledBeforeRunningRequestProcessor() {
             Assert.Equal(_mockResponse.GetCallsToSend(), 0);
         }
 
         [Fact]
-        public void TestSocketIsOpenBeforeRunningService() {
+        public void TestSocketIsOpenBeforeRunningRequestProcessor() {
             Assert.Equal(_mockSocket.IsClosed(), false);
         }
 
         [Fact]
-        public void TestParseIsCalledAfterRunningService() {
-            _service.Run();
+        public void TestParseIsCalledAfterRunningRequestProcessor() {
+            _requestProcessor.Run();
             Assert.Equal(_mockParser.GetCallsToParse(), 1);
         }
 
         [Fact]
         public void TestParseIsCalledWithStream() {
-            _service.Run();
+            _requestProcessor.Run();
             Assert.Equal(_mockParser.GetLastStreamPassedToParse(), _ioStream);
         }
 
@@ -63,38 +63,38 @@ namespace HTTPServerTest {
         }
 
         [Fact]
-        public void TestHandleIsCalledAfterRunningService() {
-            _service.Run();
+        public void TestHandleIsCalledAfterRunningRequestProcessor() {
+            _requestProcessor.Run();
             Assert.Equal(_mockParser.GetCallsToParse(), 1);
         }
 
         [Fact]
         public void TestHandleIsCalledWithRequest() {
-            _service.Run();
+            _requestProcessor.Run();
             Assert.Equal(_mockHandler.GetLastRequestPassedToHandle(), _request);
         }
 
         [Fact]
         public void TestHandleReturnsResponse() {
-            _service.Run();
+            _requestProcessor.Run();
             Assert.Equal(_mockHandler.Handle(_request), _mockResponse);
         }
 
         [Fact]
-        public void TestSendIsCalledAfterRunningService() {
-            _service.Run();
+        public void TestSendIsCalledAfterRunningRequestProcessor() {
+            _requestProcessor.Run();
             Assert.Equal(_mockResponse.GetCallsToSend(), 1);
         }
 
         [Fact]
         public void TestSendIsCalledWithStream() {
-            _service.Run();
+            _requestProcessor.Run();
             Assert.Equal(_mockResponse.GetLastStreamPassedToSend(), _ioStream);
         }
 
         [Fact]
-        public void TestSocketClosesAfterRunningService() {
-            _service.Run();
+        public void TestSocketClosesAfterRunningRequestProcessor() {
+            _requestProcessor.Run();
             Assert.Equal(true, _mockSocket.IsClosed());
         }
     }

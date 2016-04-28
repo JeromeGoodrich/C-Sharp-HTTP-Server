@@ -2,7 +2,7 @@
 
 namespace HTTPServerTest.Mocks {
     public class MockRouter : IRouter {
-        private MockHandler _mockHandler;
+        private readonly MockHandler _mockHandler;
 
         internal MockRouter(MockHandler mockHandler) {
             _mockHandler = mockHandler;

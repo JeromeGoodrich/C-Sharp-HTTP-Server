@@ -1,8 +1,7 @@
-﻿using System.Threading;
-using HTTPServer;
+﻿using HTTPServer;
 
 namespace HTTPServerTest.Mocks {
-    public class MockService : IService {
+    public class MockRequestProcessor : IService {
         private bool _running;
         public IClientSocket Socket { get; set; }
 

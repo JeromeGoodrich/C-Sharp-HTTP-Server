@@ -1,16 +1,16 @@
 ﻿namespace HTTPServer {
-    public class ServiceFactory : IServiceFactory {
+    public class RequestProcessorFactory : IServiceFactory {
         private readonly IRouter _router;
         private readonly IParser _parser;
 
 
-        public ServiceFactory(IParser parser, IRouter router) {
+        public RequestProcessorFactory(IParser parser, IRouter router) {
             _parser = parser;
             _router = router;
         }
 
         public IService CreateService(IClientSocket socket) {
-            return new Service(socket, _parser, _router);
+            return new RequestProcessor(socket, _parser, _router);
         }
     }
 }

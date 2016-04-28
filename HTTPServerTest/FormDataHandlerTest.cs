@@ -22,7 +22,7 @@ namespace HTTPServerTest {
             var response = handler.Handle(getRequest);
 
             Assert.Equal(200, response.StatusCode);
-            Assert.Equal("data=fatcat", Encoding.UTF8.GetString(response.Body));
+            Assert.Contains("data=fatcat", Encoding.UTF8.GetString(response.Body));
         }
 
         [Fact]

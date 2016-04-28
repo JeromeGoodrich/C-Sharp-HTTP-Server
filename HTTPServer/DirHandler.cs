@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -19,8 +18,7 @@ namespace HTTPServer {
                 body = GenJsonContent(dirName);
                 response.AddHeader("Content-Type", "application/json");
                 response.AddHeader("Content-Length", body.Length.ToString());
-            }
-            else {
+            } else {
                 body = GenHtmlBody(dirName);
                 response.AddHeader("Content-Length", body.Length.ToString());
             }
@@ -44,12 +42,10 @@ namespace HTTPServer {
                 var fileName = files[i].Split(Path.DirectorySeparatorChar)[fileIndex];
                 if (i == files.Length - 1) {
                     jsonFilesString += fileName;
-                }
-                else {
+                } else {
                     jsonFilesString += fileName + ", ";
                 }
             }
-
             return jsonFilesString;
         }
 

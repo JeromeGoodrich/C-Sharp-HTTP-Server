@@ -24,6 +24,9 @@ namespace HTTPServer {
 
         private Response GrantAccess(Request request) {
             var response = new Response(200, request.Version);
+            if (!File.Exists(_logFile)) {
+                new FileStream(_logFile, FileMode.CreateNew).Dispose();
+            }
             using (var reader = File.OpenText(_logFile)) {
                 response.Body = Encoding.UTF8.GetBytes(reader.ReadToEnd());
             }

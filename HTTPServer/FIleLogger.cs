@@ -3,9 +3,13 @@ using System.IO;
 
 namespace HTTPServer {
     public class FileLogger {
+        private readonly string _logFile = Path.Combine(Environment.CurrentDirectory, @"..\..\..\..\HTTPServer\logFile.txt");
+
         public void Log(string logMessage) {
-            using (var writer = new StreamWriter(Path.Combine(Environment.CurrentDirectory, @"..\..\..\..\HTTPServer\logFile.txt"),
-                true)) {
+            if (!File.Exists(_logFile)) {
+                new FileStream(_logFile, FileMode.CreateNew).Dispose();
+            }
+            using (var writer = new StreamWriter(_logFile, true)) {
                 writer.Write(logMessage);
             }
         }

@@ -4,7 +4,7 @@ packages
 
 .vs/HTTPServer/v14
 
-logFile.txt
+Logs/logFile.txt
 
 ### VisualStudio ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -20,6 +20,7 @@ logFile.txt
 *.userprefs
 
 # Build results
+
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/

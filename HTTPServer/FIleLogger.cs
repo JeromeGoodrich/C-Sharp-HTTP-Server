@@ -3,7 +3,7 @@ using System.IO;
 
 namespace HTTPServer {
     public class FileLogger {
-        private readonly string _logFile = Path.Combine(Environment.CurrentDirectory, @"..\..\..\..\HTTPServer\logFile.txt");
+        private readonly string _logFile = Path.Combine(Environment.CurrentDirectory, @"..\..\..\..\HTTPServer\Logs\logFile.txt");
 
         public void Log(string logMessage) {
             if (!File.Exists(_logFile)) {

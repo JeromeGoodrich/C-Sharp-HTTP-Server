@@ -97,6 +97,7 @@
     <Compile Include="ServerIntegrationTest.cs" />
     <Compile Include="ServerTest.cs" />
     <Compile Include="RequestProcessorTest.cs" />
+    <Compile Include="Status.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

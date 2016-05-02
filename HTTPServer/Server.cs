@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,6 +19,7 @@ namespace HTTPServer {
             while (true) {
                 
                 Console.WriteLine("Waiting...");
+                Console.WriteLine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
                 var socket = _listener.Accept();
                 Console.WriteLine("Accepted Connection.");
                 var requestProcessor = _requestProcessorFactor.CreateProcessor(socket);

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 
 namespace HTTPServer {
     public class FileLogger {
-        private readonly string _logFile = Path.Combine(Environment.CurrentDirectory, @"..\..\..\..\HTTPServer\Logs\logFile.txt");
+        private readonly string _logFile = Assembly.GetExecutingAssembly()+ @"logFile.txt";
 
         public void Log(string logMessage) {
             if (!File.Exists(_logFile)) {
@@ -14,4 +15,4 @@ namespace HTTPServer {
             }
         }
     }
-}
+} ;

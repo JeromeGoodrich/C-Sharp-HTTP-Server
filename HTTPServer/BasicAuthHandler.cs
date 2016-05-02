@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace HTTPServer {
     public class BasicAuthHandler : IHandler {
 
-        private readonly string _logFile = Path.Combine(Environment.CurrentDirectory, @"..\..\..\..\HTTPServer\Logs\logFile.txt");
+        private readonly string _logFile = Assembly.GetExecutingAssembly().GetName().CodeBase;
 
         public IResponse Handle(Request request) {
             if (!request.GetHeaders().ContainsKey("Authorization")) return RequestAuth(request);

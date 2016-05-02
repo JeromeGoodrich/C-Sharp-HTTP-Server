@@ -6,8 +6,8 @@ using System.Text;
 namespace HTTPServer {
     public class BasicAuthHandler : IHandler {
 
-        private readonly string _logFile = Assembly.GetExecutingAssembly().GetName().CodeBase;
-
+        private readonly string _logFile = Path.Combine(Environment.CurrentDirectory,
+            @"..\..\..\Logs\LogFile.txt");
         public IResponse Handle(Request request) {
             if (!request.GetHeaders().ContainsKey("Authorization")) return RequestAuth(request);
             var encodedCredentials = request.GetHeader("Authorization").Split(' ')[1];

@@ -43,5 +43,14 @@ namespace CobSpecServerTest {
 
             Assert.IsType<FormDataHandler>(handler);
         }
+
+        [Fact]
+        public void ConfiguredRouterRoutesToOptionsHandler() {
+            _request.Path = "/method_options";
+            var handler = _router.Route(_request);
+
+            Assert.IsType<OptionsHandler>(handler);
+        }
+
     }
 }

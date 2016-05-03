@@ -67,10 +67,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CobSpecServer.cs" />
+    <Compile Include="CobSpecRouter.cs" />
+    <Compile Include="ContentFactory.cs" />
     <Compile Include="FileHandler.cs" />
     <Compile Include="BasicAuthHandler.cs" />
     <Compile Include="FormDataHandler.cs" />
+    <Compile Include="HTMLContent.cs" />
+    <Compile Include="IContent.cs" />
+    <Compile Include="JSONContent.cs" />
     <Compile Include="OptionsHandler.cs" />
     <Compile Include="ParamsHandler.cs" />
     <Compile Include="RedirectHandler.cs" />

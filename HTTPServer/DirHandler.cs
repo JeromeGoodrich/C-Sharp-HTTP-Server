@@ -12,63 +12,21 @@ namespace CobSpecServer {
         }
 
         public IResponse Handle(Request request) {
-            var dirName = _publicDir;
             var response = new Response(200, request.Version);
             byte[] body;
-            if (request.GetHeaders().ContainsKey("Accept") && request.GetHeader("Accept").Equals("application/json")) {
-                body = GenJsonContent(dirName);
-                response.AddHeader("Content-Type", "application/json");
-                response.AddHeader("Content-Length", body.Length.ToString());
-            } else {
-                body = GenHtmlBody(dirName);
-                response.AddHeader("Content-Length", body.Length.ToString());
-            }
+            var content = new ContentFactory().Build(request.GetHeader("Accept"), _publicDir);
+            body = GenContent(content);
+            response.AddHeader("Content-Type", content.GetContentType());
+            response.AddHeader("Content-Length", body.Length.ToString());
             response.Body = body;
             return response;
         }
 
-        private byte[] GenJsonContent(string dirName) {
-            const string jsonBoilerPlate = "{ files : [";
-            var jsonFilesListing = GenFileListingJson(dirName);
-            const string jsonBoilerPlateEnd = "] }";
-            var jsonBody = jsonBoilerPlate + jsonFilesListing + jsonBoilerPlateEnd;
-            return Encoding.UTF8.GetBytes(jsonBody);
+        private byte[] GenContent(IContent content) {
+            string body = content.Generate();
+            return Encoding.UTF8.GetBytes(body);
         }
 
-        private string GenFileListingJson(string dirName) {
-            var files = Directory.GetFiles(dirName);
-            var jsonFilesString = "";
-            for (var i = 0; i < files.Length; i++) {
-                var fileIndex = files[i].Split(Path.DirectorySeparatorChar).Length - 1;
-                var fileName = files[i].Split(Path.DirectorySeparatorChar)[fileIndex];
-                if (i == files.Length - 1) {
-                    jsonFilesString += fileName;
-                } else {
-                    jsonFilesString += fileName + ", ";
-                }
-            }
-            return jsonFilesString;
-        }
-
-        private byte[] GenHtmlBody(string dirName) {
-            const string htmlBoilerPlateStart = "<!Doctype html>\n" +
-                                                "<html>\n" +
-                                                "<head>\n</head>\n" +
-                                                "<body>\n" +
-                                                "<ol>\n";
-            var filesListing = GenFileListingHtml(dirName);
-            const string htmlBoilerPlateEnd = "</ol>\n" +
-                                              "<body>\n" +
-                                              "</html>";
-            var htmlBody = htmlBoilerPlateStart + filesListing + htmlBoilerPlateEnd;
-            return Encoding.UTF8.GetBytes(htmlBody);
-        }
-
-        private string GenFileListingHtml(string dirName) {
-            var files = Directory.GetFiles(dirName);
-            return (from file in files let fileIndex = file.Split(Path.DirectorySeparatorChar).Length - 1
-                    select file.Split(Path.DirectorySeparatorChar)[fileIndex]).Aggregate("", (current, fileName) 
-                    => current + ("<li><a href=\"" + "/" + fileName + "\">" + fileName + "</a></li>\n"));
-        }
+        
     }
 }

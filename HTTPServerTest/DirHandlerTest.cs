@@ -23,6 +23,7 @@ namespace CobSpecServerTest {
 
         [Fact]
         public void TestReturnsHtmlListofDirContents() {
+            _request.AddHeader("Accept", "*/*");
             _response = _handler.Handle(_request);
 
             Assert.Contains("<li><a href=\"/file1", Encoding.UTF8.GetString(_response.Body));

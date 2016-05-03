@@ -21,11 +21,19 @@ namespace CobSpecServerTest {
         }
 
         [Fact]
-        public void ConfiguredRouterContainsExpectedHandlers() {
+        public void ConfiguredRouterRoutesToFileHandler() {
             _request.Path = "/image.jpeg";
             var handler = _router.Route(_request);
 
             Assert.IsType<FileHandler>(handler);
+        }
+
+        [Fact]
+        public void ConfiguredRouterRoutesToDirHandler() {
+            _request.Path = "/";
+            var handler = _router.Route(_request);
+
+            Assert.IsType<DirHandler>(handler);
         }
     }
 }

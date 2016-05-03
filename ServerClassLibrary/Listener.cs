@@ -9,10 +9,6 @@ namespace ServerClassLibrary {
             _listener = new TcpListener(ip, port);
         }
 
-        public bool Listening() {
-            return true;
-        }
-
         public IClientSocket Accept() {
             var tcpClient = _listener.AcceptTcpClient();
             return new ClientSocket(tcpClient);

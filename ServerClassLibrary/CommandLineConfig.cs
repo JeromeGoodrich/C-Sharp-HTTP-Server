@@ -16,6 +16,7 @@ namespace ServerClassLibrary {
         public string PublicDir { get; private set; }
         public List<IHandler> Handlers = new List<IHandler>();
         public FileLogger Logger { get;  }
+        public string LogFile { get; set; }
 
         public CommandLineConfig(string[] args) {
             Config(args);
@@ -24,9 +25,17 @@ namespace ServerClassLibrary {
         public void Config(string[] args) {
             SetPort(args);
             SetPublicDir(args);
+            SetLogFile(args);
         }
 
-        private void SetPort(params string[] args) {
+        private void SetLogFile(string[] args) {
+            if (args.Contains("-l")) {
+                var logFileIndex = Array.IndexOf(args, "-l") + 1;
+                LogFile = args[logFileIndex];
+            }
+        }
+
+        private void SetPort(string[] args) {
             if (args.Contains("-p")) {
                 var portIndex = Array.IndexOf(args, "-p") + 1;
                 Port = args[portIndex] != null ? int.Parse(args[portIndex]) : DefaultPort;
@@ -36,7 +45,7 @@ namespace ServerClassLibrary {
             }
         }
 
-        private void SetPublicDir(params string[] args) {
+        private void SetPublicDir(string[] args) {
             if (args.Contains("-d")) {
                 var dirIndex = Array.IndexOf(args, "-d") + 1;
                 PublicDir = args[dirIndex] ?? _defaultPublicDir;

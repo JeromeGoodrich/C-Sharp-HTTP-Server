@@ -1,25 +1,19 @@
 ﻿using System;
 using ServerClassLibrary;
 using Xunit;
+using System.Diagnostics;
 
 namespace ServerClassLibraryTest {
     public class CommandLineConfigTest {
 
         [Fact]
-        public void TestWithoutCommandLineArgs() {
-            var args = new[] {""};
-            var config = new CommandLineConfig(args);
-
-            Assert.True(false);
-        }
-
-        [Fact]
         public void TestArgsProvided() {
-            var args = new[] {"-p", "7000", "-d", "/this/directory"};
+            var args = new[] {"-p", "7000", "-d", "/this/directory", "-l", "./logfile.txt"};
             var config = new CommandLineConfig(args);
 
             Assert.Equal(config.Port, 7000);
             Assert.Equal(config.PublicDir, "/this/directory");
+            Assert.Equal(config.LogFile, "./logfile.txt");
         }
 
         [Fact]

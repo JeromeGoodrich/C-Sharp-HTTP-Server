@@ -18,7 +18,7 @@ namespace ServerClassLibraryTest {
                                            "Accept: */*\r\n\r\n";
 
         public ServerIntegrationTest() {
-            var args = new string[] {};
+            var args = new string[] {"-d","C:\\Users\\jgoodrich\\Documents\\cob_spec", "-l", "C:\\Users\\jgoodrich\\Documents\\Visual Studio 2015\\Projects\\HTTPServer" };
             _config = new CommandLineConfig(args);
             _tokenSource = new CancellationTokenSource();
             var listener = new Listener(_config.IpAddress, _config.Port);

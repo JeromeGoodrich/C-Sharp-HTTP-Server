@@ -1,8 +1,7 @@
 ﻿using ServerClassLibrary;
-using CobSpecServer;
 using Xunit;
 
-namespace CobSpecServerTest {
+namespace ServerClassLibararyTest {
     public class NotFoundHandlerTest {
         private readonly Request _request;
 

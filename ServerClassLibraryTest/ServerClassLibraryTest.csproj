@@ -69,6 +69,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CommandLineConfigTest.cs" />
+    <Compile Include="MethodNotAllowedHandlerTest.cs" />
     <Compile Include="Mocks\MockHandler.cs" />
     <Compile Include="Mocks\MockListener.cs" />
     <Compile Include="Mocks\MockParser.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Mocks\MockResponse.cs" />
     <Compile Include="Mocks\MockRouter.cs" />
     <Compile Include="Mocks\MockSocket.cs" />
+    <Compile Include="NotFoundHandlerTest.cs" />
     <Compile Include="ParserTest.cs" />
     <Compile Include="RequestProcessorTest.cs" />
     <Compile Include="RequestTest.cs" />

@@ -17,10 +17,6 @@ namespace ServerClassLibrary {
         public List<IHandler> Handlers = new List<IHandler>();
         public FileLogger Logger { get;  }
 
-        //make user specify public_dir in CL
-        //make user specify logFile Location in CL
-
-
         public CommandLineConfig(string[] args) {
             Config(args);
         }

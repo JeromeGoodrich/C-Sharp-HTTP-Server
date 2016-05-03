@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CobSpecServerTest</RootNamespace>
-    <AssemblyName>HTTPServerTest</AssemblyName>
+    <AssemblyName>CobSpecServerTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -79,7 +79,6 @@
     <Compile Include="OptionsHandlerTest.cs" />
     <Compile Include="ParamsHandlerTest.cs" />
     <Compile Include="RedirectHandlerTest.cs" />
-    <Compile Include="NotFoundHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

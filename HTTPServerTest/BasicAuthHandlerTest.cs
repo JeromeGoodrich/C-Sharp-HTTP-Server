@@ -16,7 +16,7 @@ namespace CobSpecServerTest {
                 Path = "/logs",
                 Version = "HTTP/1.1"
             };
-            _handler = new BasicAuthHandler();
+            _handler = new BasicAuthHandler("");
         }
 
         [Fact]

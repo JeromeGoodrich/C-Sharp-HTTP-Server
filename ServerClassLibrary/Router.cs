@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 
 namespace ServerClassLibrary {
     public class Router : IRouter {
@@ -13,21 +11,24 @@ namespace ServerClassLibrary {
             _publicDir = publicDir;
         }
 
+        public ArrayList Routes = new ArrayList();
         
         public IHandler Route(Request request) {
-            foreach (Route route in Routes ) {
+            IHandler handler = null;
+            foreach (Route route in Routes) {
                 if (!route.Path.Equals(request.Path)) {
-                    return new NotFoundHandler();
+                    handler = new NotFoundHandler();
                 } else if (route.Path.Equals(request.Path) && !route.Method.Equals(request.Method)) {
-                    return new MethodNotAllowedHandler();
-                } else {
-                    return route.Handler;
+                    handler = new MethodNotAllowedHandler();
+                }
+                else {
+                    handler = route.Handler;
                 }
             }
-            return null;
+            return handler;
         }
 
-        public ArrayList Routes = new ArrayList();
+       
 
         public void AddRoute(Route route) {
             Routes.Add(route);

@@ -80,6 +80,7 @@
     <Compile Include="ParamsHandlerTest.cs" />
     <Compile Include="RedirectHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerIntegrationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

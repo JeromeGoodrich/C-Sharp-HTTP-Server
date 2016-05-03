@@ -6,9 +6,10 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using ServerClassLibrary;
+using CobSpecServer;
 using Xunit;
 
-namespace ServerClassLibraryTest {
+namespace CobSpecServerTest {
     public class ServerIntegrationTest {
         private readonly CommandLineConfig _config;
         private readonly Server _server;
@@ -18,13 +19,14 @@ namespace ServerClassLibraryTest {
                                            "Accept: */*\r\n\r\n";
 
         public ServerIntegrationTest() {
-            var args = new string[] {"-d","C:\\Users\\jgoodrich\\Documents\\cob_spec", "-l", "C:\\Users\\jgoodrich\\Documents\\Visual Studio 2015\\Projects\\HTTPServer" };
+            var args = new string[] {"-d", @"C:\Users\jgoodrich\Documents\cob_spec\public", "-l", "C:\\Users\\jgoodrich\\Documents\\Visual Studio 2015\\Projects\\HTTPServer\\logFile.txt" };
             _config = new CommandLineConfig(args);
             _tokenSource = new CancellationTokenSource();
             var listener = new Listener(_config.IpAddress, _config.Port);
             var parser = new Parser();
-            var handler = new Router(_config.PublicDir, _config.Logger);
-            var factory = new RequestProcessorFactory(parser, handler);
+            var router = new Router(_config.PublicDir, _config.Logger);
+            router.AddRoute(new Route("GET", "/", new DirHandler(_config.PublicDir)));
+            var factory = new RequestProcessorFactory(parser, router);
             _server = new Server(listener, factory);
              var startTask = Task.Run(() => _server.Start(_tokenSource.Token));
             
@@ -45,7 +47,7 @@ namespace ServerClassLibraryTest {
                     writer.Write(Request);
                     reader.Read(rawResponse, 0, rawResponse.Length);
                 }
-                Assert.Contains("HTTP/1.1 200 OK\r\nContent-Length: 554\r\n\r\n", new string(rawResponse));
+                Assert.Contains("HTTP/1.1 200 OK\r\nContent-Length: 452\r\n\r\n", new string(rawResponse));
             }
         }
 

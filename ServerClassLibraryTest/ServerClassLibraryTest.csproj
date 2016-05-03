@@ -85,7 +85,6 @@
     <Compile Include="RequestTest.cs" />
     <Compile Include="ResponseTest.cs" />
     <Compile Include="RouterTest.cs" />
-    <Compile Include="ServerIntegrationTest.cs" />
     <Compile Include="ServerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

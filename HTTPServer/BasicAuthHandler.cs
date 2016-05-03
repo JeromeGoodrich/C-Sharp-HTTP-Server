@@ -6,9 +6,12 @@ using ServerClassLibrary;
 
 namespace CobSpecServer {
     public class BasicAuthHandler : IHandler {
+        private string _logFile;
 
-        private readonly string _logFile = Path.Combine(Environment.CurrentDirectory,
-            @"..\..\..\Logs\LogFile.txt");
+        public BasicAuthHandler(string logFile) {
+            _logFile = logFile;
+        }
+
         public IResponse Handle(Request request) {
             if (!request.GetHeaders().ContainsKey("Authorization")) return RequestAuth(request);
             var encodedCredentials = request.GetHeader("Authorization").Split(' ')[1];

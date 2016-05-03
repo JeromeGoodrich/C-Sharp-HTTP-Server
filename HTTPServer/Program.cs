@@ -17,7 +17,7 @@ namespace CobSpecServer {
             var parser = new Parser();
 
             var router = new Router(config.PublicDir, config.Logger);
-            router.AddRoute(new Route("GET", "/logs", new BasicAuthHandler()));
+            router.AddRoute(new Route("GET", "/logs", new BasicAuthHandler(config.LogFile)));
             router.AddRoute(new Route("GET", "/", new DirHandler(config.PublicDir)));
             router.AddRoute(new Route("GET", "/parameters", new ParamsHandler()));
             router.AddRoute(new Route("GET", "/form", new FormDataHandler()));

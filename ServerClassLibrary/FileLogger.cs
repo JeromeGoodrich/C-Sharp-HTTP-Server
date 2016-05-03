@@ -1,10 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
+﻿using System.IO;
 
 namespace ServerClassLibrary {
     public class FileLogger {
-        private readonly string _logFile = Assembly.GetExecutingAssembly()+ @"logFile.txt";
+        private string _logFile;
+
+        public FileLogger(string logFile) {
+            _logFile = logFile;
+        }
 
         public void Log(string logMessage) {
             if (!File.Exists(_logFile)) {

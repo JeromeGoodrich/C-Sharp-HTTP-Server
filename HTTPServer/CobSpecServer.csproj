@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CobSpecServer.cs" />
     <Compile Include="FileHandler.cs" />
     <Compile Include="BasicAuthHandler.cs" />
     <Compile Include="FormDataHandler.cs" />

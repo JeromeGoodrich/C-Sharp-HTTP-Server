@@ -19,12 +19,12 @@ namespace CobSpecServerTest {
                                            "Accept: */*\r\n\r\n";
 
         public ServerIntegrationTest() {
-            var args = new string[] {"-d", @"C:\Users\jgoodrich\Documents\cob_spec\public", "-l", "C:\\Users\\jgoodrich\\Documents\\Visual Studio 2015\\Projects\\HTTPServer\\logFile.txt" };
+            var args = new string[] {"-d", @"C:\Users\jgoodrich\Documents\cob_spec\public", "-l", @"C:\Users\jgoodrich\Documents\Visual Studio 2015\Projects\HTTPServer\logFile.txt" };
             _config = new CommandLineConfig(args);
             _tokenSource = new CancellationTokenSource();
             var listener = new Listener(_config.IpAddress, _config.Port);
             var parser = new Parser();
-            var router = new Router(_config.PublicDir, _config.Logger);
+            var router = new Router();
             router.AddRoute(new Route("GET", "/", new DirHandler(_config.PublicDir)));
             var factory = new RequestProcessorFactory(parser, router);
             _server = new Server(listener, factory);

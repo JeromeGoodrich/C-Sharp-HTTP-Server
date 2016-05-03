@@ -15,7 +15,7 @@ namespace ServerClassLibrary {
         public int Port { get; private set; }
         public string PublicDir { get; private set; }
         public List<IHandler> Handlers = new List<IHandler>();
-        public FileLogger Logger { get;  }
+        public FileLogger Logger { get; }
         public string LogFile { get; set; }
 
         public CommandLineConfig(string[] args) {

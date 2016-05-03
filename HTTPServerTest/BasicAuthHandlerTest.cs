@@ -7,6 +7,7 @@ namespace CobSpecServerTest {
     public class BasicAuthHandlerTest {
         private readonly BasicAuthHandler _handler;
         private readonly Request _request;
+        private readonly string _logFile = @"C:\Users\jgoodrich\Documents\Visual Studio 2015\Projects\HTTPServer\testlog.txt";
 
         private IResponse _response;
 
@@ -16,7 +17,7 @@ namespace CobSpecServerTest {
                 Path = "/logs",
                 Version = "HTTP/1.1"
             };
-            _handler = new BasicAuthHandler("");
+            _handler = new BasicAuthHandler(_logFile);
         }
 
         [Fact]
@@ -59,7 +60,7 @@ namespace CobSpecServerTest {
         [Fact]
         public void AuthorizedRequestHasBody() {
             _request.AddHeader("Authorization", "Basic YWRtaW46aHVudGVyMg==");
-            var logger = new FileLogger();
+            var logger = new FileLogger(_logFile);
             logger.Log("GET /log HTTP/1.1");
             logger.Log("PUT /these HTTP/1.1");
             logger.Log("HEAD /requests HTTP/1.1");

@@ -12,7 +12,7 @@ namespace ServerClassLibraryTest {
         private Request _request;
 
         public RouterTest() {
-            _router = new Router(_publicDir, new FileLogger());
+            _router = new Router();
             _router.AddRoute(new Route("GET", "/foo", new RouterTestHandler(1000)));
             _router.AddRoute(new Route("POST", "/foo", new RouterTestHandler(3000)));
             _router.AddRoute(new Route("GET", "/bar", new RouterTestHandler(4500)));

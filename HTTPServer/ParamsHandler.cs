@@ -1,6 +1,8 @@
 ﻿using System.Text;
+using ServerClassLibrary;
 
-namespace HTTPServer {
+
+namespace CobSpecServer {
     public class ParamsHandler : IHandler {
         public IResponse Handle(Request request) {
             var response =  new Response(200, request.Version);

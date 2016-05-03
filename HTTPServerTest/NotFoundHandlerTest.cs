@@ -1,7 +1,8 @@
-﻿using HTTPServer;
+﻿using ServerClassLibrary;
+using CobSpecServer;
 using Xunit;
 
-namespace HTTPServerTest {
+namespace CobSpecServerTest {
     public class NotFoundHandlerTest {
         private readonly Request _request;
 

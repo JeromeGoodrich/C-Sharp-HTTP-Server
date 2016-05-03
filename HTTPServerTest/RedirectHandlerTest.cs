@@ -1,7 +1,8 @@
-﻿using HTTPServer;
+﻿using ServerClassLibrary;
+using CobSpecServer;
 using Xunit;
 
-namespace HTTPServerTest {
+namespace CobSpecServerTest {
     public class RedirectHandlerTest {
         private readonly IResponse _response;
 

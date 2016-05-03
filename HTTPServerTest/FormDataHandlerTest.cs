@@ -1,8 +1,9 @@
 ﻿using System.Text;
-using HTTPServer;
+using ServerClassLibrary;
+using CobSpecServer;
 using Xunit;
 
-namespace HTTPServerTest {
+namespace CobSpecServerTest {
     public class FormDataHandlerTest {
         [Fact]
         public void GetAfterPostHasBodyContent() {

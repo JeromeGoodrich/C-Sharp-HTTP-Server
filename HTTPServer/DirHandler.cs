@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Text;
+using ServerClassLibrary;
 
-namespace HTTPServer {
+namespace CobSpecServer {
     public class DirHandler : IHandler {
         private readonly string _publicDir;
 

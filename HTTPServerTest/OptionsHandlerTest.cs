@@ -1,7 +1,8 @@
-﻿using HTTPServer;
+﻿using CobSpecServer;
+using ServerClassLibrary;
 using Xunit;
 
-namespace HTTPServerTest {
+namespace CobSpecServerTest {
     public class OptionsHandlerTest {
         private readonly IResponse _response;
 

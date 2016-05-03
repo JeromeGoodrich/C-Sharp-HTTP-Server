@@ -1,8 +1,9 @@
 ﻿using System.Text;
-using HTTPServer;
+using ServerClassLibrary;
+using CobSpecServer;
 using Xunit;
 
-namespace HTTPServerTest {
+namespace CobSpecServerTest {
     public class BasicAuthHandlerTest {
         private readonly BasicAuthHandler _handler;
         private readonly Request _request;

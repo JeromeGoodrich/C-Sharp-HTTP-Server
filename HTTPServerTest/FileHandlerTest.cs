@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using HTTPServer;
+using ServerClassLibrary;
+using CobSpecServer;
 using Xunit;
 
-namespace HTTPServerTest {
+namespace CobSpecServerTest {
     public class FileHandlerTest {
         private readonly string _publicDir = Path.Combine(Environment.CurrentDirectory,
             @"..\..\..\HTTPServerTest\Fixtures\");

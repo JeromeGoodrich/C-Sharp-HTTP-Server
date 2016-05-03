@@ -1,10 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using HTTPServer;
+using ServerClassLibrary;
+using CobSpecServer;
 using Xunit;
 
-namespace HTTPServerTest {
+namespace CobSpecServerTest {
     public class DirHandlerTest {
         private readonly DirHandler _handler;
         private readonly Request _request;

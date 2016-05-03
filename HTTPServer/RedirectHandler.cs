@@ -1,4 +1,6 @@
-﻿namespace HTTPServer {
+﻿using ServerClassLibrary;
+
+namespace CobSpecServer {
     public class RedirectHandler : IHandler {
         public IResponse Handle(Request request) {
             var response = new Response(302, request.Version);

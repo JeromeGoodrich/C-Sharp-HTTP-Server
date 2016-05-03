@@ -35,5 +35,13 @@ namespace CobSpecServerTest {
 
             Assert.IsType<DirHandler>(handler);
         }
+
+        [Fact]
+        public void ConfiguredRouterRoutesToFormDataHandler() {
+            _request.Path = "/form";
+            var handler = _router.Route(_request);
+
+            Assert.IsType<FormDataHandler>(handler);
+        }
     }
 }

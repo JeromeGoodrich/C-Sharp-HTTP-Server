@@ -52,5 +52,13 @@ namespace CobSpecServerTest {
             Assert.IsType<OptionsHandler>(handler);
         }
 
+        [Fact]
+        public void ConfiguredRouterRoutesToBasicAuthHandler() {
+            _request.Path = "/logs";
+            var handler = _router.Route(_request);
+
+            Assert.IsType<BasicAuthHandler>(handler);
+        }
+
     }
 }

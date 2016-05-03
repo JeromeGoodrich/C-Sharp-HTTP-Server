@@ -1,7 +1,5 @@
 ﻿using CobSpecServer;
 using ServerClassLibrary;
-using System.Diagnostics;
-using System.IO;
 using Xunit;
 
 namespace CobSpecServerTest {
@@ -60,5 +58,20 @@ namespace CobSpecServerTest {
             Assert.IsType<BasicAuthHandler>(handler);
         }
 
+        [Fact]
+        public void ConfiguredRouterRoutesToParamsHandler() {
+            _request.Path = "/parameters";
+            var handler = _router.Route(_request);
+
+            Assert.IsType<ParamsHandler>(handler);
+        }
+
+        [Fact]
+        public void ConfiguredRouterRoutesToRedirectHandler() {
+            _request.Path = "/redirect";
+            var handler = _router.Route(_request);
+
+            Assert.IsType<RedirectHandler>(handler);
+        }
     }
 }

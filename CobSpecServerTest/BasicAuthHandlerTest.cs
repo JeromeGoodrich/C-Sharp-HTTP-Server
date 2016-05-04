@@ -7,7 +7,7 @@ namespace CobSpecServerTest {
     public class BasicAuthHandlerTest {
         private readonly BasicAuthHandler _handler;
         private readonly Request _request;
-        private readonly string _logFile = @"C:\Users\jgoodrich\Documents\Visual Studio 2015\Projects\HTTPServer\testlog.txt";
+        private readonly string _logFile = @"C:\Users\jgoodrich\Documents\Visual Studio 2015\Projects\HTTPServer\logs\testlog.txt";
 
         private IResponse _response;
 

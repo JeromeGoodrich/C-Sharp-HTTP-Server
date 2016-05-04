@@ -3,8 +3,7 @@ created by https://www.gitignore.io/api/visualstudio
 packages
 
 .vs/HTTPServer/v14
-logFile.txt
-Logs/logFile.txt
+logs
 
 ### VisualStudio ###
 ## Ignore Visual Studio temporary files, build results, and

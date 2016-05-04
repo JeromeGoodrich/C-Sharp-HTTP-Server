@@ -6,7 +6,7 @@ namespace CobSpecServerTest {
     public class CobSpecRouterTest {
 
         private readonly string _publicDir = @"C:\Users\jgoodrich\Documents\Visual Studio 2015\Projects\HTTPServer\HTTPServerTest\Fixtures";
-        private readonly string _logFile = @"C:\Users\jgoodrich\Documents\Visual Studio 2015\Projects\HTTPServer\logFile.txt";
+        private readonly string _logFile = @"C:\Users\jgoodrich\Documents\Visual Studio 2015\Projects\HTTPServer\logs\testlog.txt";
         private Request _request;
         private Router _router;
 

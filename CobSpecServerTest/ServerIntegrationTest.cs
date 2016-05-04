@@ -19,7 +19,7 @@ namespace CobSpecServerTest {
                                            "Accept: */*\r\n\r\n";
 
         public ServerIntegrationTest() {
-            var args = new string[] {"-d", @"C:\Users\jgoodrich\Documents\cob_spec\public", "-l", @"C:\Users\jgoodrich\Documents\Visual Studio 2015\Projects\HTTPServer\logFile.txt" };
+            var args = new string[] {"-d", @"C:\Users\jgoodrich\Documents\cob_spec\public", "-l", @"C:\Users\jgoodrich\Documents\Visual Studio 2015\Projects\HTTPServer\logs\testlog.txt" };
             _config = new CommandLineConfig(args);
             _tokenSource = new CancellationTokenSource();
             var listener = new Listener(_config.IpAddress, _config.Port);

@@ -37,6 +37,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="System" />
@@ -87,7 +90,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HTTPServer\CobSpecServer.csproj">
+    <ProjectReference Include="..\CobSpecServer\CobSpecServer.csproj">
       <Project>{14e1f88d-727d-48c2-8eeb-eb3fe1bdc03c}</Project>
       <Name>CobSpecServer</Name>
     </ProjectReference>

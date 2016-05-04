@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobSpecServerTest", "HTTPServerTest\CobSpecServerTest.csproj", "{C5A25463-E6CD-4AC1-A024-442278D6C524}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobSpecServerTest", "CobSpecServerTest\CobSpecServerTest.csproj", "{C5A25463-E6CD-4AC1-A024-442278D6C524}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobSpecServer", "HTTPServer\CobSpecServer.csproj", "{14E1F88D-727D-48C2-8EEB-EB3FE1BDC03C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobSpecServer", "CobSpecServer\CobSpecServer.csproj", "{14E1F88D-727D-48C2-8EEB-EB3FE1BDC03C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerClassLibrary", "ServerClassLibrary\ServerClassLibrary.csproj", "{88AE1994-A063-4932-8FAD-362404BECB98}"
 EndProject

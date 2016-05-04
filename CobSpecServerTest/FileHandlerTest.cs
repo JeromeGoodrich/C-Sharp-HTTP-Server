@@ -7,12 +7,11 @@ using Xunit;
 
 namespace CobSpecServerTest {
     public class FileHandlerTest {
-        private readonly string _publicDir = Path.Combine(Environment.CurrentDirectory,
-            @"..\..\..\HTTPServerTest\Fixtures\");
+        private readonly string _publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures");
 
         private readonly Request _request;
         private readonly FileHandler _handler;
-
+    
         public FileHandlerTest() {
             _request = new Request() {
                 Method = "GET",

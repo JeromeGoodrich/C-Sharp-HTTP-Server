@@ -2,12 +2,14 @@
 using ServerClassLibrary;
 using CobSpecServer;
 using Xunit;
+using System.IO;
+using System;
 
 namespace CobSpecServerTest {
     public class BasicAuthHandlerTest {
         private readonly BasicAuthHandler _handler;
         private readonly Request _request;
-        private readonly string _logFile = @"C:\Users\jgoodrich\Documents\Visual Studio 2015\Projects\HTTPServer\logs\testlog.txt";
+        private readonly string _logFile =  Path.Combine(Environment.CurrentDirectory, @"..\..\..\logs\testlog.txt");
 
         private IResponse _response;
 

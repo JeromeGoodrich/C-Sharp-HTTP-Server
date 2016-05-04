@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using ServerClassLibrary;
 using CobSpecServer;
 using Xunit;
+using System.Reflection;
+using System.Diagnostics;
+using System;
 
 namespace CobSpecServerTest {
     public class ServerIntegrationTest {
@@ -17,9 +20,11 @@ namespace CobSpecServerTest {
         private const string Request = "GET / HTTP/1.1\r\n" +
                                            "Host: localhost:5000\r\n" +
                                            "Accept: */*\r\n\r\n";
+        private string _publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures");
+        private string _logFile = Path.Combine(Environment.CurrentDirectory, @"..\..\..\logs\testlog.txt");
 
         public ServerIntegrationTest() {
-            var args = new string[] {"-d", @"C:\Users\jgoodrich\Documents\cob_spec\public", "-l", @"C:\Users\jgoodrich\Documents\Visual Studio 2015\Projects\HTTPServer\logs\testlog.txt" };
+            var args = new string[] {"-d", _publicDir, "-l", _logFile};
             _config = new CommandLineConfig(args);
             _tokenSource = new CancellationTokenSource();
             var listener = new Listener(_config.IpAddress, _config.Port);
@@ -32,29 +37,9 @@ namespace CobSpecServerTest {
             
         }
 
-        [Fact]
-        public void ServerReceivesRequestAndReturnsExpecetedResponse() {
-            using (var mockClient = new TcpClient()) {
-                mockClient.Connect(IPAddress.Parse("127.0.0.1"), _config.Port);
-                var rawResponse = new char[79];
-
-                _tokenSource.Cancel();
-
-                using (var stream = mockClient.GetStream()) {
-                    var writer = new StreamWriter(stream) {AutoFlush = true};
-                    var reader = new StreamReader(stream);
-
-                    writer.Write(Request);
-                    reader.Read(rawResponse, 0, rawResponse.Length);
-                }
-                Assert.Contains("HTTP/1.1 200 OK\r\nContent-Length: 452\r\n\r\n", new string(rawResponse));
-            }
-        }
-
         private char[] MakeRequest(TcpClient client, char[] responseContainer) {
             client.Connect(IPAddress.Parse("127.0.0.1"), _config.Port);
-            using (var stream = client.GetStream())
-            {
+            using (var stream = client.GetStream()) {
                 var writer = new StreamWriter(stream) { AutoFlush = true };
                 var reader = new StreamReader(stream);
 
@@ -73,12 +58,14 @@ namespace CobSpecServerTest {
 
             var responses = new ArrayList();
             var responseContainer = new char[17];
-            foreach (var response in from TcpClient client in clientList select 
-                     Task.Run(() => MakeRequest(client, responseContainer)) 
-                     into task select task.Result) {
+            foreach(TcpClient client in clientList) {
+                var task = Task.Run(() => MakeRequest(client, responseContainer));
+                var response = task.Result;
                 responses.Add(response);
             }
+
             _tokenSource.Cancel();
+            Assert.Equal(1500, responses.Count);
             foreach (char[] response in responses) {
                 Assert.Equal("HTTP/1.1 200 OK\r\n", new string(response));
             }

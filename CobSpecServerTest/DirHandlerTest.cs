@@ -17,7 +17,7 @@ namespace CobSpecServerTest {
                 Path = "/",
                 Version = "HTTP/1.1"
             };
-            var publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\..\HTTPServerTest\Fixtures\");
+            var publicDir = Path.Combine(Environment.CurrentDirectory, @"..\..\Fixtures");;
             _handler = new DirHandler(publicDir);
         }
 

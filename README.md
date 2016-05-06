@@ -43,7 +43,7 @@ It should be `CobSpecServer.exe`
 **Options:**
 
 	-p	The port number cob_spec is listening on. default is 5000
-	-d	The absolute path cob_spec/public.
+	-d	The absolute path to the public directory you wish to serve.
 	-l	The path to the log file you wish to use. 
 
 **Example :** `CobSpecServer.exe -p 5000 -l /Documents/logfile.txt -d /My/Directory`

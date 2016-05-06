@@ -16,7 +16,8 @@ namespace CobSpecServer {
             var parser = new Parser();
             var router = CobSpecRouter.Configure(config.PublicDir, config.LogFile);
             var factory = new RequestProcessorFactory(parser, router);
-            var server = new Server(listener, factory);
+            var logger = new FileLogger(config.LogFile);
+            var server = new Server(listener, factory, logger);
             return server;
         }
     }

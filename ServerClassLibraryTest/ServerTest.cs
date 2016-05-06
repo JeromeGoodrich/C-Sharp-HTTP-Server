@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using ServerClassLibrary;
 using ServerClassLibraryTest.Mocks;
 using Xunit;
+using System;
+using System.IO;
 
 namespace ServerClassLibraryTest {
     public class ServerTest {
@@ -18,7 +20,8 @@ namespace ServerClassLibraryTest {
             _mockListener = new MockListener(_mockSocket);
             _mockRequestProcessor = new MockRequestProcessor();
             var mockRequestProcessorFactory = new MockRequestProcessorFactory(_mockRequestProcessor);
-            _server = new Server(_mockListener, mockRequestProcessorFactory);
+            var logger = new FileLogger(Path.Combine(Environment.CurrentDirectory, @"..\..\..\logs\testlog.txt"));
+            _server = new Server(_mockListener, mockRequestProcessorFactory, logger);
         }
 
         private void StartServer() {

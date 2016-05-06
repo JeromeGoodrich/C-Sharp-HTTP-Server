@@ -32,7 +32,8 @@ namespace CobSpecServerTest {
             var router = new Router();
             router.AddRoute(new Route("GET", "/", new DirHandler(_config.PublicDir)));
             var factory = new RequestProcessorFactory(parser, router);
-            _server = new Server(listener, factory);
+            var logger = new FileLogger(_config.LogFile);
+            _server = new Server(listener, factory, logger);
              var startTask = Task.Run(() => _server.Start(_tokenSource.Token));
             
         }

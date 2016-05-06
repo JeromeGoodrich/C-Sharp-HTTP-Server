@@ -53,4 +53,10 @@ It should be `CobSpecServer.exe`
 Once the server starts you can run the tests 
 using the interface in your browser
 
+**Start BasicServer**
+
+from the root directory `cd BasicServer\bin\Release`
+
+start the server by typing the name of the executable
+It should be `BasicServer.exe` 
 

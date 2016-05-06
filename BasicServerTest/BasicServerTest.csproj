@@ -70,8 +70,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BasicFormHandlerTest.cs" />
+    <Compile Include="BasicServerRouterTest.cs" />
     <Compile Include="HelloWorldHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerIntegrationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BasicServer\BasicServer.csproj">

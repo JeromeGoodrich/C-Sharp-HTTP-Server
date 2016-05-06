@@ -1,15 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ServerClassLibrary;
+using System.Threading;
 
 namespace BasicServer
 {
     class Program
     {
-        static void Main(string[] args)
-        {
+        private static void Main(string[] args) {
+            var config = new CommandLineConfig(args);
+            var server = Server(config);
+            var tokenSource = new CancellationTokenSource();
+            server.Start(tokenSource.Token);
+        }
+
+        private static Server Server(CommandLineConfig config) {
+            var listener = new Listener(config.IpAddress, config.Port);
+            var parser = new Parser();
+            var router = BasicServerRouter.Configure();
+            var factory = new RequestProcessorFactory(parser, router);
+            var server = new Server(listener, factory);
+            return server;
         }
     }
 }

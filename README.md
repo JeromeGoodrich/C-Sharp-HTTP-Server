@@ -25,20 +25,22 @@ Windows allotted 260 characters.
 ubmodule:
 `git submodule update --init --recursive`
 
-**Run CobSpecServer against cobspec test suite**
+####Run CobSpecServer against cobspec test suite
 
-###start the fitnesse server:
+**start the fitnesse server:**
 
 	java -jar fitnesse.jar -p 9090
 
 type "http://localhost:9090" into your browser
 
-###start CobSpecServer:
+**start CobSpecServer:**
 
 from the root directory `cd CobSpecServer\bin\Release`
 
 start the server by typing the name of the executable
-It should be `CobSpecServer.exe` you will also need to provide the following:
+It should be `CobSpecServer.exe` 
+
+**Options:**
 
 	-p	The port number cob_spec is listening on. default is 5000
 	-d	The absolute path cob_spec/public.

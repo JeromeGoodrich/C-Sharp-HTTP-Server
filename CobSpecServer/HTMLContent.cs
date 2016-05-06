@@ -15,7 +15,7 @@ namespace CobSpecServer {
         }
 
         public string Generate() {
-            const string htmlBoilerPlateStart = "<!Doctype html>\n" +
+            const string htmlBoilerPlateStart = "<!DOCTYPE html>\n" +
                                                 "<html>\n" +
                                                 "<head>\n</head>\n" +
                                                 "<body>\n" +

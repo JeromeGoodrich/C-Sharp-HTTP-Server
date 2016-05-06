@@ -62,7 +62,6 @@ namespace CobSpecServer {
 
             
             var range = rangeEnd - rangeStart;
-            Console.WriteLine("Start: " + rangeStart + " End: " + rangeEnd + " Range: " + range + "FileSize: " + _fileSize);
             var data = File.ReadAllBytes(_file);
             var partialData = new byte[range];
             Array.Copy(data, rangeStart, partialData, 0, range);

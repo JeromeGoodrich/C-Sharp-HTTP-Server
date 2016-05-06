@@ -14,10 +14,15 @@ namespace CobSpecServer
             router.AddRoute(new Route("DELETE", "/form", new FormDataHandler()));
             router.AddRoute(new Route("PUT", "/form", new FormDataHandler()));
             router.AddRoute(new Route("GET", "/redirect", new RedirectHandler()));
+            router.AddRoute(new Route("OPTIONS", "/method_options", new OptionsHandler()));
             router.AddRoute(new Route("GET", "/method_options", new OptionsHandler()));
-            router.AddRoute(new Route("PATCH", "/patch-content", new FileHandler(publicDir)));
+            router.AddRoute(new Route("PUT", "/method_options", new OptionsHandler()));
+            router.AddRoute(new Route("POST", "/method_options", new OptionsHandler()));
+            router.AddRoute(new Route("HEAD", "/method_options", new OptionsHandler()));
+            router.AddRoute(new Route("PATCH", "/patch-content.txt", new FileHandler(publicDir)));
             router.AddRoute(new Route("GET", "/big-pdf.pdf", new FileHandler(publicDir)));
             router.AddRoute(new Route("GET", "/file1", new FileHandler(publicDir)));
+            router.AddRoute(new Route("GET", "/text-file.txt", new FileHandler(publicDir)));
             router.AddRoute(new Route("GET", "/file2", new FileHandler(publicDir)));
             router.AddRoute(new Route("GET", "/image.jpeg", new FileHandler(publicDir)));
             router.AddRoute(new Route("GET", "/image.gif", new FileHandler(publicDir)));

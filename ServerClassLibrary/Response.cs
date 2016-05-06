@@ -21,12 +21,11 @@ namespace ServerClassLibrary {
         public void Send(BinaryWriter writer) {
             var formattedResponse = GetFormattedResponse();
             var bytes = Encoding.UTF8.GetBytes(formattedResponse);
-                if (Body != null) {
+
+            if (Body != null) {
                 var fullResponse = bytes.Concat(Body).ToArray();
                 writer.Write(fullResponse);
-                }
-
-            else {
+                } else {
                 writer.Write(bytes);
             }
             writer.Flush();

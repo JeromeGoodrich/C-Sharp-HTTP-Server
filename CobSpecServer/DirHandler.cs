@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using ServerClassLibrary;
+using System;
 
 namespace CobSpecServer {
     public class DirHandler : IHandler {
@@ -14,7 +15,9 @@ namespace CobSpecServer {
         public IResponse Handle(Request request) {
             var response = new Response(200, request.Version);
             byte[] body;
-            var content = new ContentFactory().Build(request.GetHeader("Accept"), _publicDir);
+            string acceptType;
+            acceptType = request.GetHeaders().ContainsKey("Accept") ? request.GetHeader("Accept") : "";
+            var content = new ContentFactory().Build(acceptType, _publicDir);
             body = GenContent(content);
             response.AddHeader("Content-Type", content.GetContentType());
             response.AddHeader("Content-Length", body.Length.ToString());
